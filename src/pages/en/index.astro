@@ -318,6 +318,18 @@ const whyUsItems = [
     <!-- PRESS (News Videos Slider) -->
     <PressSlider videos={pressVideos} locale="en" />
 
+    <!-- Fancybox for press videos -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.css" />
+    <script type="module">
+      import { Fancybox } from "https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.esm.js";
+      Fancybox.bind('[data-fancybox="press-videos"]', {
+        type: "video",
+        video: { autoStart: true },
+        Toolbar: { display: ["close"] },
+        mainClass: "fancybox-press"
+      });
+    </script>
+
     <!-- VIDEO GALLERY (FAQ Videos) -->
     <VideoGallery videos={faqVideos} sectionId="video-gallery" />
 
