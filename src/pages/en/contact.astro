@@ -1,0 +1,144 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+import { getCollection } from "astro:content";
+
+const branches = await getCollection("branches");
+branches.sort((a, b) => a.data.slug.localeCompare(b.data.slug));
+---
+
+<BaseLayout title="Contact | Mr. Falcon Beauty" description="Mr. Falcon Beauty contact page. Book a free consultation for laser hair removal at Şişli or Halkalı." locale="en" path="/en/contact">
+  <Header locale="en" />
+
+  <section class="py-20 md:py-28 bg-navy text-white relative" style="background-image: url('/contactbg.jpg'); background-size: cover; background-position: center;">
+    <div class="absolute inset-0 bg-navy/70"></div>
+    <div class="mx-auto max-w-6xl px-5 text-center relative z-10">
+      <h1 class="font-display text-4xl font-semibold md:text-6xl">Contact Us</h1>
+      <p class="mx-auto mt-4 max-w-2xl text-lg text-white/80">Take the first step toward permanent smoothness. Fill in the form and let's create your personalized plan together.</p>
+    </div>
+  </section>
+
+  <section class="py-20">
+    <div class="mx-auto max-w-6xl px-5">
+      <div class="grid md:grid-cols-2 gap-12">
+        <!-- FORM -->
+        <div>
+          <h2 class="font-display text-3xl font-semibold mb-2">Free Skin & Hair Analysis</h2>
+          <p class="text-black/70 mb-8">Fill in the form and we'll get back to you within 15 minutes. Let us know your clinic preference.</p>
+
+          <form id="appointment-form-en" class="space-y-5" action="/api/contact" method="POST">
+            <input type="hidden" name="form_type" value="appointment" />
+            <div class="grid grid-cols-2 gap-4">
+              <div>
+                <label for="name" class="block text-sm font-medium text-black/70 mb-1">Full Name *</label>
+                <input type="text" id="name" name="name" required class="w-full rounded-lg border border-black/15 bg-white px-4 py-3 text-sm text-black focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary" placeholder="Your Full Name" />
+              </div>
+              <div>
+                <label for="phone" class="block text-sm font-medium text-black/70 mb-1">Phone *</label>
+                <input type="tel" id="phone" name="phone" required class="w-full rounded-lg border border-black/15 bg-white px-4 py-3 text-sm text-black focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary" placeholder="+90 5XX XXX XX XX" />
+              </div>
+            </div>
+            <div>
+              <label for="email" class="block text-sm font-medium text-black/70 mb-1">Email</label>
+              <input type="email" id="email" name="email" class="w-full rounded-lg border border-black/15 bg-white px-4 py-3 text-sm text-black focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary" placeholder="email@example.com" />
+            </div>
+            <div>
+              <label for="clinic" class="block text-sm font-medium text-black/70 mb-1">Preferred Clinic *</label>
+              <select id="clinic" name="clinic" required class="w-full rounded-lg border border-black/15 bg-white px-4 py-3 text-sm text-black focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary">
+                <option value="">Select a Clinic</option>
+                {branches.map((b) => <option value={b.data.slug}>{b.data.name}</option>)}
+              </select>
+            </div>
+            <div>
+              <label for="concern" class="block text-sm font-medium text-black/70 mb-1">Area of Interest</label>
+              <select id="concern" name="concern" class="w-full rounded-lg border border-black/15 bg-white px-4 py-3 text-sm text-black focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary">
+                <option value="">Select</option>
+                <option value="full-body">Full Body</option>
+                <option value="face-neck">Face & Neck</option>
+                <option value="underarm">Underarm</option>
+                <option value="arm-leg">Arms & Legs</option>
+                <option value="back-chest">Back & Chest</option>
+                <option value="bikini">Bikini / Brazilian</option>
+              </select>
+            </div>
+            <div>
+              <label for="message" class="block text-sm font-medium text-black/70 mb-1">Note / Message</label>
+              <textarea id="message" name="message" rows="3" class="w-full rounded-lg border border-black/15 bg-white px-4 py-3 text-sm text-black focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary" placeholder="Special conditions, hormone treatment, previous laser history, etc."></textarea>
+            </div>
+            <div class="flex items-start gap-2 text-sm text-black/60">
+              <input type="checkbox" id="kvkk" name="kvkk" required class="mt-1 w-4 h-4 rounded border-black/30 text-primary focus:ring-primary" />
+              <label for="kvkk">I have read and agree to the privacy policy. My data will be processed for appointment purposes.</label>
+            </div>
+            <button type="submit" class="w-full sm:w-auto rounded-full bg-navy px-8 py-3 font-semibold text-white transition-colors hover:bg-primary">
+              Request Free Analysis & Book
+            </button>
+            <div id="form-status" class="text-sm font-medium hidden"></div>
+          </form>
+        </div>
+
+        <!-- BRANCH INFO -->
+        <div class="space-y-8">
+          {branches.map((b) => (
+            <article class="rounded-2xl bg-sky-light/30 p-6 border border-black/5">
+              <h3 class="font-display text-lg font-semibold flex items-center gap-2">🏥 {b.data.name}</h3>
+              <address class="mt-3 not-italic text-sm text-black/70 leading-relaxed">{b.data.address}</address>
+              <div class="mt-4 space-y-2 text-sm">
+                <a href={`tel:${b.data.phone}`} class="flex items-center gap-2 text-black/70 hover:text-primary transition-colors"><span>📞</span> {b.data.phone}</a>
+                <a href={b.data.whatsapp} target="_blank" rel="noopener" class="flex items-center gap-2 text-black/70 hover:text-primary transition-colors"><span>💬</span> WhatsApp</a>
+              </div>
+            </article>
+          ))}
+
+          <div class="rounded-2xl overflow-hidden aspect-[4/3] bg-navy/5 shadow-md">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3008.65!2d28.79!3d41.05!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14caa5df9db6a8eb%3A0xb895e35088c1b864!2sMr.%20Falcon%20Beauty%20Halkal%C4%B1!5e0!3m2!1str!2str!4v1781863289752" class="w-full h-full border-0" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Mr. Falcon Beauty Halkalı Map"></iframe>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-16 bg-sky-light/30">
+    <div class="mx-auto max-w-6xl px-5">
+      <div class="grid grid-cols-4 gap-4">
+        {["/c1.jpg","/c2.jpg","/c3.jpg","/c4.jpg"].map((img) => (
+          <div class="rounded-2xl overflow-hidden aspect-[4/3] shadow-md"><img src={img} alt="Mr. Falcon Beauty Clinic" class="w-full h-full object-cover" /></div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <Footer locale="en" />
+</BaseLayout>
+
+<script>
+  const form = document.getElementById('appointment-form-en');
+  const statusDiv = document.getElementById('form-status');
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    statusDiv.className = 'text-sm font-medium text-black/60';
+    statusDiv.textContent = 'Sending...';
+    statusDiv.classList.remove('hidden');
+    const fd = new FormData(form);
+    const data = Object.fromEntries(fd.entries());
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      });
+      if (res.ok) {
+        statusDiv.className = 'text-sm font-medium text-green-600';
+        statusDiv.textContent = 'Thank you! We will get back to you shortly.';
+        form.reset();
+      } else {
+        const err = await res.json();
+        statusDiv.className = 'text-sm font-medium text-red-600';
+        statusDiv.textContent = err.error || 'Something went wrong. Please try again.';
+      }
+    } catch {
+      statusDiv.className = 'text-sm font-medium text-red-600';
+      statusDiv.textContent = 'Network error. Please try again.';
+    }
+  });
+</script>

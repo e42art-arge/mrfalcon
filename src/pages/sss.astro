@@ -2,9 +2,60 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
+import { getCollection } from "astro:content";
+
+const faqs = await getCollection("faq", ({ id }) => id.startsWith("tr/"));
+faqs.sort((a, b) => (a.data.order || 0) - (b.data.order || 0));
 ---
-<BaseLayout title="SSS | Mr. Falcon Beauty" description="Sıkça Sorulan Sorular." locale="tr" path="/sss">
+
+<BaseLayout title="SSS | Mr. Falcon Beauty" description="Lazer epilasyon hakkında sıkça sorulan sorular. Falcon 4 Pro, ağrısız epilasyon, seans sayısı ve daha fazlası." locale="tr" path="/sss">
   <Header locale="tr" />
-  <main class="py-20"><h1 class="text-4xl text-center">SSS</h1></main>
+
+  <section class="py-20 md:py-28 bg-navy text-white">
+    <div class="mx-auto max-w-6xl px-5 text-center">
+      <p class="mb-4 text-sm font-semibold uppercase tracking-[0.2em] text-primary">SSS</p>
+      <h1 class="font-display text-4xl font-semibold md:text-6xl">Sıkça Sorulan Sorular</h1>
+      <p class="mx-auto mt-4 max-w-2xl text-lg text-white/80">Falcon 4 Pro ve lazer epilasyon hakkında merak ettiğiniz her şey.</p>
+    </div>
+  </section>
+
+  <section class="py-20 bg-sky-light/30">
+    <div class="mx-auto max-w-3xl px-5">
+      <dl class="space-y-4">
+        {faqs.map((faq, i) => (
+          <div class="rounded-2xl bg-white border border-black/5 overflow-hidden shadow-sm">
+            <dt>
+              <button
+                class="w-full px-6 py-4 flex items-center justify-between text-left font-medium focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+                aria-expanded="false"
+                aria-controls={`faq-answer-${i}`}
+                onclick={() => {
+                  const dd = document.getElementById(`faq-answer-${i}`);
+                  const expanded = dd.classList.toggle('hidden');
+                  this.setAttribute('aria-expanded', !expanded);
+                }}
+              >
+                <span class="pr-4">{faq.data.question}</span>
+                <svg class="w-5 h-5 text-primary flex-shrink-0 ml-4 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+              </button>
+            </dt>
+            <dd id={`faq-answer-${i}`} class="hidden px-6 pb-4 text-sm text-black/70 leading-relaxed">{faq.data.answer}</dd>
+          </div>
+        ))}
+      </dl>
+      <p class="mt-10 text-center text-sm text-black/60">
+        Sorunuz listede yok mu? <a href="https://wa.me/905525939890" target="_blank" rel="noopener" class="text-primary hover:underline">WhatsApp'tan sorun</a>
+      </p>
+    </div>
+  </section>
+
+  <section class="py-20 bg-sky-light/50">
+    <div class="mx-auto max-w-3xl px-5 text-center">
+      <h2 class="font-display text-3xl font-semibold md:text-4xl">Başka sorunuz mu var?</h2>
+      <p class="mt-4 text-lg text-black/70">Ücretsiz danışmanlık ve cilt analizi için randevu alın.</p>
+      <div class="mt-8"><a href="/iletisim" class="rounded-full bg-navy px-8 py-3 font-semibold text-white transition-colors hover:bg-primary">İletişime Geç</a></div>
+    </div>
+  </section>
+
   <Footer locale="tr" />
 </BaseLayout>

@@ -1,0 +1,62 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+import { getCollection } from "astro:content";
+
+const reviews = await getCollection("reviews", ({ id }) => id.startsWith("en/"));
+reviews.sort((a, b) => {
+  const numA = parseInt((a.id.split("/")[1] || "0").replace(/\D/g, ""), 10);
+  const numB = parseInt((b.id.split("/")[1] || "0").replace(/\D/g, ""), 10);
+  return numA - numB;
+});
+const overallStars = reviews.length > 0 ? (reviews.reduce((s, r) => s + r.data.rating, 0) / reviews.length).toFixed(1) : "5.0";
+---
+
+<BaseLayout title="Reviews | Mr. Falcon Beauty" description="Real reviews from Mr. Falcon Beauty laser hair removal clients. 4.9 stars from 200+ Google reviews." locale="en" path="/en/reviews">
+  <Header locale="en" />
+
+  <section class="py-20 md:py-28 bg-navy text-white">
+    <div class="mx-auto max-w-6xl px-5 text-center">
+      <p class="mb-4 text-sm font-semibold uppercase tracking-[0.2em] text-primary">Reviews</p>
+      <h1 class="font-display text-4xl font-semibold md:text-6xl lg:text-7xl">Client Reviews</h1>
+      <p class="mx-auto mt-4 max-w-2xl text-lg text-white/80">See what our clients say about their Falcon Laser Hair Removal experience.</p>
+      <div class="mt-6 inline-flex items-center gap-2 rounded-full bg-white/10 px-6 py-2 text-lg font-bold text-white">
+        ⭐ {overallStars} / 5.0
+        <span class="text-sm font-normal text-white/60">({reviews.length} reviews)</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-20 bg-sky-light/30">
+    <div class="mx-auto max-w-6xl px-5">
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {reviews.map((r) => (
+          <article class="rounded-2xl bg-white border border-black/5 p-6 shadow-sm hover:shadow-md transition-shadow">
+            <div class="flex items-center gap-1 text-yellow-400 text-lg">
+              {Array.from({ length: 5 }, (_, i) => (
+                <svg key={i} class={`w-5 h-5 ${i < r.data.rating ? "text-yellow-400" : "text-gray-300"}`} fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+              ))}
+            </div>
+            <blockquote class="mt-3 text-sm leading-relaxed text-black/80 italic">"{r.data.quote}"</blockquote>
+            <div class="mt-4 flex items-center gap-2">
+              <span class="text-sm font-semibold">– {r.data.name}</span>
+              {r.data.branch && <span class="text-xs text-black/40">· {r.data.branch}</span>}
+            </div>
+            {r.data.source && <p class="mt-1 text-xs text-black/40">Source: {r.data.source}</p>}
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="py-20 bg-sky-light/50">
+    <div class="mx-auto max-w-3xl px-5 text-center">
+      <h2 class="font-display text-3xl font-semibold md:text-4xl">Share Your Experience</h2>
+      <p class="mt-4 text-lg text-black/70">Book your session and become one of our happy clients.</p>
+      <div class="mt-8"><a href="/en/contact" class="rounded-full bg-navy px-8 py-3 font-semibold text-white transition-colors hover:bg-primary">Book Now</a></div>
+    </div>
+  </section>
+
+  <Footer locale="en" />
+</BaseLayout>

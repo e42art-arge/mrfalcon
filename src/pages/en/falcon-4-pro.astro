@@ -1,0 +1,86 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+
+const features = [
+  { name: "4-Wavelength Hybrid Technology", wavelengths: "755nm + 808nm + 940nm + 1064nm", desc: "Four laser wavelengths in a single applicator. From fair to dark skin, fine to coarse hair — effective for every client." },
+  { name: "Painless & Comfortable", wavelengths: "-20°C Cooling", desc: "4 cm² spot size reduces session time, while 5 cooling systems and -20° ice tip ensure a painless experience." },
+  { name: "SHR Technology", wavelengths: "20 pulses/sec", desc: "In-Motion SHR delivers up to 20 pulses per second for fast, effective treatment of large areas." },
+  { name: "Hygiene & Sterilization", wavelengths: "UVC + Sterile Box", desc: "Maximum hygiene guaranteed with Sterile Box and UVC sterilization technology for every client." },
+  { name: "AI-Powered Analysis", wavelengths: "Mobile App", desc: "Scientific analysis of skin and hair type before each session with automatic wavelength selection." },
+  { name: "High Power & Warranty", wavelengths: "2400W / 100M", desc: "2400W output power and 100 million shot warranty for safe year-round use." },
+];
+
+const mediaNews = [
+  { name: "Beyaz TV", img: "shorts18.jpg" },
+  { name: "CNN Türk", img: "shorts21.jpg" },
+  { name: "TLC", img: "shorts22.jpg" },
+  { name: "CNN Türk", img: "shorts24.jpg" },
+];
+---
+
+<BaseLayout title="Falcon 4 Pro | Mr. Falcon Beauty" description="FDA-cleared Falcon 4 Pro device: 4-wavelength hybrid laser, -20° cooling, SHR technology. Detailed review." locale="en" path="/en/falcon-4-pro">
+  <Header locale="en" />
+
+  <section class="py-20 md:py-28 bg-navy text-white">
+    <div class="mx-auto max-w-6xl px-5 text-center">
+      <p class="mb-4 text-sm font-semibold uppercase tracking-[0.2em] text-primary">Device Review</p>
+      <h1 class="font-display text-4xl font-semibold leading-tight md:text-6xl lg:text-7xl">Falcon 4 Pro<br /><span class="text-primary">Laser Hair Removal Device</span></h1>
+      <p class="mx-auto mb-8 mt-4 max-w-2xl text-lg leading-relaxed text-white/80">FDA 510(k) cleared, AI-powered 4-wavelength hybrid technology — at Mr. Falcon Beauty Şişli and Halkalı</p>
+      <div class="flex flex-wrap items-center justify-center gap-4">
+        <a href="/en/contact" class="rounded-full bg-white px-8 py-3 font-semibold text-navy transition-colors hover:bg-primary hover:text-white">Book Now</a>
+        <a href="https://api.whatsapp.com/send?phone=905525939890" target="_blank" rel="noopener" class="rounded-full border-2 border-white/30 px-8 py-3 font-semibold text-white transition-colors hover:border-primary">WhatsApp</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-16 bg-white"><div class="mx-auto max-w-4xl px-5 text-center"><img src="/falcons.png" alt="Falcon 4 Pro" class="mx-auto w-full max-w-md" /></div></section>
+
+  <section class="py-20 bg-sky-light/30">
+    <div class="mx-auto max-w-6xl px-5">
+      <div class="text-center max-w-3xl mx-auto mb-12">
+        <p class="mb-2 text-sm font-semibold uppercase tracking-[0.2em] text-primary">Technical Details</p>
+        <h2 class="font-display text-3xl font-semibold md:text-4xl">Falcon 4 Pro Specifications</h2>
+      </div>
+      <div class="grid md:grid-cols-2 gap-6">
+        {features.map((f) => (<article class="rounded-2xl bg-white p-6 border border-black/5 shadow-sm hover:shadow-md transition-shadow"><h3 class="font-display text-xl font-semibold text-primary">{f.name}</h3><p class="mt-1 text-sm font-medium text-black/50">{f.wavelengths}</p><p class="mt-3 text-sm text-black/70 leading-relaxed">{f.desc}</p></article>))}
+      </div>
+    </div>
+  </section>
+
+  <section class="py-20 bg-navy text-white">
+    <div class="mx-auto max-w-6xl px-5">
+      <div class="text-center max-w-3xl mx-auto mb-12">
+        <p class="mb-2 text-sm font-semibold uppercase tracking-[0.2em] text-primary">In the News</p>
+        <h2 class="font-display text-3xl font-semibold md:text-4xl">Featured on National TV</h2>
+        <p class="mt-3 text-white/60">Our successful results featured on national television channels.</p>
+      </div>
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+        {mediaNews.map((m) => (<div class="relative aspect-video rounded-2xl overflow-hidden bg-black/20 shadow-md"><div class="absolute inset-0 flex items-center justify-center"><div class="w-12 h-12 rounded-full bg-white/90 flex items-center justify-center text-navy">▶</div></div><div class="absolute bottom-3 left-3 text-xs text-white bg-black/60 px-2 py-1 rounded">{m.name}</div></div>))}
+      </div>
+    </div>
+  </section>
+
+  <section class="py-20">
+    <div class="mx-auto max-w-6xl px-5">
+      <div class="text-center max-w-3xl mx-auto mb-12">
+        <h2 class="font-display text-3xl font-semibold md:text-4xl">4 Wavelengths — For Every Skin Type</h2>
+        <p class="mt-3 text-black/60">Hybrid technology targeting different tissue depths and hair types in a single session</p>
+      </div>
+      <div class="grid md:grid-cols-4 gap-6">
+        {[{nm:"755nm", t:"Alexandrite", desc:"Fair skin, fine hair"},{nm:"808nm", t:"Diode", desc:"All skin types, standard hair"},{nm:"940nm", t:"Nd:YAG", desc:"Dark skin, deep follicles"},{nm:"1064nm", t:"Nd:YAG", desc:"Tanned skin, safe"}].map((w) => (<article class="rounded-2xl border border-black/5 p-6 text-center bg-sky-light/20"><div class="font-display text-3xl font-bold text-primary">{w.nm}</div><div class="mt-1 font-semibold">{w.t}</div><p class="mt-2 text-xs text-black/60">{w.desc}</p></article>))}
+      </div>
+    </div>
+  </section>
+
+  <section class="py-20 bg-sky-light/50">
+    <div class="mx-auto max-w-3xl px-5 text-center">
+      <h2 class="font-display text-3xl font-semibold md:text-4xl">Experience Falcon 4 Pro</h2>
+      <p class="mt-4 text-lg text-black/70">Book a free consultation at Şişli or Halkalı clinic for your personalized plan.</p>
+      <div class="mt-8"><a href="/en/contact" class="rounded-full bg-navy px-8 py-3 font-semibold text-white transition-colors hover:bg-primary">Book Now</a></div>
+    </div>
+  </section>
+
+  <Footer locale="en" />
+</BaseLayout>
