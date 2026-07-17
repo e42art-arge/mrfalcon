@@ -1,11 +1,15 @@
 RewriteEngine On
 RewriteBase /
 
-# Map subdirectories to their index.html before OLS auto-inserts trailing slash
+# Catch trailing-slash directory URLs first (before vhost rules redirect them)
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^(.+)/$ $1/index.html [L]
+
+# Handle non-trailing-slash directory URLs
 RewriteCond %{REQUEST_FILENAME} -d
 RewriteRule ^(.+[^/])$ $1/index.html [L]
 
-# Catch anything else that doesn't map to a real file (SPA fallback)
+# SPA fallback for unknown paths
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule . /index.html [L]
