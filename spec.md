@@ -120,7 +120,47 @@ Tek sayfalık bir lazer epilasyon landing page. İçerik blokları:
 - WhatsApp hızlı bağlantı
 - Telefon CTA
 - Google Maps
-- Form → e-posta/webhook (sunucu tarafı işlem sonradan)
+- Form → **RedMail** e-posta API'si (sunucu tarafı, bkz. Bölüm 13)
+
+### 13. E-posta Gönderimi — RedMail API
+
+İletişim formu, sunucu tarafında **RedMail** (https://redmail.e42art.com) üzerinden e-posta gönderir. OpenLiteSpeed paylaşımlı hosting özel portları engellediği için, form backend'i aynı domain üzerinde **PHP + .htaccess** ile servis edilir (Node `:8787` portu erişilemez).
+
+**Endpoint:**
+```
+POST https://redmail.e42art.com//api/v1/send
+```
+
+**Headers:**
+- `Content-Type: application/json`
+- `X-API-KEY: <secret>`  (GitHub Actions secret: `REDMAIL_API_KEY`)
+
+**Request body (JSON):**
+| Alan | Tip | Açıklama |
+|------|-----|----------|
+| `to` | string | Alıcı e-posta (ör. `info@mrfalconbeauty.com`) |
+| `cc` | array[string] | CC alıcıları |
+| `bcc` | array[string] | BCC alıcıları (opsiyonel) |
+| `reply_to` | string | Yanıt adresi = form gönderenin e-postası |
+| `subject` | string | Konu |
+| `body` | string (HTML) | E-posta gövdesi |
+| `attachments` | array[{name, content}] | Opsiyonel base64 ekler |
+
+**Örnek istek:**
+```bash
+curl -X POST https://redmail.e42art.com//api/v1/send \
+  -H "Content-Type: application/json" \
+  -H "X-API-KEY: $REDMAIL_API_KEY" \
+  -d '{
+    "to": "user@example.com",
+    "cc": ["manager@example.com"],
+    "reply_to": "support@example.com",
+    "subject": "Hello from RedMail",
+    "body": "<h1>It works!</h1>"
+  }'
+```
+
+**Deploy:** `server/config.php` (git-ignored) GitHub Actions tarafından sunucuda `REDMAIL_*` secret'larıyla yazılır. `server/contact.php` POST `/api/contact`'i yakalar, doğrular, HTML gövde oluşturup RedMail'e iletir. `public/.htaccess` bu route'u `server/contact.php`'ye yönlendirir.
 
 ---
 
