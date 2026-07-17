@@ -5,7 +5,16 @@ import Footer from "../components/Footer.astro";
 import { getCollection } from "astro:content";
 
 const branches = await getCollection("branches");
-const clinicImages = ["/clinic1.jpg","/clinic2.jpg","/clinic3.jpg","/clinic4.jpg"];
+const clinicImages = [
+  "/clinic1.jpg",
+  "/clinic2.jpg",
+  "/clinic3.jpg",
+  "/clinic4.jpg",
+  "/images/clinic/clinic5.jpg",
+  "/images/clinic/clinic6.jpg",
+  "/images/clinic/clinic7.jpg",
+  "/images/clinic/clinic8.jpg",
+];
 ---
 
 <BaseLayout title="Merkezlerimiz | Mr. Falcon Beauty" description="Mr. Falcon Beauty Şişli ve Halkalı şubeleri. Adres, telefon, çalışma saatleri ve yol tarifi." locale="tr" path="/merkezlerimiz">
