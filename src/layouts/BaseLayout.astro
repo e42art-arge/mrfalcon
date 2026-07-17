@@ -11,7 +11,7 @@ interface Props {
 const { title, description, locale = "tr", path = "/" } = Astro.props;
 const site = Astro.site?.href ?? "https://mrfalconbeauty.com/";
 const canonical = new URL(path.replace(/^\/+/, ""), site).href;
-const ogImage = new URL("og-default.svg", site).href;
+const ogImage = new URL("/images/og-default.svg", site).href;
 
 const altPath = locale === "tr" ? `/en${path === "/" ? "" : path}` : path.replace(/^\/en/, "") || "/";
 ---
@@ -21,8 +21,8 @@ const altPath = locale === "tr" ? `/en${path === "/" ? "" : path}` : path.replac
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="icon" type="image/png" href="/favicon.png" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" href="/images/favicon.png" />
+    <link rel="icon" type="image/svg+xml" href="/images/favicon.svg" />
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
