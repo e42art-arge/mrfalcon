@@ -1,11 +1,11 @@
 RewriteEngine On
 RewriteBase /
 
-# Remove trailing slash (preserve path) — only for non-file URLs
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteRule ^(.+)/$ /$1 [L,R=301]
+# Map subdirectories to their index.html before OLS auto-inserts trailing slash
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^(.+[^/])$ $1/index.html [L]
 
-# Serve subdirectory index.html for sub-page routes
+# Catch anything else that doesn't map to a real file (SPA fallback)
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^(.+)$ /$1/index.html [L]
+RewriteRule . /index.html [L]
