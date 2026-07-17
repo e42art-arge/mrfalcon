@@ -6,10 +6,10 @@ import { getCollection } from "astro:content";
 
 const branches = await getCollection("branches");
 const clinicImages = [
-  "/images/clinic1.jpg",
-  "/images/clinic2.jpg",
-  "/images/clinic3.jpg",
-  "/images/clinic4.jpg",
+  "/images/clinic/clinic1.jpg",
+  "/images/clinic/clinic2.jpg",
+  "/images/clinic/clinic3.jpg",
+  "/images/clinic/clinic4.jpg",
   "/images/clinic/clinic5.jpg",
   "/images/clinic/clinic6.jpg",
   "/images/clinic/clinic7.jpg",
@@ -33,7 +33,7 @@ const clinicImages = [
       <div class="grid md:grid-cols-2 gap-10">
         {branches.sort((a,b) => a.data.slug.localeCompare(b.data.slug)).map((b) => (
           <article class="rounded-2xl overflow-hidden border border-black/5 shadow-lg">
-            <div class="aspect-[4/3] bg-sky-light overflow-hidden"><img src={b.data.image || "/images/clinic1.jpg"} alt={b.data.name} class="w-full h-full object-cover" /></div>
+            <div class="aspect-[4/3] bg-sky-light overflow-hidden"><img src={b.data.image || "/images/clinic/clinic1.jpg"} alt={b.data.name} class="w-full h-full object-cover" /></div>
             <div class="p-6">
               <h2 class="font-display text-2xl font-semibold text-primary">{b.data.name}</h2>
               <address class="mt-3 not-italic text-sm text-black/70">{b.data.address}</address>
