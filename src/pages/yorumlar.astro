@@ -2,9 +2,51 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
+import { getCollection } from "astro:content";
+
+const reviews = await getCollection("reviews", ({ id }) => id.startsWith("tr/"));
+reviews.sort((a, b) => parseInt(a.id.split("/")[1]) - parseInt(b.id.split("/")[1]));
 ---
-<BaseLayout title="Yorumlar | Mr. Falcon Beauty" description="Yorumlar." locale="tr" path="/yorumlar">
+
+<BaseLayout title="Yorumlar | Mr. Falcon Beauty" description="Mr. Falcon Beauty müşteri yorumları. Gerçek danışanlarımız Falcon 4 Pro lazer epilasyon deneyimlerini anlatıyor." locale="tr" path="/yorumlar">
   <Header locale="tr" />
-  <main class="py-20"><h1 class="text-4xl text-center">Yorumlar</h1></main>
+
+  <section class="py-20 md:py-28 bg-navy text-white">
+    <div class="mx-auto max-w-6xl px-5 text-center">
+      <p class="mb-4 text-sm font-semibold uppercase tracking-[0.2em] text-primary">Müşteri Yorumları</p>
+      <h1 class="font-display text-4xl font-semibold md:text-6xl">Doğrulanmış Yorumlar</h1>
+      <p class="mx-auto mt-4 max-w-2xl text-lg text-white/80">Aşağıdaki her yorum, Mr. Falcon Beauty'e güvenerek başvuran danışanlarımız tarafından bizzat paylaşılmıştır.</p>
+    </div>
+  </section>
+
+  <section class="py-20">
+    <div class="mx-auto max-w-6xl px-5">
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {reviews.map((r) => (
+          <article class="rounded-2xl border border-black/10 p-6 hover:shadow-lg transition-shadow bg-white">
+            <div class="flex gap-1 text-primary text-sm mb-3">
+              {[...Array(r.data.rating)].map((_, i) => <span key={i}>★</span>)}
+              <span class="ml-2 text-xs text-black/50">({r.data.source})</span>
+            </div>
+            <blockquote class="text-black/80 text-sm leading-relaxed mb-4">"{r.data.quote}"</blockquote>
+            <footer class="flex items-center justify-between text-xs">
+              <cite class="font-semibold text-primary not-italic">{r.data.name}</cite>
+              <span class="text-black/50">{r.data.branch}</span>
+            </footer>
+          </article>
+        ))}
+      </div>
+      <p class="mt-10 text-center text-sm text-black/50">Burada gösterilen tüm yorumlar Google, WhatClinic, Trustpilot ve RealSelf gibi üçüncü taraf platformlarda halka açık olarak mevcuttur.</p>
+    </div>
+  </section>
+
+  <section class="py-20 bg-sky-light/50">
+    <div class="mx-auto max-w-3xl px-5 text-center">
+      <h2 class="font-display text-3xl font-semibold md:text-4xl">Siz de Deneyiminizi Paylaşın</h2>
+      <p class="mt-4 text-lg text-black/70">Falcon 4 Pro ile lazer epilasyon deneyiminizi Google Haritalar üzerinden paylaşabilirsiniz.</p>
+      <div class="mt-8"><a href="/iletisim" class="rounded-full bg-navy px-8 py-3 font-semibold text-white transition-colors hover:bg-primary">Hemen Randevu Al</a></div>
+    </div>
+  </section>
+
   <Footer locale="tr" />
 </BaseLayout>

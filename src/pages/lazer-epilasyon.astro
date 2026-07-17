@@ -2,9 +2,192 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
+
+const processSteps = [
+  { step: 1, title: "Ücretsiz Cilt & Kıl Analizi", desc: "Yolculuğunuz uzman ekibimizle yapılacak ücretsiz bir cilt ve kıl analizi ile başlar. Falcon 4 Pro'nun mobil uygulaması ile cilt tonunuz ve kıl tipiniz bilimsel olarak değerlendirilerek size özel bir tedavi planı oluşturulur." },
+  { step: 2, title: "Şişli veya Halkalı Şubemiz", desc: "İstanbul'un iki merkezi konumunda — Şişli ve Halkalı'da — hizmet veriyoruz. Size en yakın ve uygun şubemizde randevunuzu alabilirsiniz." },
+  { step: 3, title: "Falcon 4 Pro ile Uygulama", desc: "Lazer epilasyon işleminiz, 4 dalga boylu hibrit teknolojiye sahip Falcon 4 Pro cihazımızla, steril ve güvenli ortamımızda deneyimli uzmanlar tarafından gerçekleştirilir." },
+  { step: 4, title: "Ağrısız & Soğutmalı Deneyim", desc: "-20° buz başlık ve 5 farklı soğutma sistemi sayesinde seans boyunca cildiniz sürekli soğutulur; işlem ağrısız ve konforlu bir şekilde tamamlanır." },
+  { step: 5, title: "Kişiselleştirilmiş Seans Programı", desc: "Kıl tipinize ve hedeflenen bölgeye göre gerekli seans sayısı cilt analizinize göre belirlenerek düzenli takip seansları planlanır." },
+  { step: 6, title: "İlk Seansta Görünür Sonuç", desc: "Falcon 4 Pro'nun yüksek dökülme oranı sayesinde ilk seanstan itibaren kıllarınızda incelme ve dökülme fark edilir hale gelir." },
+  { step: 7, title: "Düzenli Kontrol & Takip", desc: "Tedavinizin tüm aşamalarında uzman ekibimiz yanınızdadır. Lazer epilasyon sonuçlarınız düzenli kontrol seanslarıyla izlenir, gerektiğinde protokol güncellenir." },
+];
+
+const benefits = [
+  { icon: "🛡️", text: "FDA Onaylı Falcon 4 Pro" },
+  { icon: "📍", text: "Şişli & Halkalı Şubeleri" },
+  { icon: "📞", text: "7/24 Kişiselleştirilmiş Destek" },
+  { icon: "📉", text: "İlk Seansta %70 Dökülme" },
+];
+
+const whyUs = [
+  { icon: "🔬", title: "4 Dalga Boylu Hibrit Teknoloji", desc: "Falcon 4 Pro ile 755nm, 808nm, 940nm ve 1064nm dalga boyları tek aplikatörde birleşir. Açık tenden koyu tene, ince kıldan kalın kıla kadar her tip için etkili." },
+  { icon: "❄️", title: "Ağrısız Uygulama", desc: "-20°C buz başlık ve 5 soğutma sistemi ile cilt sürekli soğutulur. İşlem neredeyse ağrısız ve oldukça konforludur." },
+  { icon: "🧼", title: "Steril Ortam & UVC", desc: "Steril Box ve UVC sterilizasyon teknolojisi, her danışan için maksimum hijyeni güvence altına alır." },
+  { icon: "🤖", title: "Yapay Zeka Analizi", desc: "Özel mobil uygulama ile cilt ve kıl tipiniz bilimsel olarak analiz edilir, en uygun dalga boyu otomatik belirlenir." },
+];
 ---
-<BaseLayout title="Lazer Epilasyon | Mr. Falcon Beauty" description="Lazer epilasyon hizmetlerimiz hakkında bilgi alın." locale="tr" path="/lazer-epilasyon">
+
+<BaseLayout title="Lazer Epilasyon | Mr. Falcon Beauty" description="Mr. Falcon Beauty Şişli ve Halkalı şubelerinde, FDA onaylı Falcon 4 Pro cihazı ile ağrısız lazer epilasyon. İlk seansta %70 dökülme." locale="tr" path="/lazer-epilasyon">
   <Header locale="tr" />
-  <main class="py-20"><h1 class="text-4xl text-center">Lazer Epilasyon</h1></main>
+
+  <!-- HERO -->
+  <section class="py-20 md:py-28 bg-gradient-to-b from-sky-light to-white">
+    <div class="mx-auto max-w-6xl px-5 text-center">
+      <p class="mb-4 text-sm font-semibold uppercase tracking-[0.2em] text-primary">Falcon 4 Pro Technology</p>
+      <h1 class="font-display text-4xl font-semibold leading-tight md:text-6xl lg:text-7xl">
+        Lazer Epilasyonda<br />
+        <span class="text-primary">Yeni Standardı</span>
+      </h1>
+      <p class="mx-auto mb-8 mt-4 max-w-xl text-lg leading-relaxed text-black/70">
+        Mr. Falcon Beauty olarak Şişli ve Halkalı şubelerimizde, FDA onaylı 4 dalga boylu hibrit teknolojiye sahip Falcon 4 Pro cihazı ile profesyonel lazer epilasyon hizmeti sunuyoruz.
+      </p>
+      <div class="flex flex-wrap items-center justify-center gap-4">
+        <a href="/iletisim" class="rounded-full bg-navy px-8 py-3 font-semibold text-white transition-colors hover:bg-primary">Hemen Randevu Oluşturun</a>
+        <a href="https://api.whatsapp.com/send?phone=905525939890&text=Merhaba web siteniz üzerinden size ulaşıyorum, Falcon Lazer Epilasyon hakkında bilgi alabilir miyim ?" target="_blank" rel="noopener" class="rounded-full border-2 border-black/15 px-8 py-3 font-semibold text-black transition-colors hover:border-primary hover:text-primary">WhatsApp ile Bilgi Alın</a>
+      </div>
+      <div class="mx-auto mt-8 flex max-w-3xl flex-wrap items-center justify-center gap-6 text-sm font-medium text-black/70">
+        {benefits.map((b) => (
+          <span class="flex items-center gap-1.5">{b.icon} <strong>{b.text}</strong></span>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- LAZER EPILASYON NEDIR -->
+  <section class="py-20">
+    <div class="mx-auto max-w-6xl px-5">
+      <div class="grid items-center gap-12 md:grid-cols-2">
+        <div>
+          <p class="mb-2 text-sm font-semibold uppercase tracking-[0.2em] text-primary">Mr. Falcon Beauty</p>
+          <h2 class="mb-6 font-display text-3xl font-semibold md:text-4xl lg:text-5xl">Lazer Epilasyon Nedir?</h2>
+          <p class="mb-6 text-lg leading-relaxed text-black/70">
+            Lazer epilasyon, kıl köklerine lazer enerjisi göndererek kalıcı tüy azaltımı sağlayan tıbbi bir işlemdir. Falcon 4 Pro cihazımız, 4 farklı dalga boyu ile melanin oranına bakılmaksızın tüm cilt tiplerinde güvenle uygulanabilir.
+          </p>
+          <p class="mb-6 text-lg leading-relaxed text-black/70">
+            Mr. Falcon Beauty'de her danışanın cilt ve kıl yapısını ayrı ayrı ele alarak kişiye özel tedavi protokolleri oluşturuyoruz. İlk seansta %70'e ulaşan dökülme oranıyla fark yaratıyoruz.
+          </p>
+          <div class="grid grid-cols-2 gap-4">
+            <div class="rounded-2xl bg-sky-light/50 p-4">
+              <div class="font-display text-3xl font-bold md:text-4xl">1.000+</div>
+              <div class="text-sm text-black/60">Mutlu Danışan</div>
+            </div>
+            <div class="rounded-2xl bg-sky-light/50 p-4">
+              <div class="font-display text-3xl font-bold md:text-4xl">%70</div>
+              <div class="text-sm text-black/60">İlk Seansta Dökülme</div>
+            </div>
+            <div class="rounded-2xl bg-sky-light/50 p-4">
+              <div class="font-display text-3xl font-bold md:text-4xl">4</div>
+              <div class="text-sm text-black/60">Dalga Boyu</div>
+            </div>
+            <div class="rounded-2xl bg-sky-light/50 p-4">
+              <div class="font-display text-3xl font-bold md:text-4xl">2</div>
+              <div class="text-sm text-black/60">Merkezi Şube</div>
+            </div>
+          </div>
+        </div>
+        <div class="relative">
+          <img src="/sliderdoctor.png" alt="Falcon 4 Pro Lazer Epilasyon" class="w-full max-w-md mx-auto rounded-3xl shadow-2xl" />
+          <div class="absolute -bottom-4 -left-4 rounded-2xl bg-navy p-4 text-white shadow-lg">
+            <div class="flex items-center gap-3 text-xl font-display font-bold">⭐ 4.9</div>
+            <p class="mt-1 text-sm text-white/80">Google'de 200+ değerlendirme</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- VIDEO TESTIMONIALS -->
+  <section class="py-20 bg-sky-light/30">
+    <div class="mx-auto max-w-6xl px-5">
+      <div class="text-center max-w-3xl mx-auto mb-12">
+        <p class="mb-2 text-sm font-semibold uppercase tracking-[0.2em] text-primary">Gerçek Danışanlar</p>
+        <h2 class="font-display text-3xl font-semibold md:text-4xl">Memnuniyet Videoları</h2>
+        <p class="mt-3 text-black/60">Falcon Lazer Epilasyon sonuçlarından memnun kalan danışanlarımız deneyimlerini kendi sözleriyle aktarıyor.</p>
+      </div>
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+        {["shorts25.jpg", "shorts26.jpg", "shorts27.jpg", "shorts28.jpg"].map((img) => (
+          <div class="relative aspect-[9/16] rounded-2xl overflow-hidden bg-black/10 shadow-md">
+            <div class="absolute inset-0 flex items-center justify-center"><div class="w-14 h-14 rounded-full bg-white/90 flex items-center justify-center text-black">▶</div></div>
+            <div class="absolute bottom-3 left-3 right-3 text-xs text-white bg-black/60 px-2 py-1 rounded">Memnuniyet Videosu</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- FALCON 4 PRO -->
+  <section class="py-20 bg-navy text-white">
+    <div class="mx-auto max-w-6xl px-5">
+      <div class="grid items-center gap-12 md:grid-cols-2">
+        <div>
+          <p class="mb-2 text-sm font-semibold uppercase tracking-[0.2em] text-primary">Teknoloji</p>
+          <h2 class="mb-6 font-display text-3xl font-semibold md:text-4xl lg:text-5xl">Falcon 4 Pro ile Tanışın</h2>
+          <p class="mb-6 text-lg leading-relaxed text-white/80">
+            Falcon 4 Pro, FDA 510(k) klinik onayına sahip, 755nm, Diode (808nm), Nd:YAG (1064nm) ve 940nm olmak üzere 4 farklı lazer dalga boyunu tek bir aplikatörde birleştiren yapay zeka destekli hibrit bir lazer epilasyon cihazıdır.
+          </p>
+          <ul class="space-y-3">
+            {[{label:"4 Dalga Boyu",val:"755nm, 808nm, 940nm, 1064nm"},{label:"Spot Başlığı",val:"4 cm² — Hızlı Seans"},{label:"Soğutma",val:"5 Sistem + -20° Buz"},{label:"Atış Hızı",val:"20 atış/sn SHR"},{label:"Çıkış Gücü",val:"2400W"},{label:"Garanti",val:"100 Milyon Atış"}].map((s) => (
+              <li class="flex items-center gap-3"><span class="text-primary">▸</span> <strong>{s.label}:</strong> {s.val}</li>
+            ))}
+          </ul>
+        </div>
+        <div class="flex justify-center">
+          <img src="/falcons.png" alt="Falcon 4 Pro Cihazı" class="w-full max-w-sm" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- NEDEN BIZ -->
+  <section class="py-20">
+    <div class="mx-auto max-w-6xl px-5">
+      <div class="text-center max-w-3xl mx-auto mb-12">
+        <p class="mb-2 text-sm font-semibold uppercase tracking-[0.2em] text-primary">Neden Biz?</p>
+        <h2 class="font-display text-3xl font-semibold md:text-4xl">Mr. Falcon Beauty Neden Seçilmeli?</h2>
+      </div>
+      <div class="grid md:grid-cols-2 gap-6">
+        {whyUs.map((w) => (
+          <article class="rounded-2xl p-6 border border-black/5 hover:shadow-lg transition-shadow bg-white">
+            <div class="text-3xl">{w.icon}</div>
+            <h3 class="mt-3 font-display text-xl font-semibold">{w.title}</h3>
+            <p class="mt-2 text-sm leading-relaxed text-black/70">{w.desc}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- SÜREÇ -->
+  <section class="py-20 bg-sky-light/30">
+    <div class="mx-auto max-w-6xl px-5">
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <p class="mb-2 text-sm font-semibold uppercase tracking-[0.2em] text-primary">Süreç</p>
+        <h2 class="font-display text-3xl font-semibold md:text-4xl">7 Adımda Lazer Epilasyon</h2>
+      </div>
+      <div class="space-y-6">
+        {processSteps.map((step) => (
+          <article class="relative flex gap-6 p-6 bg-white rounded-2xl border border-black/5 hover:shadow-md transition-shadow">
+            <div class="flex-shrink-0 w-12 h-12 rounded-full bg-sky-light/50 flex items-center justify-center font-display text-xl font-bold text-primary">{step.step}</div>
+            <div class="flex-1 pt-1"><h3 class="font-display text-lg font-semibold">{step.title}</h3><p class="mt-1 text-sm text-black/70">{step.desc}</p></div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="py-20 bg-sky-light/50">
+    <div class="mx-auto max-w-3xl px-5 text-center">
+      <h2 class="font-display text-3xl font-semibold md:text-4xl">Hazır mısınız?</h2>
+      <p class="mt-4 text-lg text-black/70">İlk danışmanlık ve cilt analizi ücretsiz. Şube seçin, randevunuzu alın.</p>
+      <div class="mt-8 flex flex-wrap items-center justify-center gap-4">
+        <a href="/iletisim" class="rounded-full bg-navy px-8 py-3 font-semibold text-white transition-colors hover:bg-primary">Randevu Al</a>
+        <a href="https://wa.me/905525939890" target="_blank" rel="noopener" class="rounded-full border-2 border-black/15 px-8 py-3 font-semibold text-black transition-colors hover:border-primary hover:text-primary">WhatsApp'tan Yaz</a>
+      </div>
+      <p class="mt-6 text-sm text-black/60">📍 Şişli/Mecidiyeköy · 📍 Halkalı/Küçükçekmece · 📞 +90 506 371 70 71</p>
+    </div>
+  </section>
+
   <Footer locale="tr" />
 </BaseLayout>
