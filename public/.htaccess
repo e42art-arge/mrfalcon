@@ -1,15 +1,14 @@
-RewriteEngine On
-RewriteBase /
+# Minimal .htaccess for static Astro site on OpenLiteSpeed
+# Only needed: PHP handler for /api/contact endpoint
+# All static HTML files are served directly by OLS (no rewrites needed)
 
-# Catch trailing-slash directory URLs first (before vhost rules redirect them)
-RewriteCond %{REQUEST_FILENAME} -d
-RewriteRule ^(.+)/$ $1/index.html [L]
+# Ensure PHP is processed for the contact API
+<FilesMatch "contact\.php$">
+    SetHandler application/x-httpd-php
+</FilesMatch>
 
-# Handle non-trailing-slash directory URLs
-RewriteCond %{REQUEST_FILENAME} -d
-RewriteRule ^(.+[^/])$ $1/index.html [L]
-
-# SPA fallback for unknown paths
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule . /index.html [L]
+# Optional: deny direct access to .htaccess
+<Files ".htaccess">
+    Order allow,deny
+    Deny from all
+</Files>
