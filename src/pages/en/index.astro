@@ -164,15 +164,6 @@ const whyUsItems = [
               <span class="flex items-center gap-1.5 text-primary">{t.icon} <strong>{t.text}</strong></span>
             ))}
           </div>
-          <div class="flex items-center gap-2 text-xs text-black/50" data-gsap="fadeRight" data-gsap-delay="0.3">
-            <span>📍 Select Branch:</span>
-            <select id="hero-clinic-select" class="rounded border border-black/15 bg-white px-2 py-1 text-sm text-black focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary">
-              <option value="/en/#contacts" selected>Choose Branch</option>
-              {clinics.map((c) => (
-                <option value={`/en/#contacts?clinic=${c.id}`}>{c.name}</option>
-              ))}
-            </select>
-          </div>
         </div>
       </div>
 
