@@ -14,6 +14,10 @@ interface Props {
 
 const { videos, locale = "tr", sectionId = "press-videos" } = Astro.props;
 const en = locale === "en";
+
+// Duplicate for infinite loop: prepend last 2, append first 2
+const extendedVideos = [...videos.slice(-2), ...videos, ...videos.slice(0, 2)];
+const offset = 2; // initial scroll offset to show first real item
 ---
 
 <section id={sectionId} class="py-20 bg-sky-light/30" data-animate="fadeUp">
@@ -39,22 +43,24 @@ const en = locale === "en";
         id="press-track"
         class="flex gap-6 overflow-x-auto scroll-smooth snap-x snap-mandatory pb-4 -mx-5 px-5 scrollbar-hide"
         style="scrollbar-width: none; -ms-overflow-style: none;"
+        data-offset={offset}
       >
-        {videos.map((video) => (
+        {extendedVideos.map((video, i) => (
           <article
             class="min-w-[280px] sm:min-w-[320px] lg:min-w-[360px] snap-start rounded-2xl overflow-hidden bg-white border border-black/5 shadow-surface hover:shadow-card-hover transition-all duration-normal group"
             data-hover="lift"
+            data-press-index={i}
           >
             <a
               href={video.videoUrl}
               data-fancybox="press-videos"
-              class="relative block aspect-video overflow-hidden bg-gray-100"
+              class="relative block aspect-[2/3] overflow-hidden bg-gray-100"
               aria-label={`${en ? "Watch" : "İzle"}: ${video.channel}`}
             >
               <img
                 src={video.thumbnail}
                 alt={video.channel}
-                class="w-full h-full object-contain transition-transform duration-500 group-hover:scale-105"
+                class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                 loading="lazy"
               />
               <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
@@ -107,23 +113,67 @@ const en = locale === "en";
     const next = document.getElementById('press-next');
     if (!track || !prev || !next) return;
 
-    const scroll = (dir) => {
-      const card = track.querySelector('.snap-start');
+    const offset = parseInt(track.dataset.offset || '2', 10);
+    const cards = track.querySelectorAll('[data-press-index]');
+    const cardCount = cards.length;
+    const realCount = cardCount - 4; // original items
+
+    // Initial position
+    let currentIndex = offset;
+    let isScrolling = false;
+
+    const updatePosition = (instant = false) => {
+      const card = cards[currentIndex];
       if (!card) return;
       const w = card.offsetWidth + 24; // card + gap
-      track.scrollBy({ left: dir * w, behavior: 'smooth' });
+      const target = currentIndex * w;
+      if (instant) {
+        track.scrollLeft = target;
+      } else {
+        track.scrollTo({ left: target, behavior: 'smooth' });
+      }
+    };
+
+    const loop = () => {
+      // Jump back to start if at cloned end
+      if (currentIndex >= realCount + offset) {
+        currentIndex = offset;
+        updatePosition(true);
+      }
+      // Jump to end if at cloned start
+      else if (currentIndex < offset) {
+        currentIndex = realCount + offset - 1;
+        updatePosition(true);
+      }
+    };
+
+    const scroll = (dir) => {
+      if (isScrolling) return;
+      currentIndex += dir;
+      isScrolling = true;
+      updatePosition();
+      setTimeout(() => {
+        loop();
+        isScrolling = false;
+      }, 400);
     };
 
     prev.addEventListener('click', () => scroll(-1));
     next.addEventListener('click', () => scroll(1));
 
-    // Show/hide arrows based on scroll position
-    const update = () => {
-      prev.classList.toggle('hidden', track.scrollLeft <= 4);
-      next.classList.toggle('hidden', track.scrollLeft >= track.scrollWidth - track.clientWidth - 4);
-    };
-    track.addEventListener('scroll', update);
-    update();
+    // Handle scroll end to auto-loop on drag
+    track.addEventListener('scroll', () => {
+      if (isScrolling) return;
+      const scrollLeft = track.scrollLeft;
+      const maxScroll = track.scrollWidth - track.clientWidth;
+      if (scrollLeft <= 10) {
+        currentIndex = realCount + offset - 1;
+        updatePosition(true);
+      } else if (scrollLeft >= maxScroll - 10) {
+        currentIndex = offset;
+        updatePosition(true);
+      }
+    });
 
     // Touch / mouse drag
     let isDown = false, startX, scrollLeft;
@@ -148,5 +198,20 @@ const en = locale === "en";
       const walk = (x - startX) * 1.5;
       track.scrollLeft = scrollLeft - walk;
     });
+
+    // Initial position
+    updatePosition(true);
   })();
+</script>
+
+<!-- Fancybox for press videos -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.css" />
+<script type="module">
+  import { Fancybox } from "https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.esm.js";
+  Fancybox.bind('[data-fancybox="press-videos"]', {
+    type: "video",
+    video: { autoStart: true },
+    Toolbar: { display: ["close"] },
+    mainClass: "fancybox-press"
+  });
 </script>
