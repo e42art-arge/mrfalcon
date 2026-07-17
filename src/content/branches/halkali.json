@@ -1,0 +1,11 @@
+{
+  "slug": "halkali",
+  "name": "Mr. Falcon Beauty Halkalı Şubesi",
+  "district": "Küçükçekmece",
+  "address": "Atatürk, Hürriyet Cd. 15/1, 34303 Küçükçekmece/İstanbul",
+  "phone": "+90 506 371 70 71",
+  "whatsapp": "https://api.whatsapp.com/send?phone=905063717071&text=Merhaba web siteniz üzerinden size ulaşıyorum, Falcon Lazer Epilasyon hakkında bilgi alabilir miyim ?",
+  "hours": "Pazartesi - Cumartesi: 10:00 - 20:00 / Pazar: Kapalı",
+  "mapEmbed": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3009.123456789!2d28.765432!3d41.034567!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14cab123456789%3A0xfedcba987654321!2sMr.%20Falcon%20Beauty%20Halkal%C4%B1!5e0!3m2!1str!2str!4v1234567890",
+  "image": "/clinic2.jpg"
+}

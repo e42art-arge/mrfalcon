@@ -3,8 +3,12 @@
 @theme {
   --color-ink: #121212;
   --color-champagne: #b5985a;
+  --color-champagne-light: #dbb054;
   --color-mist: #fbf9f8;
   --color-beige: #f5ede6;
+  --color-taupe: #A48B78;
+  --color-taupe-light: #F0DDD7;
+  --color-whatsapp: #55cd6c;
 
   --font-display: "Instrument Sans", sans-serif;
   --font-sans: "Inter", sans-serif;

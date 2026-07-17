@@ -30,8 +30,11 @@ const langLabel = en ? "TR" : "EN";
 
 <header class="sticky top-0 z-50 bg-white/90 backdrop-blur border-b border-ink/5">
   <div class="mx-auto flex max-w-6xl items-center justify-between px-5 py-4">
-    <a href={homeHref} class="font-display text-xl font-semibold tracking-tight text-ink">
-      Mr. Falcon <span class="text-champagne">Beauty</span>
+    <a href={homeHref} class="flex items-center gap-2" aria-label="Mr. Falcon Beauty Ana Sayfa">
+      <img src="/logo.png" alt="" class="h-10 w-auto" />
+      <span class="font-display text-xl font-semibold tracking-tight text-ink hidden sm:block">
+        Mr. Falcon <span class="text-champagne">Beauty</span>
+      </span>
     </a>
     <nav class="hidden items-center gap-7 text-sm font-medium text-ink/80 md:flex">
       {nav.map((item) => (

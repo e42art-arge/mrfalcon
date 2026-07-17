@@ -1,1 +1,1 @@
-Tüm hatırlaman gerekeni MEMORY.md ye kayıt et.
+Tüm hatırlaman gerekeni MEMORY.md ye kayıt et. Sık sık kayıt al. Bağlam büyüdükçe kayıt sıklığını artır.
