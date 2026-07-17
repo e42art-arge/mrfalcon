@@ -2,6 +2,7 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
+import VideoGallery from "../components/VideoGallery.astro";
 
 const trustSignals = [
   { icon: "🏆", text: "15.000+" },
@@ -78,6 +79,29 @@ const videoTestimonials = [
   { name: "Elif K.", branch: "Şişli", quote: "6 seansda hayatım değişti." },
   { name: "Merve A.", branch: "Halkalı", quote: "Hiç acı hissetmedim." },
   { name: "Zeynep D.", branch: "Şişli", quote: "Bronz ciltimde bile güvenliydi." },
+];
+
+// Video Gallery Data (from LP site)
+const satisfactionVideos = [
+  { id: 25, thumbnail: "/images/shorts/shorts25.jpg", videoUrl: "https://lp.mrfalconbeauty.com/lib/images/shorts25.mp4", title: "Memnuniyet Videoları", description: "Lazer Epilasyon", category: "satisfaction" },
+  { id: 26, thumbnail: "/images/shorts/shorts26.jpg", videoUrl: "https://lp.mrfalconbeauty.com/lib/images/shorts26.mp4", title: "Memnuniyet Videoları", description: "Lazer Epilasyon", category: "satisfaction" },
+  { id: 27, thumbnail: "/images/shorts/shorts27.jpg", videoUrl: "https://lp.mrfalconbeauty.com/lib/images/shorts27.mp4", title: "Memnuniyet Videoları", description: "Lazer Epilasyon", category: "satisfaction" },
+  { id: 28, thumbnail: "/images/shorts/shorts28.jpg", videoUrl: "https://lp.mrfalconbeauty.com/lib/images/shorts28.mp4", title: "Memnuniyet Videoları", description: "Lazer Epilasyon", category: "satisfaction" },
+];
+
+const faqVideos = [
+  { id: 1, thumbnail: "/images/shorts/shorts1.jpg", videoUrl: "https://lp.mrfalconbeauty.com/lib/images/shorts1.mp4", title: "Sıkça Sorulan Sorular", description: "Falcon 4 Pro & Lazer Epilasyon", category: "faq" },
+  { id: 2, thumbnail: "/images/shorts/shorts2.jpg", videoUrl: "https://lp.mrfalconbeauty.com/lib/images/shorts2.mp4", title: "Sıkça Sorulan Sorular", description: "Falcon 4 Pro & Lazer Epilasyon", category: "faq" },
+  { id: 3, thumbnail: "/images/shorts/shorts3.jpg", videoUrl: "https://lp.mrfalconbeauty.com/lib/images/shorts3.mp4", title: "Sıkça Sorulan Sorular", description: "Falcon 4 Pro & Lazer Epilasyon", category: "faq" },
+  { id: 4, thumbnail: "/images/shorts/shorts4.jpg", videoUrl: "https://lp.mrfalconbeauty.com/lib/images/shorts4.mp4", title: "Sıkça Sorulan Sorular", description: "Falcon 4 Pro & Lazer Epilasyon", category: "faq" },
+  { id: 5, thumbnail: "/images/shorts/shorts5.jpg", videoUrl: "https://lp.mrfalconbeauty.com/lib/images/shorts5.mp4", title: "Sıkça Sorulan Sorular", description: "Falcon 4 Pro & Lazer Epilasyon", category: "faq" },
+  { id: 6, thumbnail: "/images/shorts/shorts6.jpg", videoUrl: "https://lp.mrfalconbeauty.com/lib/images/shorts6.mp4", title: "Sıkça Sorulan Sorular", description: "Falcon 4 Pro & Lazer Epilasyon", category: "faq" },
+  { id: 7, thumbnail: "/images/shorts/shorts7.jpg", videoUrl: "https://lp.mrfalconbeauty.com/lib/images/shorts7.mp4", title: "Sıkça Sorulan Sorular", description: "Falcon 4 Pro & Lazer Epilasyon", category: "faq" },
+  { id: 8, thumbnail: "/images/shorts/shorts8.jpg", videoUrl: "https://lp.mrfalconbeauty.com/lib/images/shorts8.mp4", title: "Sıkça Sorulan Sorular", description: "Falcon 4 Pro & Lazer Epilasyon", category: "faq" },
+  { id: 9, thumbnail: "/images/shorts/shorts9.jpg", videoUrl: "https://lp.mrfalconbeauty.com/lib/images/shorts9.mp4", title: "Sıkça Sorulan Sorular", description: "Falcon 4 Pro & Lazer Epilasyon", category: "faq" },
+  { id: 10, thumbnail: "/images/shorts/shorts10.jpg", videoUrl: "https://lp.mrfalconbeauty.com/lib/images/shorts10.mp4", title: "Sıkça Sorulan Sorular", description: "Falcon 4 Pro & Lazer Epilasyon", category: "faq" },
+  { id: 11, thumbnail: "/images/shorts/shorts11.jpg", videoUrl: "https://lp.mrfalconbeauty.com/lib/images/shorts11.mp4", title: "Sıkça Sorulan Sorular", description: "Falcon 4 Pro & Lazer Epilasyon", category: "faq" },
+  { id: 12, thumbnail: "/images/shorts/shorts12.jpg", videoUrl: "https://lp.mrfalconbeauty.com/lib/images/shorts12.mp4", title: "Sıkça Sorulan Sorular", description: "Falcon 4 Pro & Lazer Epilasyon", category: "faq" },
 ];
 
 const falconTechSpecs = [
@@ -293,6 +317,12 @@ const whyUsItems = [
         </div>
       </div>
     </section>
+
+    <!-- MEMNUNİYET VİDEOLARI (Danışan Videoları) -->
+    <VideoGallery videos={satisfactionVideos} sectionId="satisfaction-videos" class="bg-sky-light/30" />
+
+    <!-- VİDEO GALERİ (SSS Videoları) -->
+    <VideoGallery videos={faqVideos} sectionId="video-gallery" />
 
     <!-- FALCON 4 PRO TECH DEEP DIVE -->
     <section id="falcon-4-pro" class="py-20 bg-navy text-white">
