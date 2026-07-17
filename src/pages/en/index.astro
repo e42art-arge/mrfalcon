@@ -114,16 +114,16 @@ const whyUsItems = [
     <!-- HERO / SLIDER -->
     <section id="slider" class="relative overflow-hidden bg-gradient-to-b from-beige to-white">
       <!-- Trust Signals Bar -->
-      <div class="border-b border-ink/5 bg-white/50 backdrop-blur sticky top-16 z-40">
-        <div class="mx-auto flex max-w-6xl items-center justify-between gap-4 px-5 py-3 text-sm font-medium text-ink/70 md:py-2">
+      <div class="border-b border-black/5 bg-white/50 backdrop-blur sticky top-16 z-40">
+        <div class="mx-auto flex max-w-6xl items-center justify-between gap-4 px-5 py-3 text-sm font-medium text-black/70 md:py-2">
           <div class="flex flex-wrap items-center gap-6 text-center md:justify-start">
             {trustSignals.map((t) => (
-              <span class="flex items-center gap-1.5 text-champagne">{t.icon} <strong>{t.text}</strong></span>
+              <span class="flex items-center gap-1.5 text-primary">{t.icon} <strong>{t.text}</strong></span>
             ))}
           </div>
-          <div class="flex items-center gap-2 text-xs text-ink/50">
+          <div class="flex items-center gap-2 text-xs text-black/50">
             <span>📍 Select Branch:</span>
-            <select id="hero-clinic-select" class="rounded border border-ink/15 bg-white px-2 py-1 text-sm text-ink focus:border-champagne focus:outline-none">
+            <select id="hero-clinic-select" class="rounded border border-black/15 bg-white px-2 py-1 text-sm text-black focus:border-primary focus:outline-none">
               <option value="/en/#contacts" selected>Choose Branch</option>
               {clinics.map((c) => (
                 <option value={`/en/#contacts?clinic=${c.id}`}>{c.name}</option>
@@ -136,25 +136,25 @@ const whyUsItems = [
       <div class="mx-auto max-w-6xl px-5 py-24 md:py-32">
         <div class="grid lg:grid-cols-2 gap-12 items-center">
           <div class="text-center lg:text-left">
-            <p class="mb-4 text-sm font-semibold uppercase tracking-[0.2em] text-champagne">Falcon 4 Pro Technology</p>
-            <h1 class="mb-6 font-display text-4xl font-semibold leading-tight text-ink md:text-6xl lg:text-7xl">
+            <p class="mb-4 text-sm font-semibold uppercase tracking-[0.2em] text-primary">Falcon 4 Pro Technology</p>
+            <h1 class="mb-6 font-display text-4xl font-semibold leading-tight text-black md:text-6xl lg:text-7xl">
               The New Standard in
               <br />
-              <span class="text-champagne">Painless Laser Removal</span>
+              <span class="text-primary">Painless Laser Removal</span>
             </h1>
-            <p class="mb-8 max-w-xl text-lg leading-relaxed text-ink/70 mx-auto lg:mx-0">
+            <p class="mb-8 max-w-xl text-lg leading-relaxed text-black/70 mx-auto lg:mx-0">
               Meet four wavelengths, AI-powered control and -10°C sapphire cooling.
               The Mr. Falcon Beauty difference across both sides of Istanbul.
             </p>
             <div class="flex flex-wrap items-center justify-center gap-4 lg:justify-start">
-              <a href="#contacts" class="rounded-full bg-ink px-8 py-3 font-semibold text-white transition-colors hover:bg-champagne">
+              <a href="#contacts" class="rounded-full bg-navy px-8 py-3 font-semibold text-white transition-colors hover:bg-primary">
                 Free Analysis & Booking
               </a>
-              <a href="#falcon-4-pro" class="rounded-full border-2 border-ink/15 px-8 py-3 font-semibold text-ink transition-colors hover:border-champagne hover:text-champagne">
+              <a href="#falcon-4-pro" class="rounded-full border-2 border-black/15 px-8 py-3 font-semibold text-black transition-colors hover:border-primary hover:text-primary">
                 Explore Technology
               </a>
             </div>
-            <p class="mt-6 flex items-center justify-center gap-4 text-sm text-ink/60 lg:justify-start">
+            <p class="mt-6 flex items-center justify-center gap-4 text-sm text-black/60 lg:justify-start">
               <span class="flex items-center gap-1.5">✓ Free first consultation</span>
               <span class="flex items-center gap-1.5">✓ Skin & hair analysis included</span>
               <span class="flex items-center gap-1.5">✓ Test shot performed</span>
@@ -162,7 +162,7 @@ const whyUsItems = [
           </div>
 
           <div class="relative">
-            <div class="relative rounded-3xl overflow-hidden shadow-2xl bg-ink/5">
+            <div class="relative rounded-3xl overflow-hidden shadow-2xl bg-navy/5">
               <img
                 src="/hero/falcon-hero.webp"
                 alt="Falcon 4 Pro device and Mr. Falcon Beauty clinic environment"
@@ -170,9 +170,9 @@ const whyUsItems = [
                 loading="eager"
               />
               <div class="absolute -bottom-6 -left-6 md:-bottom-8 md:-left-8 p-6 md:p-8 bg-white rounded-2xl shadow-xl max-w-xs">
-                <div class="flex items-center gap-3 text-champagne text-2xl font-display font-bold">⭐ 4.9</div>
-                <p class="mt-1 text-sm text-ink/70">On Google with 200+ reviews</p>
-                <div class="mt-4 flex items-center gap-4 text-xs text-ink/60">
+                <div class="flex items-center gap-3 text-primary text-2xl font-display font-bold">⭐ 4.9</div>
+                <p class="mt-1 text-sm text-black/70">On Google with 200+ reviews</p>
+                <div class="mt-4 flex items-center gap-4 text-xs text-black/60">
                   <span class="flex items-center gap-1">✓ FDA/CE Approved</span>
                   <span class="flex items-center gap-1">✓ 95%+ Success</span>
                   <span class="flex items-center gap-1">✓ Warranty Package</span>
@@ -189,24 +189,24 @@ const whyUsItems = [
       <div class="mx-auto max-w-6xl px-5">
         <div class="grid lg:grid-cols-2 gap-12 items-center">
           <div>
-            <p class="mb-2 text-sm font-semibold uppercase tracking-[0.2em] text-champagne">Mr. Falcon Beauty</p>
-            <h2 class="mb-6 font-display text-3xl font-semibold text-ink md:text-4xl lg:text-5xl">
+            <p class="mb-2 text-sm font-semibold uppercase tracking-[0.2em] text-primary">Mr. Falcon Beauty</p>
+            <h2 class="mb-6 font-display text-3xl font-semibold text-black md:text-4xl lg:text-5xl">
               Istanbul's Trusted Laser Hair Removal Center
             </h2>
-            <p class="mb-6 text-lg leading-relaxed text-ink/70">
+            <p class="mb-6 text-lg leading-relaxed text-black/70">
               Since 2014, we have served over 15,000 clients in our Şişli/Mecidiyeköy and Halkalı/Küçükçekmece branches with 
               safe, effective and hygienic laser hair removal. With Falcon 4 Pro technology, we removed pain, side effects 
               and uncertainty by setting the new standard: "AI controlled, 4 wavelengths, cooled".
             </p>
             <div class="grid grid-cols-2 gap-6 mb-8">
               {aboutMetrics.map((m) => (
-                <div class="p-4 rounded-2xl bg-beige/50">
-                  <div class="font-display text-3xl font-bold text-ink md:text-4xl">{m.value}</div>
-                  <div class="text-sm text-ink/60">{m.label}</div>
+                <div class="p-4 rounded-2xl bg-sky-light/50">
+                  <div class="font-display text-3xl font-bold text-black md:text-4xl">{m.value}</div>
+                  <div class="text-sm text-black/60">{m.label}</div>
                 </div>
               ))}
             </div>
-            <a href="#falcon-4-pro" class="inline-flex items-center gap-2 font-semibold text-champagne hover:text-ink transition-colors">
+            <a href="#falcon-4-pro" class="inline-flex items-center gap-2 font-semibold text-primary hover:text-black transition-colors">
               Falcon 4 Pro Technology →
             </a>
           </div>
@@ -218,9 +218,9 @@ const whyUsItems = [
               class="w-full aspect-[4/3] object-cover"
             />
             <div class="absolute bottom-0 left-0 right-0 p-6 md:p-8 bg-gradient-to-t from-ink/90 to-transparent text-white">
-              <div class="flex items-center gap-3 text-champagne text-xl font-display font-bold">🏆</div>
+              <div class="flex items-center gap-3 text-primary text-xl font-display font-bold">🏆</div>
               <p class="mt-2 text-lg font-medium">First Falcon 4 Pro Clinic in Turkey</p>
-              <p class="mt-1 text-sm text-mist/80">Leading in Istanbul since 2024</p>
+              <p class="mt-1 text-sm text-white/80">Leading in Istanbul since 2024</p>
             </div>
           </div>
         </div>
@@ -228,11 +228,11 @@ const whyUsItems = [
     </section>
 
     <!-- LASER HAIR REMOVAL INFO -->
-    <section id="lazer-epilasyon" class="py-20 bg-beige/30">
+    <section id="lazer-epilasyon" class="py-20 bg-sky-light/30">
       <div class="mx-auto max-w-6xl px-5">
         <div class="text-center max-w-3xl mx-auto mb-16">
-          <p class="mb-2 text-sm font-semibold uppercase tracking-[0.2em] text-champagne">What is Laser Hair Removal?</p>
-          <h2 class="font-display text-3xl font-semibold text-ink md:text-4xl">
+          <p class="mb-2 text-sm font-semibold uppercase tracking-[0.2em] text-primary">What is Laser Hair Removal?</p>
+          <h2 class="font-display text-3xl font-semibold text-black md:text-4xl">
             The Science of Permanent Hair Reduction & Falcon 4 Pro
           </h2>
         </div>
@@ -246,10 +246,10 @@ const whyUsItems = [
             { icon: "❄️", title: "Sapphire Contact Cooling", desc: "-10°C tip temperature protects epidermis, targets dermis. Pain signals are blocked." },
             { icon: "🛡️", title: "Safety Protocols", desc: "Test shot mandatory, goggles mandatory, UVC disinfection, single-use cap, skin cooling gel." },
           ].map((item) => (
-            <div class="rounded-2xl bg-white p-6 shadow-sm border border-ink/5 hover:shadow-md transition-shadow">
+            <div class="rounded-2xl bg-white p-6 shadow-sm border border-black/5 hover:shadow-md transition-shadow">
               <div class="text-3xl">{item.icon}</div>
-              <h3 class="mt-4 font-display text-xl font-semibold text-ink">{item.title}</h3>
-              <p class="mt-2 text-sm leading-relaxed text-ink/70">{item.desc}</p>
+              <h3 class="mt-4 font-display text-xl font-semibold text-black">{item.title}</h3>
+              <p class="mt-2 text-sm leading-relaxed text-black/70">{item.desc}</p>
             </div>
           ))}
         </div>
@@ -260,14 +260,14 @@ const whyUsItems = [
     <section id="video-gallery" class="py-20 bg-white">
       <div class="mx-auto max-w-6xl px-5">
         <div class="text-center max-w-3xl mx-auto mb-12">
-          <p class="mb-2 text-sm font-semibold uppercase tracking-[0.2em] text-champagne">Real Clients</p>
-          <h2 class="font-display text-3xl font-semibold text-ink md:text-4xl">Real Results with Video Testimonials</h2>
+          <p class="mb-2 text-sm font-semibold uppercase tracking-[0.2em] text-primary">Real Clients</p>
+          <h2 class="font-display text-3xl font-semibold text-black md:text-4xl">Real Results with Video Testimonials</h2>
         </div>
 
         <div class="grid md:grid-cols-3 gap-8">
           {videoTestimonials.map((v) => (
-            <article class="rounded-2xl overflow-hidden border border-ink/10 bg-white">
-              <div class="relative aspect-video bg-ink/5">
+            <article class="rounded-2xl overflow-hidden border border-black/10 bg-white">
+              <div class="relative aspect-video bg-navy/5">
                 <video
                   class="w-full h-full object-cover"
                   poster={v.poster}
@@ -278,17 +278,17 @@ const whyUsItems = [
                 >
                   <source src={v.video} type="video/mp4" />
                 </video>
-                <div class="absolute inset-0 flex items-center justify-center bg-ink/30">
-                  <button class="w-16 h-16 rounded-full bg-white/90 flex items-center justify-center text-ink hover:bg-white transition-colors" aria-label={`Watch: ${v.name}`}>
+                <div class="absolute inset-0 flex items-center justify-center bg-navy/30">
+                  <button class="w-16 h-16 rounded-full bg-white/90 flex items-center justify-center text-black hover:bg-white transition-colors" aria-label={`Watch: ${v.name}`}>
                     ▶
                   </button>
                 </div>
               </div>
               <div class="p-5">
-                <blockquote class="text-ink/80 text-sm leading-relaxed">"{v.quote}"</blockquote>
+                <blockquote class="text-black/80 text-sm leading-relaxed">"{v.quote}"</blockquote>
                 <footer class="mt-3 flex items-center justify-between text-sm">
-                  <cite class="font-semibold text-champagne">{v.name}</cite>
-                  <span class="text-ink/50">{v.branch}</span>
+                  <cite class="font-semibold text-primary">{v.name}</cite>
+                  <span class="text-black/50">{v.branch}</span>
                 </footer>
               </div>
             </article>
@@ -298,10 +298,10 @@ const whyUsItems = [
     </section>
 
     <!-- FALCON 4 PRO TECH DEEP DIVE -->
-    <section id="falcon-4-pro" class="py-20 bg-ink text-white">
+    <section id="falcon-4-pro" class="py-20 bg-navy text-white">
       <div class="mx-auto max-w-6xl px-5">
         <div class="text-center max-w-3xl mx-auto mb-12">
-          <p class="mb-2 text-sm font-semibold uppercase tracking-[0.2em] text-champagne">Technology</p>
+          <p class="mb-2 text-sm font-semibold uppercase tracking-[0.2em] text-primary">Technology</p>
           <h2 class="font-display text-3xl font-semibold md:text-4xl">Falcon 4 Pro — 4 Wavelengths, 1 Device</h2>
         </div>
 
@@ -315,11 +315,11 @@ const whyUsItems = [
           </div>
 
           <div>
-            <h3 class="font-display text-2xl font-semibold text-champagne mb-6">Technical Details</h3>
+            <h3 class="font-display text-2xl font-semibold text-primary mb-6">Technical Details</h3>
             <dl class="space-y-4 text-sm">
               {falconTechSpecs.map((s) => (
                 <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between py-3 border-b border-white/10">
-                  <dt class="font-medium text-mist">{s.label}</dt>
+                  <dt class="font-medium text-white">{s.label}</dt>
                   <dd class="mt-1 sm:mt-0 text-white font-mono text-xs sm:text-sm">{s.value}</dd>
                 </div>
               ))}
@@ -334,8 +334,8 @@ const whyUsItems = [
               ].map((w) => (
                 <div class="rounded-xl bg-white/5 p-4">
                   <div class="text-2xl">{w.icon}</div>
-                  <h4 class="mt-2 font-semibold text-champagne">{w.title}</h4>
-                  <p class="mt-1 text-xs text-mist/80">{w.desc}</p>
+                  <h4 class="mt-2 font-semibold text-primary">{w.title}</h4>
+                  <p class="mt-1 text-xs text-white/80">{w.desc}</p>
                 </div>
               ))}
             </div>
@@ -348,16 +348,16 @@ const whyUsItems = [
     <section id="why-us" class="py-20 bg-white">
       <div class="mx-auto max-w-6xl px-5">
         <div class="text-center max-w-3xl mx-auto mb-16">
-          <p class="mb-2 text-sm font-semibold uppercase tracking-[0.2em] text-champagne">Why Us?</p>
-          <h2 class="font-display text-3xl font-semibold text-ink md:text-4xl">Mr. Falcon Beauty Difference</h2>
+          <p class="mb-2 text-sm font-semibold uppercase tracking-[0.2em] text-primary">Why Us?</p>
+          <h2 class="font-display text-3xl font-semibold text-black md:text-4xl">Mr. Falcon Beauty Difference</h2>
         </div>
 
         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {whyUsItems.map((item) => (
-            <article class="rounded-2xl p-6 border border-ink/5 hover:border-champagne/30 hover:shadow-lg transition-all">
+            <article class="rounded-2xl p-6 border border-black/5 hover:border-primary/30 hover:shadow-lg transition-all">
               <div class="text-3xl">{item.icon}</div>
-              <h3 class="mt-4 font-display text-xl font-semibold text-ink">{item.title}</h3>
-              <p class="mt-2 text-sm leading-relaxed text-ink/70">{item.desc}</p>
+              <h3 class="mt-4 font-display text-xl font-semibold text-black">{item.title}</h3>
+              <p class="mt-2 text-sm leading-relaxed text-black/70">{item.desc}</p>
             </article>
           ))}
         </div>
@@ -365,22 +365,22 @@ const whyUsItems = [
     </section>
 
     <!-- 7-STEP PROCESS -->
-    <section id="process" class="py-20 bg-beige/30">
+    <section id="process" class="py-20 bg-sky-light/30">
       <div class="mx-auto max-w-6xl px-5">
         <div class="text-center max-w-3xl mx-auto mb-16">
-          <p class="mb-2 text-sm font-semibold uppercase tracking-[0.2em] text-champagne">Process</p>
-          <h2 class="font-display text-3xl font-semibold text-ink md:text-4xl">Safe Laser Hair Removal in 7 Steps</h2>
+          <p class="mb-2 text-sm font-semibold uppercase tracking-[0.2em] text-primary">Process</p>
+          <h2 class="font-display text-3xl font-semibold text-black md:text-4xl">Safe Laser Hair Removal in 7 Steps</h2>
         </div>
 
         <div class="space-y-6">
           {processSteps.map((step) => (
-            <article class="relative flex gap-6 p-6 bg-white rounded-2xl border border-ink/5 hover:shadow-md transition-shadow">
-              <div class="flex-shrink-0 w-12 h-12 rounded-full bg-champagne/10 flex items-center justify-center font-display text-xl font-bold text-champagne">
+            <article class="relative flex gap-6 p-6 bg-white rounded-2xl border border-black/5 hover:shadow-md transition-shadow">
+              <div class="flex-shrink-0 w-12 h-12 rounded-full bg-sky-light/50 flex items-center justify-center font-display text-xl font-bold text-primary">
                 {step.step}
               </div>
               <div class="flex-1 pt-1">
-                <h3 class="font-display text-lg font-semibold text-ink">{step.title}</h3>
-                <p class="mt-1 text-sm text-ink/70">{step.desc}</p>
+                <h3 class="font-display text-lg font-semibold text-black">{step.title}</h3>
+                <p class="mt-1 text-sm text-black/70">{step.desc}</p>
               </div>
             </article>
           ))}
@@ -392,9 +392,9 @@ const whyUsItems = [
             { value: "15-20min", label: "Body Session Time" },
             { value: "95%+", label: "Hair Reduction Target" },
           ].map((m) => (
-            <div class="rounded-2xl bg-white p-6 border border-ink/5">
-              <div class="font-display text-3xl font-bold text-ink md:text-4xl">{m.value}</div>
-              <div class="text-sm text-ink/60">{m.label}</div>
+            <div class="rounded-2xl bg-white p-6 border border-black/5">
+              <div class="font-display text-3xl font-bold text-black md:text-4xl">{m.value}</div>
+              <div class="text-sm text-black/60">{m.label}</div>
             </div>
           ))}
         </div>
@@ -405,29 +405,29 @@ const whyUsItems = [
     <section id="comments" class="py-20 bg-white">
       <div class="mx-auto max-w-6xl px-5">
         <div class="text-center max-w-3xl mx-auto mb-12">
-          <p class="mb-2 text-sm font-semibold uppercase tracking-[0.2em] text-champagne">Client Reviews</p>
-          <h2 class="font-display text-3xl font-semibold text-ink md:text-4xl">9 Verified Google Reviews</h2>
-          <p class="mt-3 text-sm text-ink/60">All reviews are from verified real clients via Google Maps.</p>
+          <p class="mb-2 text-sm font-semibold uppercase tracking-[0.2em] text-primary">Client Reviews</p>
+          <h2 class="font-display text-3xl font-semibold text-black md:text-4xl">9 Verified Google Reviews</h2>
+          <p class="mt-3 text-sm text-black/60">All reviews are from verified real clients via Google Maps.</p>
         </div>
 
         <div class="grid md:grid-cols-3 gap-6">
           {reviews.map((r) => (
-            <article class="rounded-2xl border border-ink/10 p-6 hover:shadow-lg transition-shadow">
-              <div class="flex gap-1 text-champagne text-sm mb-3">
+            <article class="rounded-2xl border border-black/10 p-6 hover:shadow-lg transition-shadow">
+              <div class="flex gap-1 text-primary text-sm mb-3">
                 {[...Array(r.rating)].map((_, i) => <span key={i}>★</span>)}
-                <span class="ml-2 text-xs text-ink/50">({r.source})</span>
+                <span class="ml-2 text-xs text-black/50">({r.source})</span>
               </div>
-              <blockquote class="text-ink/80 text-sm leading-relaxed mb-4">"{r.quote}"</blockquote>
+              <blockquote class="text-black/80 text-sm leading-relaxed mb-4">"{r.quote}"</blockquote>
               <footer class="flex items-center justify-between text-xs">
-                <cite class="font-semibold text-champagne">{r.name}</cite>
-                <span class="text-ink/50">{r.branch}</span>
+                <cite class="font-semibold text-primary">{r.name}</cite>
+                <span class="text-black/50">{r.branch}</span>
               </footer>
             </article>
           ))}
         </div>
 
         <div class="mt-10 text-center">
-          <a href="/en/reviews" class="font-semibold text-ink underline-offset-4 hover:text-champagne hover:underline">
+          <a href="/en/reviews" class="font-semibold text-black underline-offset-4 hover:text-primary hover:underline">
             See all Google reviews (200+) →
           </a>
         </div>
@@ -435,11 +435,11 @@ const whyUsItems = [
     </section>
 
     <!-- GALLERY / CLINIC PHOTOS -->
-    <section id="gallery" class="py-20 bg-beige/30">
+    <section id="gallery" class="py-20 bg-sky-light/30">
       <div class="mx-auto max-w-6xl px-5">
         <div class="text-center max-w-3xl mx-auto mb-12">
-          <p class="mb-2 text-sm font-semibold uppercase tracking-[0.2em] text-champagne">Our Clinics</p>
-          <h2 class="font-display text-3xl font-semibold text-ink md:text-4xl">Mr. Falcon Beauty Branches</h2>
+          <p class="mb-2 text-sm font-semibold uppercase tracking-[0.2em] text-primary">Our Clinics</p>
+          <h2 class="font-display text-3xl font-semibold text-black md:text-4xl">Mr. Falcon Beauty Branches</h2>
         </div>
 
         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -454,7 +454,7 @@ const whyUsItems = [
               <div class="absolute inset-0 bg-gradient-to-t from-ink/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
                 <div>
                   <p class="text-white font-semibold">{img.alt}</p>
-                  <p class="text-xs text-champagne">{img.location}</p>
+                  <p class="text-xs text-primary">{img.location}</p>
                 </div>
               </div>
             </article>
@@ -469,8 +469,8 @@ const whyUsItems = [
             <div class="grid lg:grid-cols-2 gap-12">
               <!-- Form -->
               <div>
-                <h2 class="font-display text-3xl font-semibold text-ink mb-2">Free Skin & Hair Analysis</h2>
-                <p class="text-ink/70 mb-8">Fill the form, we'll get back to you within 15 minutes. Specify branch preference.</p>
+                <h2 class="font-display text-3xl font-semibold text-black mb-2">Free Skin & Hair Analysis</h2>
+                <p class="text-black/70 mb-8">Fill the form, we'll get back to you within 15 minutes. Specify branch preference.</p>
 
                 <form id="appointment-form" class="space-y-5" action="/api/contact" method="POST">
                   <input type="hidden" name="form_type" value="appointment" />
@@ -478,23 +478,23 @@ const whyUsItems = [
 
                   <div class="grid sm:grid-cols-2 gap-5">
                     <div>
-                      <label for="name" class="block text-sm font-medium text-ink/70 mb-1">Full Name *</label>
-                      <input type="text" id="name" name="name" required class="w-full rounded-lg border border-ink/15 bg-white px-4 py-3 text-sm text-ink focus:border-champagne focus:outline-none focus:ring-1 focus:ring-champagne" placeholder="Your Full Name" />
+                      <label for="name" class="block text-sm font-medium text-black/70 mb-1">Full Name *</label>
+                      <input type="text" id="name" name="name" required class="w-full rounded-lg border border-black/15 bg-white px-4 py-3 text-sm text-black focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary" placeholder="Your Full Name" />
                     </div>
                     <div>
-                      <label for="phone" class="block text-sm font-medium text-ink/70 mb-1">Phone *</label>
-                      <input type="tel" id="phone" name="phone" required class="w-full rounded-lg border border-ink/15 bg-white px-4 py-3 text-sm text-ink focus:border-champagne focus:outline-none focus:ring-1 focus:ring-champagne" placeholder="+90 5XX XXX XX XX" />
+                      <label for="phone" class="block text-sm font-medium text-black/70 mb-1">Phone *</label>
+                      <input type="tel" id="phone" name="phone" required class="w-full rounded-lg border border-black/15 bg-white px-4 py-3 text-sm text-black focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary" placeholder="+90 5XX XXX XX XX" />
                     </div>
                   </div>
 
                   <div>
-                    <label for="email" class="block text-sm font-medium text-ink/70 mb-1">Email</label>
-                    <input type="email" id="email" name="email" class="w-full rounded-lg border border-ink/15 bg-white px-4 py-3 text-sm text-ink focus:border-champagne focus:outline-none focus:ring-1 focus:ring-champagne" placeholder="example@email.com" />
+                    <label for="email" class="block text-sm font-medium text-black/70 mb-1">Email</label>
+                    <input type="email" id="email" name="email" class="w-full rounded-lg border border-black/15 bg-white px-4 py-3 text-sm text-black focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary" placeholder="example@email.com" />
                   </div>
 
                   <div>
-                    <label for="clinic" class="block text-sm font-medium text-ink/70 mb-1">Branch Preference *</label>
-                    <select id="clinic" name="clinic" required class="w-full rounded-lg border border-ink/15 bg-white px-4 py-3 text-sm text-ink focus:border-champagne focus:outline-none focus:ring-1 focus:ring-champagne">
+                    <label for="clinic" class="block text-sm font-medium text-black/70 mb-1">Branch Preference *</label>
+                    <select id="clinic" name="clinic" required class="w-full rounded-lg border border-black/15 bg-white px-4 py-3 text-sm text-black focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary">
                       <option value="">Choose Branch</option>
                       <option value="sisli">🏥 Şişli / Mecidiyeköy — Mecidiyeköy Mah. Büyükdere Cad. No:123</option>
                       <option value="halkali">🏥 Halkalı / Küçükçekmece — Halkalı Merkez Mah. İstiklal Cad. No:45</option>
@@ -502,8 +502,8 @@ const whyUsItems = [
                   </div>
 
                   <div>
-                    <label for="concern" class="block text-sm font-medium text-ink/70 mb-1">Area of Interest</label>
-                    <select id="concern" name="concern" class="w-full rounded-lg border border-ink/15 bg-white px-4 py-3 text-sm text-ink focus:border-champagne focus:outline-none focus:ring-1 focus:ring-champagne">
+                    <label for="concern" class="block text-sm font-medium text-black/70 mb-1">Area of Interest</label>
+                    <select id="concern" name="concern" class="w-full rounded-lg border border-black/15 bg-white px-4 py-3 text-sm text-black focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary">
                       <option value="">Select</option>
                       <option value="full-body">Full Body</option>
                       <option value="face-neck">Face & Neck</option>
@@ -517,16 +517,16 @@ const whyUsItems = [
                   </div>
 
                   <div>
-                    <label for="message" class="block text-sm font-medium text-ink/70 mb-1">Note / Message</label>
-                    <textarea id="message" name="message" rows="3" class="w-full rounded-lg border border-ink/15 bg-white px-4 py-3 text-sm text-ink focus:border-champagne focus:outline-none focus:ring-1 focus:ring-champagne" placeholder="Special conditions, hormone therapy, previous laser history etc."></textarea>
+                    <label for="message" class="block text-sm font-medium text-black/70 mb-1">Note / Message</label>
+                    <textarea id="message" name="message" rows="3" class="w-full rounded-lg border border-black/15 bg-white px-4 py-3 text-sm text-black focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary" placeholder="Special conditions, hormone therapy, previous laser history etc."></textarea>
                   </div>
 
-                  <div class="flex items-start gap-2 text-sm text-ink/60">
-                    <input type="checkbox" id="kvkk" name="kvkk" required class="mt-1 w-4 h-4 rounded border-ink/30 text-champagne focus:ring-champagne" />
+                  <div class="flex items-start gap-2 text-sm text-black/60">
+                    <input type="checkbox" id="kvkk" name="kvkk" required class="mt-1 w-4 h-4 rounded border-black/30 text-primary focus:ring-primary" />
                     <label for="kvkk">I have read and agree to the privacy policy. My data can be processed for booking.</label>
                   </div>
 
-                  <button type="submit" class="w-full sm:w-auto rounded-full bg-ink px-8 py-3 font-semibold text-white transition-colors hover:bg-champagne">
+                  <button type="submit" class="w-full sm:w-auto rounded-full bg-navy px-8 py-3 font-semibold text-white transition-colors hover:bg-primary">
                     Request Free Analysis & Book
                   </button>
 
@@ -536,7 +536,7 @@ const whyUsItems = [
 
               <!-- Clinic Info & Map -->
               <div class="space-y-8">
-                <div class="rounded-2xl overflow-hidden aspect-[4/3] bg-ink/5">
+                <div class="rounded-2xl overflow-hidden aspect-[4/3] bg-navy/5">
                   <iframe
                     src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3008.65!2d28.79!3d41.05!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14caa5df9db6a8eb%3A0xb895e35088c1b864!2sMr.%20Falcon%20Beauty%20Halkal%C4%B1!5e0!3m2!1str!2str!4v1781863289752"
                     class="w-full h-full border-0"
@@ -549,19 +549,19 @@ const whyUsItems = [
 
                 <div class="grid sm:grid-cols-2 gap-6">
                   {clinics.map((c) => (
-                    <article class="rounded-2xl bg-beige/30 p-6 border border-ink/5">
-                      <h3 class="font-display text-lg font-semibold text-ink flex items-center gap-2">
+                    <article class="rounded-2xl bg-sky-light/30 p-6 border border-black/5">
+                      <h3 class="font-display text-lg font-semibold text-black flex items-center gap-2">
                         🏥 {c.name}
                       </h3>
-                      <address class="mt-3 not-italic text-sm text-ink/70 leading-relaxed">
+                      <address class="mt-3 not-italic text-sm text-black/70 leading-relaxed">
                         {c.address}<br />
                         Istanbul
                       </address>
                       <div class="mt-4 space-y-2 text-sm">
-                        <a href={`tel:+905063717071`} class="flex items-center gap-2 text-ink/70 hover:text-champagne transition-colors">
+                        <a href={`tel:+905063717071`} class="flex items-center gap-2 text-black/70 hover:text-primary transition-colors">
                           <span>📞</span> +90 506 371 70 71
                         </a>
-                        <a href={`https://api.whatsapp.com/send?phone=905063717071&text=Hello, I am reaching out from your website, can I get information about Falcon Laser Hair Removal?`} target="_blank" rel="noopener" class="flex items-center gap-2 text-ink/70 hover:text-champagne transition-colors">
+                        <a href={`https://api.whatsapp.com/send?phone=905063717071&text=Hello, I am reaching out from your website, can I get information about Falcon Laser Hair Removal?`} target="_blank" rel="noopener" class="flex items-center gap-2 text-black/70 hover:text-primary transition-colors">
                           <span>💬</span> WhatsApp
                         </a>
                       </div>
@@ -574,10 +574,10 @@ const whyUsItems = [
         </section>
 
         <!-- FAQ ACCORDION -->
-        <section id="faq" class="py-20 bg-ink text-white">
+        <section id="faq" class="py-20 bg-navy text-white">
           <div class="mx-auto max-w-3xl px-5">
             <div class="text-center mb-12">
-              <p class="mb-2 text-sm font-semibold uppercase tracking-[0.2em] text-champagne">FAQ</p>
+              <p class="mb-2 text-sm font-semibold uppercase tracking-[0.2em] text-primary">FAQ</p>
               <h2 class="font-display text-3xl font-semibold md:text-4xl">FAQ — Everything About Laser Hair Removal</h2>
             </div>
 
@@ -586,38 +586,38 @@ const whyUsItems = [
                 <div class="border border-white/10 rounded-xl overflow-hidden" key={i}>
                   <button
                     type="button"
-                    class="w-full px-6 py-4 flex items-center justify-between text-left font-medium focus:outline-none focus:ring-2 focus:ring-champagne focus:ring-offset-2 focus:ring-offset-ink"
+                    class="w-full px-6 py-4 flex items-center justify-between text-left font-medium focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-navy"
                     aria-expanded="false"
                     aria-controls={`faq-answer-${i}`}
                   >
                     <span>{faq.q}</span>
-                    <svg class="w-5 h-5 text-champagne flex-shrink-0 ml-4 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                    <svg class="w-5 h-5 text-primary flex-shrink-0 ml-4 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
                   </button>
-                  <dd id={`faq-answer-${i}`} class="hidden px-6 pb-4 text-sm text-mist/90 leading-relaxed">{faq.a}</dd>
+                  <dd id={`faq-answer-${i}`} class="hidden px-6 pb-4 text-sm text-white/90 leading-relaxed">{faq.a}</dd>
                 </div>
               ))}
             </dl>
 
-            <p class="mt-10 text-center text-sm text-mist/60">
-              Question not listed? <a href="https://wa.me/905525939890" target="_blank" rel="noopener" class="text-champagne hover:underline">Ask on WhatsApp</a>
+            <p class="mt-10 text-center text-sm text-white/60">
+              Question not listed? <a href="https://wa.me/905525939890" target="_blank" rel="noopener" class="text-primary hover:underline">Ask on WhatsApp</a>
             </p>
           </div>
         </section>
 
         <!-- FINAL CTA -->
-        <section class="py-20 bg-champagne/10">
+        <section class="py-20 bg-sky-light/50">
           <div class="mx-auto max-w-3xl px-5 text-center">
-            <h2 class="font-display text-3xl font-semibold text-ink md:text-4xl">Ready?</h2>
-            <p class="mt-4 text-lg text-ink/70">Free first consultation and skin analysis. Pick a branch, book your appointment.</p>
+            <h2 class="font-display text-3xl font-semibold text-black md:text-4xl">Ready?</h2>
+            <p class="mt-4 text-lg text-black/70">Free first consultation and skin analysis. Pick a branch, book your appointment.</p>
             <div class="mt-8 flex flex-wrap items-center justify-center gap-4">
-              <a href="#contacts" class="rounded-full bg-ink px-8 py-3 font-semibold text-white transition-colors hover:bg-champagne">
+              <a href="#contacts" class="rounded-full bg-navy px-8 py-3 font-semibold text-white transition-colors hover:bg-primary">
                 Book Appointment
               </a>
-              <a href="https://wa.me/905525939890" target="_blank" rel="noopener" class="rounded-full border-2 border-ink/15 px-8 py-3 font-semibold text-ink transition-colors hover:border-champagne hover:text-champagne">
+              <a href="https://wa.me/905525939890" target="_blank" rel="noopener" class="rounded-full border-2 border-black/15 px-8 py-3 font-semibold text-black transition-colors hover:border-primary hover:text-primary">
                 Text on WhatsApp
               </a>
             </div>
-            <p class="mt-6 text-sm text-ink/60">📍 Şişli/Mecidiyeköy · 📍 Halkalı/Küçükçekmece · 📞 +90 506 371 70 71</p>
+            <p class="mt-6 text-sm text-black/60">📍 Şişli/Mecidiyeköy · 📍 Halkalı/Küçükçekmece · 📞 +90 506 371 70 71</p>
           </div>
         </section>
       </main>
