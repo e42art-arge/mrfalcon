@@ -41,9 +41,11 @@ const langLabel = en ? "TR" : "EN";
     <div class="flex items-center gap-3">
       <a
         href={langHref}
-        class="rounded-full border border-black/20 px-3 py-1 text-xs font-semibold tracking-wide text-black/70 transition-colors hover:border-primary hover:text-primary"
-        title={en ? "Türkçe" : "English"}
+        class="flex items-center gap-1.5 rounded-full border border-black/20 px-3 py-1 text-xs font-medium tracking-wide text-black/70 transition-colors hover:border-primary hover:text-primary"
+        title={en ? "Türkçe'ye geç" : "Switch to English"}
+        aria-label={en ? "Dili değiştir: Türkçe" : "Change language: English"}
       >
+        <span aria-hidden="true">🌐</span>
         {langLabel}
       </a>
       <a
@@ -81,8 +83,11 @@ const langLabel = en ? "TR" : "EN";
       <div class="mt-4 flex items-center gap-3 pt-4">
         <a
           href={langHref}
-          class="rounded-full border border-black/20 px-3 py-1.5 text-xs font-semibold tracking-wide text-black/70 transition-colors hover:border-primary hover:text-primary"
+          class="flex items-center gap-1.5 rounded-full border border-black/20 px-3 py-1.5 text-xs font-medium tracking-wide text-black/70 transition-colors hover:border-primary hover:text-primary"
+          title={en ? "Türkçe'ye geç" : "Switch to English"}
+          aria-label={en ? "Dili değiştir: Türkçe" : "Change language: English"}
         >
+          <span aria-hidden="true">🌐</span>
           {langLabel}
         </a>
         <a

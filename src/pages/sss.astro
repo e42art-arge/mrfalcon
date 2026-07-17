@@ -56,18 +56,50 @@ faqs.sort((a, b) => (a.data.order || 0) - (b.data.order || 0));
   <Footer locale="tr" />
 </BaseLayout>
 <script>
+  import { gsap } from 'gsap';
+
   const buttons = document.querySelectorAll('.accordion-btn');
   buttons.forEach((btn) => {
     btn.addEventListener('click', () => {
       const ddId = btn.getAttribute('aria-controls');
       const dd = document.getElementById(ddId);
       const expanded = btn.getAttribute('aria-expanded') === 'true';
-      btn.setAttribute('aria-expanded', !expanded);
-      dd.classList.toggle('hidden');
-      dd.hidden = !expanded;
       const chevron = btn.querySelector('.accordion-chevron');
-      if (chevron) {
-          chevron.classList.toggle('rotate-180', !expanded);
+
+      if (expanded) {
+        // Close
+        gsap.to(dd, {
+          height: 0,
+          opacity: 0,
+          duration: 0.3,
+          ease: 'power2.inOut',
+          onComplete: () => {
+            dd.classList.add('hidden');
+            dd.hidden = true;
+            dd.style.height = '';
+            dd.style.opacity = '';
+          }
+        });
+        btn.setAttribute('aria-expanded', 'false');
+        if (chevron) chevron.classList.remove('rotate-180');
+      } else {
+        // Open
+        dd.classList.remove('hidden');
+        dd.hidden = false;
+        dd.style.height = '0px';
+        dd.style.opacity = '0';
+        dd.style.overflow = 'hidden';
+        gsap.to(dd, {
+          height: 'auto',
+          opacity: 1,
+          duration: 0.3,
+          ease: 'power2.out',
+          onComplete: () => {
+            dd.style.overflow = '';
+          }
+        });
+        btn.setAttribute('aria-expanded', 'true');
+        if (chevron) chevron.classList.add('rotate-180');
       }
     });
   });

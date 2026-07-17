@@ -1,0 +1,48 @@
+---
+interface Props {
+  id?: string;
+  class?: string;
+  bg?: 'white' | 'sky-light' | 'navy' | 'gradient' | 'transparent';
+  padding?: 'sm' | 'md' | 'lg';
+  animate?: boolean;
+}
+
+const {
+  id,
+  class: className = '',
+  bg = 'white',
+  padding = 'md',
+  animate = true,
+  ...rest
+} = Astro.props;
+
+const bgClasses = {
+  white: 'bg-white',
+  'sky-light': 'bg-sky-light/30',
+  navy: 'bg-navy text-white',
+  gradient: 'bg-gradient-to-b from-sky-light/30 to-white',
+  transparent: '',
+};
+
+const paddingClasses = {
+  sm: 'py-section-sm md:py-section-md',
+  md: 'py-section-md md:py-section-lg',
+  lg: 'py-section-lg md:py-[7rem]',
+};
+---
+
+<section
+  id={id}
+  class:list={[bgClasses[bg], paddingClasses[padding], className]}
+  {...rest}
+>
+  <div class="mx-auto max-w-6xl px-5">
+    {animate ? (
+      <div data-animate="fadeUp">
+        <slot />
+      </div>
+    ) : (
+      <slot />
+    )}
+  </div>
+</section>

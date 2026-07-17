@@ -114,7 +114,7 @@ const whyUsItems = [
     <!-- HERO / SLIDER -->
     <section id="slider" class="relative overflow-hidden bg-gradient-to-b from-beige to-white">
       <!-- Trust Signals Bar -->
-      <div class="border-b border-black/5 bg-white/50 backdrop-blur sticky top-16 z-40">
+      <div class="border-b border-black/5 bg-white/50 backdrop-blur sticky top-16 z-40" data-animate="trust-bar">
         <div class="mx-auto flex max-w-6xl items-center justify-between gap-4 px-5 py-3 text-sm font-medium text-black/70 md:py-2">
           <div class="flex flex-wrap items-center gap-6 text-center md:justify-start">
             {trustSignals.map((t) => (
@@ -135,7 +135,7 @@ const whyUsItems = [
 
       <div class="mx-auto max-w-6xl px-5 py-24 md:py-32">
         <div class="grid lg:grid-cols-2 gap-12 items-center">
-          <div class="text-center lg:text-left">
+          <div class="text-center lg:text-left" data-animate="hero-text">
             <p class="mb-4 text-sm font-semibold uppercase tracking-[0.2em] text-primary">Falcon 4 Pro Technology</p>
             <h1 class="mb-6 font-display text-4xl font-semibold leading-tight text-black md:text-6xl lg:text-7xl">
               Ağrısız Lazer Epilasyonun
@@ -147,7 +147,7 @@ const whyUsItems = [
               İstanbul'un iki yakasında Mr. Falcon Beauty farkı.
             </p>
             <div class="flex flex-wrap items-center justify-center gap-4 lg:justify-start">
-              <a href="#contacts" class="rounded-full bg-navy px-8 py-3 font-semibold text-white transition-colors hover:bg-primary">
+              <a href="#contacts" class="rounded-full bg-navy px-8 py-3 font-semibold text-white transition-colors hover:bg-primary" data-hover="scale">
                 Ücretsiz Analiz & Randevu
               </a>
               <a href="#falcon-4-pro" class="rounded-full border-2 border-black/15 px-8 py-3 font-semibold text-black transition-colors hover:border-primary hover:text-primary">
@@ -168,6 +168,7 @@ const whyUsItems = [
                 alt="Falcon 4 Pro cihazı ve Mr. Falcon Beauty klinik ortamı"
                 class="w-full aspect-[4/3] object-cover"
                 loading="eager"
+                data-animate="hero-image"
               />
               <div class="absolute -bottom-6 -left-6 md:-bottom-8 md:-left-8 p-6 md:p-8 bg-white rounded-2xl shadow-xl max-w-xs">
                 <div class="flex items-center gap-3 text-primary text-2xl font-display font-bold">⭐ 4.9</div>
@@ -180,6 +181,20 @@ const whyUsItems = [
               </div>
             </div>
           </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- BASINDA BIZ / PRESS -->
+    <section class="py-12 bg-white border-y border-black/5">
+      <div class="mx-auto max-w-6xl px-5">
+        <p class="text-center text-sm font-medium uppercase tracking-wider text-black/40 mb-8">Basında Mr. Falcon Beauty</p>
+        <div class="flex flex-wrap items-center justify-center gap-8 md:gap-12 opacity-60">
+          <span class="text-lg font-semibold text-black/70">Hürriyet</span>
+          <span class="text-lg font-semibold text-black/70">Sabah</span>
+          <span class="text-lg font-semibold text-black/70">Milliyet</span>
+          <span class="text-lg font-semibold text-black/70">Posta</span>
+          <span class="text-lg font-semibold text-black/70">Fanatik</span>
         </div>
       </div>
     </section>
@@ -256,8 +271,8 @@ const whyUsItems = [
       </div>
     </section>
 
-    <!-- VIDEO GALLERY / TESTIMONIALS → replaced with static testimonial cards -->
-    <section id="video-gallery" class="py-20 bg-white">
+    <!-- MÜŞTERİ YORUMLARI -->
+    <section id="testimonials" class="py-20 bg-white">
       <div class="mx-auto max-w-6xl px-5">
         <div class="text-center max-w-3xl mx-auto mb-12">
           <p class="mb-2 text-sm font-semibold uppercase tracking-[0.2em] text-primary">Gerçek Müşteriler</p>
@@ -266,10 +281,10 @@ const whyUsItems = [
 
         <div class="grid md:grid-cols-3 gap-8">
           {videoTestimonials.map((v) => (
-            <article class="rounded-2xl border border-black/10 bg-white p-6 shadow-sm hover:shadow-md transition-shadow">
+            <article class="rounded-2xl border border-black/10 bg-white p-6 shadow-surface hover:shadow-card-hover transition-all duration-normal" data-hover="lift">
               <div class="flex gap-1 text-primary text-sm mb-3">★★★★★</div>
-              <blockquote class="text-black/80 text-sm leading-relaxed">"{v.quote}"</blockquote>
-              <footer class="mt-4 flex items-center justify-between text-sm">
+              <blockquote class="text-black/80 text-body-sm leading-relaxed">"{v.quote}"</blockquote>
+              <footer class="mt-4 flex items-center justify-between text-caption">
                 <cite class="font-semibold text-primary">{v.name}</cite>
                 <span class="text-black/50">{v.branch}</span>
               </footer>
