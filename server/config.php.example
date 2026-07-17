@@ -1,0 +1,8 @@
+<?php
+// Deployed at runtime by GitHub Actions — do NOT commit real values.
+// This file is generated on the server; keep config.php git-ignored.
+define("REDMAIL_API_KEY", getenv("REDMAIL_API_KEY") ?: "");
+define("REDMAIL_TO", getenv("REDMAIL_TO") ?: "info@mrfalconbeauty.com");
+define("REDMAIL_FROM", getenv("REDMAIL_FROM") ?: "noreply@mrfalconbeauty.com");
+define("REDMAIL_CC", getenv("REDMAIL_CC") ?: "");
+define("REDMAIL_URL", "https://redmail.e42art.com//api/v1/send");

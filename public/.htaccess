@@ -1,0 +1,19 @@
+# Mr. Falcon Beauty — OpenLiteSpeed rewrite rules
+# Routes /api/contact POST to the PHP handler; serves static build otherwise.
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /
+
+    # Contact API: only POST to /api/contact goes to contact.php
+    RewriteCond %{REQUEST_METHOD} POST
+    RewriteRule ^api/contact$ server/contact.php [L]
+
+    # Static assets & existing files pass through untouched
+    RewriteCond %{REQUEST_FILENAME} -f [OR]
+    RewriteCond %{REQUEST_FILENAME} -d
+    RewriteRule ^ - [L]
+
+    # SPA-style fallback to index.html for client routes
+    RewriteRule ^ index.html [L]
+</IfModule>

@@ -46,9 +46,9 @@ jobs:
           # contact server script also needed on host
           SSHPASS="$DEPLOY_SSH_PASSWORD" sshpass -e rsync -az \
             -e "ssh -p $DEPLOY_PORT -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null" \
-            ./server/ "$DEPLOY_USER@$DEPLOY_HOST:$DEPLOY_PATH/../server/"
+            ./server/ "$DEPLOY_USER@$DEPLOY_HOST:$DEPLOY_PATH/server/"
 
-      - name: Restart contact server on VPS
+      - name: Configure contact handler on VPS (PHP + OpenLiteSpeed)
         env:
           DEPLOY_HOST: ${{ secrets.DEPLOY_HOST }}
           DEPLOY_USER: ${{ secrets.DEPLOY_USER }}
@@ -57,25 +57,22 @@ jobs:
           REDMAIL_API_KEY: ${{ secrets.REDMAIL_API_KEY }}
           REDMAIL_TO: ${{ secrets.REDMAIL_TO }}
           REDMAIL_FROM: ${{ secrets.REDMAIL_FROM }}
+          REDMAIL_CC: ${{ secrets.REDMAIL_CC }}
         run: |
           SSHPASS="$DEPLOY_SSH_PASSWORD" sshpass -e ssh -p "$DEPLOY_PORT" \
             -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null \
             "$DEPLOY_USER@$DEPLOY_HOST" \
-            'bash -s' <<'REMOTE'
+            'bash -s' <<REMOTE
             set -e
             cd ${{ secrets.DEPLOY_PATH }}
-            # ensure contact server runs (pm2 if available, else nohup)
-            if command -v pm2 >/dev/null 2>&1; then
-              pm2 restart contact 2>/dev/null || \
-              REDMAIL_API_KEY="${{ secrets.REDMAIL_API_KEY }}" \
-              REDMAIL_TO="${{ secrets.REDMAIL_TO }}" \
-              REDMAIL_FROM="${{ secrets.REDMAIL_FROM }}" \
-              pm2 start server/contact.mjs --name contact
-            else
-              pkill -f "server/contact.mjs" || true
-              REDMAIL_API_KEY="${{ secrets.REDMAIL_API_KEY }}" \
-              REDMAIL_TO="${{ secrets.REDMAIL_TO }}" \
-              REDMAIL_FROM="${{ secrets.REDMAIL_FROM }}" \
-              nohup node server/contact.mjs > /tmp/contact.log 2>&1 &
-            fi
+            # Write config.php with secrets (git-ignored, server-only)
+            cat > server/config.php <<'PHP'
+            <?php
+            define("REDMAIL_API_KEY", "${{ secrets.REDMAIL_API_KEY }}");
+            define("REDMAIL_TO", "${{ secrets.REDMAIL_TO }}");
+            define("REDMAIL_FROM", "${{ secrets.REDMAIL_FROM }}");
+            define("REDMAIL_CC", "${{ secrets.REDMAIL_CC }}");
+            define("REDMAIL_URL", "https://redmail.e42art.com//api/v1/send");
+            PHP
+            echo "config.php written: $(wc -l < server/config.php) lines"
           REMOTE
