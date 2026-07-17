@@ -32,13 +32,13 @@ const { videos, sectionId = "video-gallery", class: className = "" } = Astro.pro
           <a
             href={video.videoUrl}
             data-fancybox="videos"
-            class="relative block aspect-video overflow-hidden"
+            class="relative block overflow-hidden bg-gray-100"
             aria-label={`İzle: ${video.title}`}
           >
             <img
               src={video.thumbnail}
               alt={video.title}
-              class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+              class="w-full object-contain transition-transform duration-500 group-hover:scale-105"
               data-hover="zoom"
               loading="lazy"
             />
