@@ -575,7 +575,7 @@ const whyUsItems = [
                     <span>{faq.q}</span>
                     <svg class="w-5 h-5 text-primary flex-shrink-0 ml-4 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
                   </button>
-                  <dd id={`faq-answer-${i}`} class="hidden px-6 pb-4 text-sm text-white/90 leading-relaxed">{faq.a}</dd>
+                  <dd id={`faq-answer-${i}`} class="hidden px-6 pb-4 text-sm text-white/90 leading-relaxed" hidden>{faq.a}</dd>
                 </div>
               ))}
             </dl>
@@ -613,6 +613,7 @@ const whyUsItems = [
             const dd = btn.nextElementSibling;
             const isOpen = !dd.hidden;
             dd.hidden = isOpen;
+            dd.classList.toggle('hidden', isOpen);
             btn.setAttribute('aria-expanded', !isOpen);
             btn.querySelector('svg')?.classList.toggle('rotate-180', !isOpen);
           });
