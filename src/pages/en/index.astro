@@ -3,6 +3,7 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import Header from "../../components/Header.astro";
 import Footer from "../../components/Footer.astro";
 import VideoGallery from "../../components/VideoGallery.astro";
+import PressSlider from "../../components/PressSlider.astro";
 
 const trustSignals = [
   { icon: "🏆", text: "15,000+" },
@@ -90,6 +91,14 @@ const falconTechSpecs = [
   { label: "Pulse Duration", value: "5-400 ms (optimized for fine/thick hair)" },
   { label: "Hygiene", value: "UVC LED disinfection + single-use handpiece cap" },
   { label: "Screen", value: "15.6\" touch, AI skin analysis integrated" },
+];
+
+const pressVideos = [
+  { id: 18, thumbnail: "/images/shorts/shorts18.jpg", videoUrl: "/videos/shorts/shorts18.mp4", channel: "Beyaz TV" },
+  { id: 21, thumbnail: "/images/shorts/shorts21.jpg", videoUrl: "/videos/shorts/shorts21.mp4", channel: "CNN Türk" },
+  { id: 22, thumbnail: "/images/shorts/shorts22.jpg", videoUrl: "/videos/shorts/shorts22.mp4", channel: "TLC" },
+  { id: 23, thumbnail: "/images/shorts/shorts23.jpg", videoUrl: "/videos/shorts/shorts23.mp4", channel: "TLC" },
+  { id: 24, thumbnail: "/images/shorts/shorts24.jpg", videoUrl: "/videos/shorts/shorts24.mp4", channel: "CNN Türk" },
 ];
 
 // Video Gallery Data (from LP site)
@@ -305,6 +314,9 @@ const whyUsItems = [
 
     <!-- SATISFACTION VIDEOS (Client Videos) -->
     <VideoGallery videos={satisfactionVideos} sectionId="satisfaction-videos" class="bg-sky-light/30" />
+
+    <!-- PRESS (News Videos Slider) -->
+    <PressSlider videos={pressVideos} locale="en" />
 
     <!-- VIDEO GALLERY (FAQ Videos) -->
     <VideoGallery videos={faqVideos} sectionId="video-gallery" />

@@ -3,6 +3,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import VideoGallery from "../components/VideoGallery.astro";
+import PressSlider from "../components/PressSlider.astro";
 
 const trustSignals = [
   { icon: "🏆", text: "15.000+" },
@@ -102,6 +103,14 @@ const faqVideos = [
   { id: 10, thumbnail: "/images/shorts/shorts10.jpg", videoUrl: "/videos/shorts/shorts10.mp4", title: "Sıkça Sorulan Sorular", description: "Falcon 4 Pro & Lazer Epilasyon", category: "faq" },
   { id: 11, thumbnail: "/images/shorts/shorts11.jpg", videoUrl: "/videos/shorts/shorts11.mp4", title: "Sıkça Sorulan Sorular", description: "Falcon 4 Pro & Lazer Epilasyon", category: "faq" },
   { id: 12, thumbnail: "/images/shorts/shorts12.jpg", videoUrl: "/videos/shorts/shorts12.mp4", title: "Sıkça Sorulan Sorular", description: "Falcon 4 Pro & Lazer Epilasyon", category: "faq" },
+];
+
+const pressVideos = [
+  { id: 18, thumbnail: "/images/shorts/shorts18.jpg", videoUrl: "/videos/shorts/shorts18.mp4", channel: "Beyaz TV" },
+  { id: 21, thumbnail: "/images/shorts/shorts21.jpg", videoUrl: "/videos/shorts/shorts21.mp4", channel: "CNN Türk" },
+  { id: 22, thumbnail: "/images/shorts/shorts22.jpg", videoUrl: "/videos/shorts/shorts22.mp4", channel: "TLC" },
+  { id: 23, thumbnail: "/images/shorts/shorts23.jpg", videoUrl: "/videos/shorts/shorts23.mp4", channel: "TLC" },
+  { id: 24, thumbnail: "/images/shorts/shorts24.jpg", videoUrl: "/videos/shorts/shorts24.mp4", channel: "CNN Türk" },
 ];
 
 const falconTechSpecs = [
@@ -320,6 +329,9 @@ const whyUsItems = [
 
     <!-- MEMNUNİYET VİDEOLARI (Danışan Videoları) -->
     <VideoGallery videos={satisfactionVideos} sectionId="satisfaction-videos" class="bg-sky-light/30" />
+
+    <!-- BASINDA HABERLER (Press Videos Slider) -->
+    <PressSlider videos={pressVideos} locale="tr" />
 
     <!-- VİDEO GALERİ (SSS Videoları) -->
     <VideoGallery videos={faqVideos} sectionId="video-gallery" />
