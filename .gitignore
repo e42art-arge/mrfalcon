@@ -16,5 +16,6 @@ node_modules/
 
 # server-only secrets (written by deploy, never committed)
 server/config.php
-# deprecated Node handler (superseded by contact.php)
+# deprecated handlers (superseded by public/api/contact.php)
 server/contact.mjs.deprecated
+server/contact.php.deprecated

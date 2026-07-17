@@ -1,0 +1,1 @@
+Tüm hatırlaman gerekeni MEMORY.md ye kayıt et.

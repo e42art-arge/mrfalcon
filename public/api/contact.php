@@ -1,9 +1,10 @@
 <?php
 // Mr. Falcon Beauty — contact form handler (OpenLiteSpeed compatible)
-// RedMail API key + recipients injected at deploy time into config.php
-// (config.php is git-ignored and written by the GitHub Actions deploy step).
+// Physical endpoint at /api/contact (no rewrite needed).
+// RedMail API key + recipients injected at deploy time into
+// ../server/config.php (document-root OUTSIDE, web-inaccessible).
 
-require_once __DIR__ . "/config.php";
+require_once dirname(__DIR__, 2) . "/server/config.php";
 
 function send_json(int $status, array $body): void {
     http_response_code($status);
