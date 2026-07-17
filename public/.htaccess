@@ -1,5 +1,5 @@
 # Mr. Falcon Beauty — OpenLiteSpeed rules
-# /api/contact is a physical PHP file (public/api/contact.php), no rewrite needed.
+# Form posts directly to /api/contact.php; no extension-less rewrite needed.
 # This file only handles SPA-style fallback for client routes.
 
 <IfModule mod_rewrite.c>
@@ -14,8 +14,3 @@
     # SPA-style fallback to index.html for unknown client routes
     RewriteRule ^ index.html [L]
 </IfModule>
-
-# Deny direct web access to server-side config (defense in depth)
-<Files "config.php">
-    Require all denied
-</Files>

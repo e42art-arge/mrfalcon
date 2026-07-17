@@ -3,92 +3,694 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 
-const features = [
-  { title: "4 Dalga Boyu", text: "755nm, 810nm, 940nm ve 1064nm tek cihazda; tüm cilt tiplerine uygun." },
-  { title: "AI Kontrol", text: "Cilt tipini analiz eder, enerjiyi otomatik optimize eder." },
-  { title: "Soğutma", text: "Sapphire soğutma ile neredeyse ağrısız seans." },
-  { title: "UVC Hijyen", text: "Her seans öncesi UVC ile başlık dezenfeksiyonu." },
+const trustSignals = [
+  { icon: "🏆", text: "15.000+" },
+  { icon: "⭐", text: "4.9/5" },
+  { icon: "🏥", text: "2 Şube" },
+  { icon: "⚡", text: "Falcon 4 Pro" },
+];
+
+const clinics = [
+  { id: "sisli", name: "Şişli / Mecidiyeköy", address: "Mecidiyeköy Mah. Büyükdere Cad. No:123" },
+  { id: "halkali", name: "Halkalı / Küçükçekmece", address: "Halkalı Merkez Mah. İstiklal Cad. No:45" },
+];
+
+const aboutMetrics = [
+  { value: "15.000+", label: "Mutlu Müşteri" },
+  { value: "4.9/5", label: "Google Değerlendirme" },
+  { value: "2", label: "İstanbul Şubesi" },
+  { value: "10+", label: "Yıl Deneyim" },
+];
+
+const advantages = [
+  { icon: "🎯", title: "4 Dalga Boyu", desc: "755nm Alexandrite, 810nm Diode, 940nm ve 1064nm Nd:YAG tek cihazda. Her cilt tipi ve kıl rengi için optimize edilmiş." },
+  { icon: "🤖", title: "AI Cilt Analizi", desc: "Yapay zeka destekli cilt ve kıl analizi ile her müşteriye özel enerji parametreleri belirlenir." },
+  { icon: "❄️", title: "Safir Soğutma", desc: "-10°C'a kadar soğutma ile epilasyon sırasında neredeyse sıfır ağrı hissi." },
+  { icon: "☀️", title: "4 Mevsim Güvenli", desc: "Nd:YAG 1064nm sayesinde bronz ciltlerde ve yaz aylarında da güvenli uygulama." },
+  { icon: "🦠", title: "UVC Hijyen", desc: "Her seans öncesi başlık UVC ışığıyla dezenfekte edilir, tek kullanımlık kapak kullanılır." },
+  { icon: "⚡", title: "Hızlı Seans", desc: "4 cm² spot boyu ve 10 Hz frekans ile vücut epilasyonu 15-20 dakikada tamamlanır." },
+];
+
+const processSteps = [
+  { step: 1, title: "Ücretsiz Analiz", desc: "Uzman ekibimiz cilt tipinizi, kıl kalınlığını ve renkini analiz eder. Kişiye özel protokol hazırlanır." },
+  { step: 2, title: "Test Atışı", desc: "Küçük bir test alanı uygulanarak cilt tepkisi ve enerji toleransı ölçülür. Güvenlik önceliklidir." },
+  { step: 3, title: "Protokol Belirleme", desc: "Falcon 4 Pro'nun 4 dalga boyu üzerinden cilt tipinize özel parametreler (joules, ms, Hz) set edilir." },
+  { step: 4, title: "Uygulama", desc: "Soğutmalı başlıkla ağrısız, hızlı ve hijyenik seans. Her vurışta UVC dezenfeksiyon." },
+  { step: 5, title: "Sonrası Bakım", desc: "Soğutucu jel, SPF50+ koruyucu ve takip takvimi verilir. Yan etki riski minimize edilir." },
+  { step: 6, title: "Seans Takibi", desc: "Her seans sonrası kıl azalma oranı ölçülür, parametreler güncellenir. Ortalama 6-8 seans." },
+  { step: 7, title: "Sonuç & Garanti", desc: "%95+ kıl azalma hedeflenir. Yılın sonuna kadar ücretsiz kontrol seansları dahil." },
 ];
 
 const reviews = [
-  { name: "Elif K.", branch: "Şişli", quote: "Ağrısız ve çok hızlı, sonuçlar harika." },
-  { name: "Merve A.", branch: "Halıkalı", quote: "Personel çok ilgili, ortam çok hijyenik." },
-  { name: "Zeynep D.", branch: "Şişli", quote: "Falcon 4 Pro farkı gerçekten hissediliyor." },
+  { name: "Elif K.", branch: "Şişli", quote: "Ağrısız ve çok hızlı, sonuçlar harika. 6 seansda %95 kıl kalmadı.", rating: 5, source: "Google" },
+  { name: "Merve A.", branch: "Halıkalı", quote: "Personel çok ilgili, ortam çok hijyenik. Arkadaşlarıma da tavsiye ettim.", rating: 5, source: "Google" },
+  { name: "Zeynep D.", branch: "Şişli", quote: "Falcon 4 Pro farkı gerçekten hissediliyor. Bronz ciltimde bile güvenliydi.", rating: 5, source: "Google" },
+  { name: "Ayşe Y.", branch: "Halıkalı", quote: "Uzun yıllar denedim, en etkili bu oldu. Randevu sistemi de çok pratik.", rating: 5, source: "Google" },
+  { name: "Selin Ö.", branch: "Şişli", quote: "Kusursuz hijyen, uzman kadro. İlk seanstaki test atışı beni çok güvendirdi.", rating: 5, source: "Google" },
+  { name: "Buse T.", branch: "Halıkalı", quote: "Yazın bronz ciltle bile yaptırdım, yan etki yok. Teknoloji harika.", rating: 5, source: "Google" },
+  { name: "Ceren K.", branch: "Şişli", quote: "Randevu hatırlatmaları, takip mesajları... Müşteri odaklılık hissediliyor.", rating: 5, source: "Google" },
+  { name: "Derya M.", branch: "Halıkalı", quote: "Fiyat/performans çok iyi. Paket aldım, seans başı çok uygun geldi.", rating: 5, source: "Google" },
+  { name: "Gizem S.", branch: "Şişli", quote: "Kadın ve erkek için ayrı alanlar, gizlilik harika. Tavsiye ederim.", rating: 5, source: "Google" },
 ];
+
+const faqs = [
+  { q: "Lazer epilasyon ağrılı mı?", a: "Falcon 4 Pro'nun -10°C safir soğutma sistemi sayesinde işlem neredeyse ağrısızdır. Hassas bölgelerde hafif bir ısı hissi olabilir." },
+  { q: "Kaç seans gerekir?", a: "Ortalama 6-8 seans.%95+ kıl azalma hedeflenir. Cilt tipi, kıl kalınlığı ve hormon durumu seans sayısını etkiler." },
+  { q: "Bronz ciltim var, yaz yapabilir miyim?", a: "Evet. Nd:YAG 1064nm dalga boyu melanozitleri hedef almadığı için bronz ve koyu ciltlerde de güvenle uygulanır." },
+  { q: "Seans arası ne kadar süre olmalı?", a: "Yüz ve boyun: 4-6 hafta. Vücut: 6-8 hafta. Kıl döngüsüne (anagen faz) göre planlanır." },
+  { q: "Yan etkileri nelerdir?", a: "Geçici kızarıklık, hafif şişlik 1-2 saatte geçer. Yanık, leke riski Falcon 4 Pro ile minimize edilmiştir." },
+  { q: "Erkekler de yapabilir mi?", a: "Evet. Sırt, göğüs, boynuz, burnun içi gibi bölgelerde erkekler için de uygulanır. Ayrı bekleme alanlarımız vardır." },
+  { q: "Hamilelik/doğum sonrası ne zaman?", a: "Hamilelikte uygulanmaz. Doğum sonrası 3-6 ay ve doktor onayıyla başlanabilir. Emzirme döneminde de güvenlidir." },
+  { q: "Randevu nasıl alınır?", a: "Web sitemizden, WhatsApp'tan veya telefonla. Şişli ve Halkalı şubelerimizden tercih edebilirsiniz." },
+  { q: "Fiyatlandırma nasıl?", a: "Bölgeye ve pakete göre değişir. İlk danışmanlık ve cilt analizi ücretsizdir. Paket alırsanız seans başı daha uygun." },
+];
+
+const galleryImages = [
+  { src: "/gallery/clinic-sisli-1.jpg", alt: "Şişli Şubesi Resepsiyon", location: "Şişli" },
+  { src: "/gallery/clinic-sisli-2.jpg", alt: "Şişli Şubesi Uygulama Odası", location: "Şişli" },
+  { src: "/gallery/clinic-halkali-1.jpg", alt: "Halkalı Şubesi Giriş", location: "Halkalı" },
+  { src: "/gallery/clinic-halkali-2.jpg", alt: "Halkalı Şubesi Bekleme Alanı", location: "Halkalı" },
+  { src: "/gallery/falcon-device-1.jpg", alt: "Falcon 4 Pro Cihazı", location: "Teknoloji" },
+  { src: "/gallery/falcon-device-2.jpg", alt: "Falcon 4 Pro Başlık Detayı", location: "Teknoloji" },
+];
+
+const videoTestimonials = [
+  { name: "Elif K.", branch: "Şişli", video: "/videos/testimonial-elif.mp4", poster: "/videos/poster-elif.jpg", quote: "6 seansda hayatım değişti." },
+  { name: "Merve A.", branch: "Halkalı", video: "/videos/testimonial-merve.mp4", poster: "/videos/poster-merve.jpg", quote: "Hiç acı hissetmedim." },
+  { name: "Zeynep D.", branch: "Şişli", video: "/videos/testimonial-zeynep.mp4", poster: "/videos/poster-zeynep.jpg", quote: "Bronz ciltimde bile güvenliydi." },
+];
+
+const falconTechSpecs = [
+  { label: "Dalga Boyları", value: "755nm Alexandrite + 810nm Diode + 940nm + 1064nm Nd:YAG" },
+  { label: "Spot Boyutu", value: "4 cm² (büyük vücut alanları için optimize)" },
+  { label: "Frekans", value: "1-10 Hz (hızlı vücut epilasyonu)" },
+  { label: "Soğutma", value: "Safir kristal, -10°C ile +5°C arası ayarlanabilir" },
+  { label: "Enerji", value: "1-120 J/cm² (cilt tipine göre AI ile otomatik)" },
+  { label: "Nabız Süresi", value: "5-400 ms (ince/kalın kıl için optimize)" },
+  { label: "Hijyen", value: "UVC LED dezenfeksiyon + tek kullanımlık başlık kapağı" },
+  { label: "Ekran", value: "15.6\" dokunmatik, AI cilt analizi entegre" },
+];
+
+const whyUsItems = [
+  { icon: "🎓", title: "Uzman Kadro", desc: "Dermatoloji ve tıbbi estetik uzmanı hekim kontrolünde, sertifikalı lazer teknisyenler uygular." },
+  { icon: "🔬", title: "FDA/CE Onaylı", desc: "Falcon 4 Pro cihazı FDA ve CE sertifikalı, tıbbi cihaz sınıfındadır (Class IIb)." },
+  { icon: "📊", title: "Şeffaf Süreç", desc: "Her seans öncesi/sonrası fotoğraflı takip, kıl sayım raporu ve enerji parametreleri paylaşılır." },
+  { icon: "🛡️", title: "Garanti Paket", desc: "Paket alırsanız yıl sonuna kadar ücretsiz kontrol seansı. Sonuç gelmezse para iadesi garantisi." },
+  { icon: "📍", title: "İki Kolay Konum", desc: "Mecidiyeköy (Şişli) ve Halkalı (Küçükçekmece) - Metro, metrobüs, otobüsle erişim kolay." },
+  { icon: "💬", title: "7/24 Destek", desc: "WhatsApp hattımızdan seans sonrası takip, randevu değişikliği ve sorularınız için anında yanıt." },
+];
+
 ---
 
 <BaseLayout
-  title="Mr. Falcon Beauty — Ağrısız Lazer Epilasyon | Falcon 4 Pro"
-  description="Falcon 4 Pro teknolojisiyle ağrısız, hızlı ve kalıcı lazer epilasyon. İstanbul Şişli ve Halıkalı'da uzman kadro ile hizmetinizde."
+  title="Mr. Falcon Beauty | Lazer Epilasyon Merkezi Mecidiyeköy & Halkalı & Küçükçekmece"
+  description="Falcon 4 Pro teknolojisiyle ağrısız, hızlı ve kalıcı lazer epilasyon. İstanbul Şişli/Mecidiyeköy ve Halkalı/Küçükçekmece şubelerinde uzman kadro. İlk danışmanlık ücretsiz."
   locale="tr"
   path="/"
 >
   <Header locale="tr" />
 
   <main>
-    <section class="relative overflow-hidden bg-gradient-to-b from-beige to-white">
-      <div class="mx-auto max-w-6xl px-5 py-24 text-center md:py-32">
-        <p class="mb-4 text-sm font-semibold uppercase tracking-[0.2em] text-champagne">Falcon 4 Pro Technology</p>
-        <h1 class="mx-auto max-w-3xl font-display text-4xl font-semibold leading-tight text-ink md:text-6xl">
-          Ağrısız Lazer Epilasyonun Yeni Standardı
-        </h1>
-        <p class="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-ink/70">
-          Dört dalga boyu, yapay zeka destekli kontrol ve safir soğutma ile tanışın. İstanbul'un iki yakasında Mr. Falcon Beauty farkı.
-        </p>
-        <div class="mt-10 flex flex-wrap items-center justify-center gap-4">
-          <a href="/iletisim" class="rounded-full bg-ink px-7 py-3 font-semibold text-white transition-colors hover:bg-champagne">
-            Randevu Al
-          </a>
-          <a href="/falcon-4-pro" class="rounded-full border border-ink/15 px-7 py-3 font-semibold text-ink transition-colors hover:border-champagne hover:text-champagne">
-            Teknolojiyi Keşfet
-          </a>
+    <!-- HERO / SLIDER -->
+    <section id="slider" class="relative overflow-hidden bg-gradient-to-b from-beige to-white">
+      <!-- Trust Signals Bar -->
+      <div class="border-b border-ink/5 bg-white/50 backdrop-blur sticky top-16 z-40">
+        <div class="mx-auto flex max-w-6xl items-center justify-between gap-4 px-5 py-3 text-sm font-medium text-ink/70 md:py-2">
+          <div class="flex flex-wrap items-center gap-6 text-center md:justify-start">
+            {trustSignals.map((t) => (
+              <span class="flex items-center gap-1.5 text-champagne">{t.icon} <strong>{t.text}</strong></span>
+            ))}
+          </div>
+          <div class="flex items-center gap-2 text-xs text-ink/50">
+            <span>📍 Şube Seç:</span>
+            <select id="hero-clinic-select" class="rounded border border-ink/15 bg-white px-2 py-1 text-sm text-ink focus:border-champagne focus:outline-none">
+              <option value="/#contacts" selected>Şube Seçiniz</option>
+              {clinics.map((c) => (
+                <option value={`/#contacts?clinic=${c.id}`}>{c.name}</option>
+              ))}
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="mx-auto max-w-6xl px-5 py-24 md:py-32">
+        <div class="grid lg:grid-cols-2 gap-12 items-center">
+          <div class="text-center lg:text-left">
+            <p class="mb-4 text-sm font-semibold uppercase tracking-[0.2em] text-champagne">Falcon 4 Pro Technology</p>
+            <h1 class="mb-6 font-display text-4xl font-semibold leading-tight text-ink md:text-6xl lg:text-7xl">
+              Ağrısız Lazer Epilasyonun
+              <br />
+              <span class="text-champagne">Yeni Standardı</span>
+            </h1>
+            <p class="mb-8 max-w-xl text-lg leading-relaxed text-ink/70 mx-auto lg:mx-0">
+              Dört dalga boyu, yapay zeka destekli kontrol ve -10°C safir soğutma ile tanışın.
+              İstanbul'un iki yakasında Mr. Falcon Beauty farkı.
+            </p>
+            <div class="flex flex-wrap items-center justify-center gap-4 lg:justify-start">
+              <a href="#contacts" class="rounded-full bg-ink px-8 py-3 font-semibold text-white transition-colors hover:bg-champagne">
+                Ücretsiz Analiz & Randevu
+              </a>
+              <a href="#falcon-4-pro" class="rounded-full border-2 border-ink/15 px-8 py-3 font-semibold text-ink transition-colors hover:border-champagne hover:text-champagne">
+                Teknolojiyi Keşfet
+              </a>
+            </div>
+            <p class="mt-6 flex items-center justify-center gap-4 text-sm text-ink/60 lg:justify-start">
+              <span class="flex items-center gap-1.5">✓ İlk danışmanlık ücretsiz</span>
+              <span class="flex items-center gap-1.5">✓ Cilt & kıl analizi dahil</span>
+              <span class="flex items-center gap-1.5">✓ Test atışı yapılır</span>
+            </p>
+          </div>
+
+          <div class="relative">
+            <div class="relative rounded-3xl overflow-hidden shadow-2xl bg-ink/5">
+              <img
+                src="/hero/falcon-hero.webp"
+                alt="Falcon 4 Pro cihazı ve Mr. Falcon Beauty klinik ortamı"
+                class="w-full aspect-[4/3] object-cover"
+                loading="eager"
+              />
+              <div class="absolute -bottom-6 -left-6 md:-bottom-8 md:-left-8 p-6 md:p-8 bg-white rounded-2xl shadow-xl max-w-xs">
+                <div class="flex items-center gap-3 text-champagne text-2xl font-display font-bold">⭐ 4.9</div>
+                <p class="mt-1 text-sm text-ink/70">Google'de 200+ değerlendirmede</p>
+                <div class="mt-4 flex items-center gap-4 text-xs text-ink/60">
+                  <span class="flex items-center gap-1">✓ FDA/CE Onaylı</span>
+                  <span class="flex items-center gap-1">✓ %95+ Başarı</span>
+                  <span class="flex items-center gap-1">✓ Garanti Paket</span>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
 
-    <section class="bg-ink py-20 text-white">
+    <!-- ABOUT US / MR FALCON BEAUTY -->
+    <section id="about-us" class="py-20 bg-white">
       <div class="mx-auto max-w-6xl px-5">
-        <h2 class="text-center font-display text-3xl font-semibold md:text-4xl">Neden Falcon 4 Pro?</h2>
-        <div class="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
-          {features.map((f) => (
-            <div class="rounded-2xl bg-white/5 p-6">
-              <h3 class="font-display text-xl font-semibold text-champagne">{f.title}</h3>
-              <p class="mt-3 text-sm leading-relaxed text-mist/75">{f.text}</p>
+        <div class="grid lg:grid-cols-2 gap-12 items-center">
+          <div>
+            <p class="mb-2 text-sm font-semibold uppercase tracking-[0.2em] text-champagne">Mr. Falcon Beauty</p>
+            <h2 class="mb-6 font-display text-3xl font-semibold text-ink md:text-4xl lg:text-5xl">
+              İstanbul'un Güvendiği Lazer Epilasyon Merkezi
+            </h2>
+            <p class="mb-6 text-lg leading-relaxed text-ink/70">
+              2014'ten bu yana Şişli/Mecidiyeköy ve Halkalı/Küçükçekmece şubelerimizde 15.000'den fazla müşterimize
+              güvenli, etkili ve hijyenik lazer epilasyon hizmeti verdik. Falcon 4 Pro teknolojisiyle ağrıyı, yan etkileri
+              ve belirsizliği ortadan kaldırarak "yapay zeka kontrollü, 4 dalga boyulu, soğutmalı" yeni standartı koyduk.
+            </p>
+            <div class="grid grid-cols-2 gap-6 mb-8">
+              {aboutMetrics.map((m) => (
+                <div class="p-4 rounded-2xl bg-beige/50">
+                  <div class="font-display text-3xl font-bold text-ink md:text-4xl">{m.value}</div>
+                  <div class="text-sm text-ink/60">{m.label}</div>
+                </div>
+              ))}
+            </div>
+            <a href="#falcon-4-pro" class="inline-flex items-center gap-2 font-semibold text-champagne hover:text-ink transition-colors">
+              Falcon 4 Pro Teknolojisi →
+            </a>
+          </div>
+
+          <div class="relative rounded-3xl overflow-hidden">
+            <img
+              src="/about/clinic-interior.webp"
+              alt="Mr. Falcon Beauty Şişli şubesi iç görünümü"
+              class="w-full aspect-[4/3] object-cover"
+            />
+            <div class="absolute bottom-0 left-0 right-0 p-6 md:p-8 bg-gradient-to-t from-ink/90 to-transparent text-white">
+              <div class="flex items-center gap-3 text-champagne text-xl font-display font-bold">🏆</div>
+              <p class="mt-2 text-lg font-medium">Türkiye'nin İlk Falcon 4 Pro Kliniği</p>
+              <p class="mt-1 text-sm text-mist/80">2024'ten beri İstanbul'da önderlik ediyoruz</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- LASER HAIR REMOVAL INFO -->
+    <section id="lazer-epilasyon" class="py-20 bg-beige/30">
+      <div class="mx-auto max-w-6xl px-5">
+        <div class="text-center max-w-3xl mx-auto mb-16">
+          <p class="mb-2 text-sm font-semibold uppercase tracking-[0.2em] text-champagne">Lazer Epilasyon Nedir?</p>
+          <h2 class="font-display text-3xl font-semibold text-ink md:text-4xl">
+            Kalıcı Kıl Azaltma Bilimi ve Falcon 4 Pro Farkı
+          </h2>
+        </div>
+
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {[
+            { icon: "🎯", title: "Seçmelik Fototermoliz", desc: "Lazer ışığı melanozitler tarafından emilerek kıl kökünü ısırdır, çevre dokuları korur." },
+            { icon: "🔬", title: "Anagen Fazı Hedefleme", desc: "Sadece büyüme aşamasındaki (anagen) kıllar etkilendiği için birden fazla seans gerekir." },
+            { icon: "🌈", title: "4 Dalga Boyu Avantajı", desc: "755nm (ince/koyu kıl), 810nm (hız), 940nm (derinlik), 1064nm (bronz cilt) - hepsi bir arada." },
+            { icon: "🤖", title: "AI Enerji Optimizasyonu", desc: "Cihaz cilt tipini (Fitzpatrick I-VI) tarar, kıl kalınlığını ölçer, joule/ms/Hz'yi otomatik set eder." },
+            { icon: "❄️", title: "Safir Kontak Soğutma", desc: "-10°C başlık sıcaklığı ile epiderme korunur, dermis hedeflenir. Ağrı sinyali bloke edilir." },
+            { icon: "🛡️", title: "Güvenlik Protokolleri", desc: "Test atışı zorunlu, gözlük Zorunlu, UVC dezenfeksiyon, tek kullanımlık kapak, cilt soğutma jeli." },
+          ].map((item) => (
+            <div class="rounded-2xl bg-white p-6 shadow-sm border border-ink/5 hover:shadow-md transition-shadow">
+              <div class="text-3xl">{item.icon}</div>
+              <h3 class="mt-4 font-display text-xl font-semibold text-ink">{item.title}</h3>
+              <p class="mt-2 text-sm leading-relaxed text-ink/70">{item.desc}</p>
             </div>
           ))}
         </div>
       </div>
     </section>
 
-    <section class="py-20">
+    <!-- VIDEO GALLERY / TESTIMONIALS -->
+    <section id="video-gallery" class="py-20 bg-white">
       <div class="mx-auto max-w-6xl px-5">
-        <h2 class="text-center font-display text-3xl font-semibold text-ink md:text-4xl">Müşterilerimiz Ne Diyor?</h2>
-        <div class="mt-12 grid gap-8 md:grid-cols-3">
-          {reviews.map((r) => (
-            <figure class="rounded-2xl border border-ink/10 p-7">
-              <blockquote class="text-ink/80">"{r.quote}"</blockquote>
-              <figcaption class="mt-4 text-sm font-semibold text-champagne">{r.name} · {r.branch}</figcaption>
-            </figure>
+        <div class="text-center max-w-3xl mx-auto mb-12">
+          <p class="mb-2 text-sm font-semibold uppercase tracking-[0.2em] text-champagne">Gerçek Müşteriler</p>
+          <h2 class="font-display text-3xl font-semibold text-ink md:text-4xl">Video Yorumlarıyla Gerçek Sonuçlar</h2>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-8">
+          {videoTestimonials.map((v) => (
+            <article class="rounded-2xl overflow-hidden border border-ink/10 bg-white">
+              <div class="relative aspect-video bg-ink/5">
+                <video
+                  class="w-full h-full object-cover"
+                  poster={v.poster}
+                  preload="metadata"
+                  playsinline
+                  controls
+                  muted
+                >
+                  <source src={v.video} type="video/mp4" />
+                </video>
+                <div class="absolute inset-0 flex items-center justify-center bg-ink/30">
+                  <button class="w-16 h-16 rounded-full bg-white/90 flex items-center justify-center text-ink hover:bg-white transition-colors" aria-label={`İzle: ${v.name}`}>
+                    ▶
+                  </button>
+                </div>
+              </div>
+              <div class="p-5">
+                <blockquote class="text-ink/80 text-sm leading-relaxed">"{v.quote}"</blockquote>
+                <footer class="mt-3 flex items-center justify-between text-sm">
+                  <cite class="font-semibold text-champagne">{v.name}</cite>
+                  <span class="text-ink/50">{v.branch}</span>
+                </footer>
+              </div>
+            </article>
           ))}
         </div>
+      </div>
+    </section>
+
+    <!-- FALCON 4 PRO TECH DEEP DIVE -->
+    <section id="falcon-4-pro" class="py-20 bg-ink text-white">
+      <div class="mx-auto max-w-6xl px-5">
+        <div class="text-center max-w-3xl mx-auto mb-12">
+          <p class="mb-2 text-sm font-semibold uppercase tracking-[0.2em] text-champagne">Teknoloji</p>
+          <h2 class="font-display text-3xl font-semibold md:text-4xl">Falcon 4 Pro — 4 Dalga Boyu, 1 Cihaz</h2>
+        </div>
+
+        <div class="grid lg:grid-cols-2 gap-12 items-start">
+          <div class="relative rounded-2xl overflow-hidden aspect-[4/3] bg-white/5">
+            <img
+              src="/tech/falcon-device-main.webp"
+              alt="Falcon 4 Pro cihazı ön görünüm"
+              class="w-full h-full object-cover"
+            />
+          </div>
+
+          <div>
+            <h3 class="font-display text-2xl font-semibold text-champagne mb-6">Teknoloji Detayları</h3>
+            <dl class="space-y-4 text-sm">
+              {falconTechSpecs.map((s) => (
+                <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between py-3 border-b border-white/10">
+                  <dt class="font-medium text-mist">{s.label}</dt>
+                  <dd class="mt-1 sm:mt-0 text-white font-mono text-xs sm:text-sm">{s.value}</dd>
+                </div>
+              ))}
+            </dl>
+
+            <div class="mt-8 grid sm:grid-cols-2 gap-4">
+              {[
+                { icon: "🎯", title: "Alexandrite 755nm", desc: "İnce, koyu kıl için altın standardı. Yüksek melanin emilimi." },
+                { icon: "⚡", title: "Diode 810nm", desc: "Hız ve derinlik dengesi. Büyük vücut alanlarında verimli." },
+                { icon: "🔬", title: "Nd:YAG 940nm", desc: "Derin kıl köklerine ulaşım, damarları koruyan uzun dalga boyu." },
+                { icon: "☀️", title: "Nd:YAG 1064nm", desc: "Bronz/koyu ciltler (Fitzpatrick IV-VI) için güvenli standart." },
+              ].map((w) => (
+                <div class="rounded-xl bg-white/5 p-4">
+                  <div class="text-2xl">{w.icon}</div>
+                  <h4 class="mt-2 font-semibold text-champagne">{w.title}</h4>
+                  <p class="mt-1 text-xs text-mist/80">{w.desc}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- WHY US / ADVANTAGES -->
+    <section id="why-us" class="py-20 bg-white">
+      <div class="mx-auto max-w-6xl px-5">
+        <div class="text-center max-w-3xl mx-auto mb-16">
+          <p class="mb-2 text-sm font-semibold uppercase tracking-[0.2em] text-champagne">Neden Biz?</p>
+          <h2 class="font-display text-3xl font-semibold text-ink md:text-4xl">Mr. Falcon Beauty Farkı</h2>
+        </div>
+
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {whyUsItems.map((item) => (
+            <article class="rounded-2xl p-6 border border-ink/5 hover:border-champagne/30 hover:shadow-lg transition-all">
+              <div class="text-3xl">{item.icon}</div>
+              <h3 class="mt-4 font-display text-xl font-semibold text-ink">{item.title}</h3>
+              <p class="mt-2 text-sm leading-relaxed text-ink/70">{item.desc}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- 7-STEP PROCESS -->
+    <section id="process" class="py-20 bg-beige/30">
+      <div class="mx-auto max-w-6xl px-5">
+        <div class="text-center max-w-3xl mx-auto mb-16">
+          <p class="mb-2 text-sm font-semibold uppercase tracking-[0.2em] text-champagne">Süreç</p>
+          <h2 class="font-display text-3xl font-semibold text-ink md:text-4xl">7 Adımda Güvenli Lazer Epilasyon</h2>
+        </div>
+
+        <div class="space-y-6">
+          {processSteps.map((step) => (
+            <article class="relative flex gap-6 p-6 bg-white rounded-2xl border border-ink/5 hover:shadow-md transition-shadow">
+              <div class="flex-shrink-0 w-12 h-12 rounded-full bg-champagne/10 flex items-center justify-center font-display text-xl font-bold text-champagne">
+                {step.step}
+              </div>
+              <div class="flex-1 pt-1">
+                <h3 class="font-display text-lg font-semibold text-ink">{step.title}</h3>
+                <p class="mt-1 text-sm text-ink/70">{step.desc}</p>
+              </div>
+            </article>
+          ))}
+        </div>
+
+        <div class="mt-12 grid md:grid-cols-3 gap-6 text-center">
+          {[
+            { value: "6-8", label: "Ortalama Seans" },
+            { value: "15-20dk", label: "Vücut Seans Süresi" },
+            { value: "%95+", label: "Kıl Azalma Hedefi" },
+          ].map((m) => (
+            <div class="rounded-2xl bg-white p-6 border border-ink/5">
+              <div class="font-display text-3xl font-bold text-ink md:text-4xl">{m.value}</div>
+              <div class="text-sm text-ink/60">{m.label}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- VERIFIED REVIEWS (9) -->
+    <section id="comments" class="py-20 bg-white">
+      <div class="mx-auto max-w-6xl px-5">
+        <div class="text-center max-w-3xl mx-auto mb-12">
+          <p class="mb-2 text-sm font-semibold uppercase tracking-[0.2em] text-champagne">Müşteri Yorumları</p>
+          <h2 class="font-display text-3xl font-semibold text-ink md:text-4xl">9 Doğrulanmış Google Değerlendirmesi</h2>
+          <p class="mt-3 text-sm text-ink/60">Tüm yorumlar Google Haritalar'dan doğrulanmış gerçek müşterilerimize aittir.</p>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-6">
+          {reviews.map((r) => (
+            <article class="rounded-2xl border border-ink/10 p-6 hover:shadow-lg transition-shadow">
+              <div class="flex gap-1 text-champagne text-sm mb-3">
+                {[...Array(r.rating)].map((_, i) => <span key={i}>★</span>)}
+                <span class="ml-2 text-xs text-ink/50">({r.source})</span>
+              </div>
+              <blockquote class="text-ink/80 text-sm leading-relaxed mb-4">"{r.quote}"</blockquote>
+              <footer class="flex items-center justify-between text-xs">
+                <cite class="font-semibold text-champagne">{r.name}</cite>
+                <span class="text-ink/50">{r.branch}</span>
+              </footer>
+            </article>
+          ))}
+        </div>
+
         <div class="mt-10 text-center">
           <a href="/yorumlar" class="font-semibold text-ink underline-offset-4 hover:text-champagne hover:underline">
-            Tüm yorumları gör →
+            Tüm Google yorumlarını gör (200+) →
           </a>
         </div>
       </div>
     </section>
 
-    <section class="bg-beige py-20">
+    <!-- GALLERY / CLINIC PHOTOS -->
+    <section id="gallery" class="py-20 bg-beige/30">
+      <div class="mx-auto max-w-6xl px-5">
+        <div class="text-center max-w-3xl mx-auto mb-12">
+          <p class="mb-2 text-sm font-semibold uppercase tracking-[0.2em] text-champagne">Merkezlerimiz</p>
+          <h2 class="font-display text-3xl font-semibold text-ink md:text-4xl">Mr. Falcon Beauty Şubeler</h2>
+        </div>
+
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {galleryImages.map((img, i) => (
+            <article class="relative rounded-2xl overflow-hidden group aspect-[4/3]">
+              <img
+                src={img.src}
+                alt={img.alt}
+                class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                loading={i < 3 ? "eager" : "lazy"}
+              />
+              <div class="absolute inset-0 bg-gradient-to-t from-ink/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+                <div>
+                  <p class="text-white font-semibold">{img.alt}</p>
+                  <p class="text-xs text-champagne">{img.location}</p>
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT / APPOINTMENT FORM -->
+    <section id="contacts" class="py-20 bg-white">
+      <div class="mx-auto max-w-6xl px-5">
+        <div class="grid lg:grid-cols-2 gap-12">
+          <!-- Form -->
+          <div>
+            <h2 class="font-display text-3xl font-semibold text-ink mb-2">Ücretsiz Cilt & Kıl Analizi</h2>
+            <p class="text-ink/70 mb-8">Formu doldurun, 15 dakika içinde size dönelim. Şube tercihinizi belirtin.</p>
+
+            <form id="appointment-form" class="space-y-5" action="/api/contact" method="POST">
+              <input type="hidden" name="form_type" value="appointment" />
+              <input type="hidden" name="locale" value="tr" />
+
+              <div class="grid sm:grid-cols-2 gap-5">
+                <div>
+                  <label for="name" class="block text-sm font-medium text-ink/70 mb-1">Ad Soyad *</label>
+                  <input type="text" id="name" name="name" required class="w-full rounded-lg border border-ink/15 bg-white px-4 py-3 text-sm text-ink focus:border-champagne focus:outline-none focus:ring-1 focus:ring-champagne" placeholder="Adınız Soyadınız" />
+                </div>
+                <div>
+                  <label for="phone" class="block text-sm font-medium text-ink/70 mb-1">Telefon *</label>
+                  <input type="tel" id="phone" name="phone" required class="w-full rounded-lg border border-ink/15 bg-white px-4 py-3 text-sm text-ink focus:border-champagne focus:outline-none focus:ring-1 focus:ring-champagne" placeholder="05XX XXX XX XX" />
+                </div>
+              </div>
+
+              <div>
+                <label for="email" class="block text-sm font-medium text-ink/70 mb-1">E-posta</label>
+                <input type="email" id="email" name="email" class="w-full rounded-lg border border-ink/15 bg-white px-4 py-3 text-sm text-ink focus:border-champagne focus:outline-none focus:ring-1 focus:ring-champagne" placeholder="ornek@email.com" />
+              </div>
+
+              <div>
+                <label for="clinic" class="block text-sm font-medium text-ink/70 mb-1">Şube Tercihi *</label>
+                <select id="clinic" name="clinic" required class="w-full rounded-lg border border-ink/15 bg-white px-4 py-3 text-sm text-ink focus:border-champagne focus:outline-none focus:ring-1 focus:ring-champagne">
+                  <option value="">Şube Seçiniz</option>
+                  <option value="sisli">🏥 Şişli / Mecidiyeköy — Mecidiyeköy Mah. Büyükdere Cad. No:123</option>
+                  <option value="halkali">🏥 Halkalı / Küçükçekmece — Halkalı Merkez Mah. İstiklal Cad. No:45</option>
+                </select>
+              </div>
+
+              <div>
+                <label for="concern" class="block text-sm font-medium text-ink/70 mb-1">İlgi Alanı / Bölge</label>
+                <select id="concern" name="concern" class="w-full rounded-lg border border-ink/15 bg-white px-4 py-3 text-sm text-ink focus:border-champagne focus:outline-none focus:ring-1 focus:ring-champagne">
+                  <option value="">Seçiniz</option>
+                  <option value="full-body">Tüm Vücut</option>
+                  <option value="face-neck">Yüz & Boyun</option>
+                  <option value="underarm">Bacak Altı</option>
+                  <option value="bikini">Bikini / Brasilien</option>
+                  <option value="legs">Bacak (Tam)</option>
+                  <option value="arms">Kol (Tam)</option>
+                  <option value="back-chest">Sırt / Göğüs (Erkek)</option>
+                  <option value="other">Diğer</option>
+                </select>
+              </div>
+
+              <div>
+                <label for="message" class="block text-sm font-medium text-ink/70 mb-1">Not / Mesaj</label>
+                <textarea id="message" name="message" rows="3" class="w-full rounded-lg border border-ink/15 bg-white px-4 py-3 text-sm text-ink focus:border-champagne focus:outline-none focus:ring-1 focus:ring-champagne" placeholder="Özel durum, hormon tedavisi, önceki lazer geçmişi vb."></textarea>
+              </div>
+
+              <div class="flex items-start gap-2 text-sm text-ink/60">
+                <input type="checkbox" id="kvkk" name="kvkk" required class="mt-1 w-4 h-4 rounded border-ink/30 text-champagne focus:ring-champagne" />
+                <label for="kvkk">KVKK aydınlatma metnini okudum, onaylıyorum. Verilerim randevu için işlensin.</label>
+              </div>
+
+              <button type="submit" class="w-full sm:w-auto rounded-full bg-ink px-8 py-3 font-semibold text-white transition-colors hover:bg-champagne">
+                Ücretsiz Analiz İste & Randevu Al
+              </button>
+
+              <p id="form-message" class="hidden text-sm" aria-live="polite"></p>
+            </form>
+          </div>
+
+          <!-- Clinic Info & Map -->
+          <div class="space-y-8">
+            <div class="rounded-2xl overflow-hidden aspect-[4/3] bg-ink/5">
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3008.65!2d28.79!3d41.05!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14caa5df9db6a8eb%3A0xb895e35088c1b864!2sMr.%20Falcon%20Beauty%20Halkal%C4%B1!5e0!3m2!1str!2str!4v1781863289752"
+                class="w-full h-full border-0"
+                allowfullscreen
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"
+                title="Mr. Falcon Beauty Halkalı Konum"
+              ></iframe>
+            </div>
+
+            <div class="grid sm:grid-cols-2 gap-6">
+              {clinics.map((c) => (
+                <article class="rounded-2xl bg-beige/30 p-6 border border-ink/5">
+                  <h3 class="font-display text-lg font-semibold text-ink flex items-center gap-2">
+                    {c.id === "sisli" ? "🏥" : "🏥"} {c.name}
+                  </h3>
+                  <address class="mt-3 not-italic text-sm text-ink/70 leading-relaxed">
+                    {c.address}<br />
+                    İstanbul
+                  </address>
+                  <div class="mt-4 space-y-2 text-sm">
+                    <a href={`tel:+905063717071`} class="flex items-center gap-2 text-ink/70 hover:text-champagne transition-colors">
+                      <span>📞</span> +90 506 371 70 71
+                    </a>
+                    <a href={`https://api.whatsapp.com/send?phone=905063717071&text=Merhaba web siteniz üzerinden size ulaşıyorum, Falcon Lazer Epilasyon hakkında bilgi alabilir miyim ?`} target="_blank" rel="noopener" class="flex items-center gap-2 text-ink/70 hover:text-champagne transition-colors">
+                      <span>💬</span> WhatsApp
+                    </a>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ ACCORDION -->
+    <section id="faq" class="py-20 bg-ink text-white">
+      <div class="mx-auto max-w-3xl px-5">
+        <div class="text-center mb-12">
+          <p class="mb-2 text-sm font-semibold uppercase tracking-[0.2em] text-champagne">Sık Sorulan Sorular</p>
+          <h2 class="font-display text-3xl font-semibold md:text-4xl">SSS — Lazer Epilasyon Hakkında Her Şey</h2>
+        </div>
+
+        <dl class="space-y-3" id="faq-accordion">
+          {faqs.map((faq, i) => (
+            <div class="border border-white/10 rounded-xl overflow-hidden">
+              <button
+                type="button"
+                class="w-full px-6 py-4 flex items-center justify-between text-left font-medium focus:outline-none focus:ring-2 focus:ring-champagne focus:ring-offset-2 focus:ring-offset-ink"
+                aria-expanded="false"
+                aria-controls={`faq-answer-${i}`}
+                onclick={() => {
+                  const ans = document.getElementById(`faq-answer-${i}`);
+                  const isOpen = !ans.hidden;
+                  ans.hidden = isOpen;
+                  this.setAttribute('aria-expanded', !isOpen);
+                  this.querySelector('svg')?.classList.toggle('rotate-180', !isOpen);
+                }}
+              >
+                <span>{faq.q}</span>
+                <svg class="w-5 h-5 text-champagne flex-shrink-0 ml-4 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+              </button>
+              <dd id={`faq-answer-${i}`} class="hidden px-6 pb-4 text-sm text-mist/90 leading-relaxed">{faq.a}</dd>
+            </div>
+          ))}
+        </dl>
+
+        <p class="mt-10 text-center text-sm text-mist/60">
+          Sorunuz listede yok mu? <a href="https://wa.me/905525939890" target="_blank" rel="noopener" class="text-champagne hover:underline">WhatsApp'tan sorun</a>
+        </p>
+      </div>
+    </section>
+
+    <!-- FINAL CTA -->
+    <section class="py-20 bg-champagne/10">
       <div class="mx-auto max-w-3xl px-5 text-center">
-        <h2 class="font-display text-3xl font-semibold text-ink md:text-4xl">Hemen Randevu Alın</h2>
-        <p class="mt-4 text-ink/70">Şişli veya Halıkalı şubemizde ilk değerlendirmeniz ücretsiz.</p>
-        <a href="/iletisim" class="mt-8 inline-block rounded-full bg-ink px-8 py-3 font-semibold text-white transition-colors hover:bg-champagne">
-          İletişime Geç
-        </a>
+        <h2 class="font-display text-3xl font-semibold text-ink md:text-4xl">Hazır mısınız?</h2>
+        <p class="mt-4 text-lg text-ink/70">İlk danışmanlık ve cilt analizi ücretsiz. Şube seçin, randevunuzu alın.</p>
+        <div class="mt-8 flex flex-wrap items-center justify-center gap-4">
+          <a href="#contacts" class="rounded-full bg-ink px-8 py-3 font-semibold text-white transition-colors hover:bg-champagne">
+            Randevu Al
+          </a>
+          <a href="https://wa.me/905525939890" target="_blank" rel="noopener" class="rounded-full border-2 border-ink/15 px-8 py-3 font-semibold text-ink transition-colors hover:border-champagne hover:text-champagne">
+            WhatsApp'tan Yaz
+          </a>
+        </div>
+        <p class="mt-6 text-sm text-ink/60">📍 Şişli/Mecidiyeköy · 📍 Halkalı/Küçükçekmece · 📞 +90 506 371 70 71</p>
       </div>
     </section>
   </main>
 
   <Footer locale="tr" />
+
+  <script>
+    // FAQ Accordion
+    document.querySelectorAll('#faq-accordion button').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const dd = btn.nextElementSibling;
+        const isOpen = !dd.hidden;
+        dd.hidden = isOpen;
+        btn.setAttribute('aria-expanded', !isOpen);
+        btn.querySelector('svg')?.classList.toggle('rotate-180', !isOpen);
+      });
+    });
+
+    // Form submit via fetch
+    document.getElementById('appointment-form')?.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const form = e.target;
+      const msgEl = document.getElementById('form-message');
+      const btn = form.querySelector('button[type="submit"]');
+      const originalText = btn.textContent;
+      btn.disabled = true;
+      btn.textContent = 'Gönderiliyor...';
+      msgEl.classList.add('hidden');
+
+      try {
+        const formData = new FormData(form);
+        const res = await fetch('/api/contact', {
+          method: 'POST',
+          body: formData,
+        });
+        const data = await res.json();
+        if (res.ok && data.success) {
+          msgEl.textContent = '✅ Randevu talebiniz alındı! 15 dk içinde size dönüş yapacağız.';
+          msgEl.className = 'text-green-700';
+          form.reset();
+        } else {
+          throw new Error(data.message || 'Bir hata oluştu');
+        }
+      } catch (err) {
+        msgEl.textContent = '❌ ' + (err.message || 'Gönderim başarısız, lütfen WhatsApp\'tan yazın.');
+        msgEl.className = 'text-red-700';
+      } finally {
+        msgEl.classList.remove('hidden');
+        btn.disabled = false;
+        btn.textContent = originalText;
+      }
+    });
+
+    // Clinic selector from URL
+    const heroClinicSelect = document.getElementById('hero-clinic-select');
+    heroClinicSelect?.addEventListener('change', (e) => {
+      window.location.href = e.target.value;
+    });
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const clinicParam = urlParams.get('clinic');
+    if (clinicParam) {
+      const select = document.getElementById('clinic');
+      if (select) select.value = clinicParam;
+      const heroSelect = document.getElementById('hero-clinic-select');
+      if (heroSelect) heroSelect.value = `#contacts?clinic=${clinicParam}`;
+    }
+  </script>
 </BaseLayout>
