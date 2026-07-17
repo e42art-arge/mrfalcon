@@ -43,13 +43,13 @@ const processSteps = [
 
 const reviews = [
   { name: "Elif K.", branch: "Şişli", quote: "Ağrısız ve çok hızlı, sonuçlar harika. 6 seansda %95 kıl kalmadı.", rating: 5, source: "Google" },
-  { name: "Merve A.", branch: "Halıkalı", quote: "Personel çok ilgili, ortam çok hijyenik. Arkadaşlarıma da tavsiye ettim.", rating: 5, source: "Google" },
+  { name: "Merve A.", branch: "Halkalı", quote: "Personel çok ilgili, ortam çok hijyenik. Arkadaşlarıma da tavsiye ettim.", rating: 5, source: "Google" },
   { name: "Zeynep D.", branch: "Şişli", quote: "Falcon 4 Pro farkı gerçekten hissediliyor. Bronz ciltimde bile güvenliydi.", rating: 5, source: "Google" },
-  { name: "Ayşe Y.", branch: "Halıkalı", quote: "Uzun yıllar denedim, en etkili bu oldu. Randevu sistemi de çok pratik.", rating: 5, source: "Google" },
+  { name: "Ayşe Y.", branch: "Halkalı", quote: "Uzun yıllar denedim, en etkili bu oldu. Randevu sistemi de çok pratik.", rating: 5, source: "Google" },
   { name: "Selin Ö.", branch: "Şişli", quote: "Kusursuz hijyen, uzman kadro. İlk seanstaki test atışı beni çok güvendirdi.", rating: 5, source: "Google" },
-  { name: "Buse T.", branch: "Halıkalı", quote: "Yazın bronz ciltle bile yaptırdım, yan etki yok. Teknoloji harika.", rating: 5, source: "Google" },
+  { name: "Buse T.", branch: "Halkalı", quote: "Yazın bronz ciltle bile yaptırdım, yan etki yok. Teknoloji harika.", rating: 5, source: "Google" },
   { name: "Ceren K.", branch: "Şişli", quote: "Randevu hatırlatmaları, takip mesajları... Müşteri odaklılık hissediliyor.", rating: 5, source: "Google" },
-  { name: "Derya M.", branch: "Halıkalı", quote: "Fiyat/performans çok iyi. Paket aldım, seans başı çok uygun geldi.", rating: 5, source: "Google" },
+  { name: "Derya M.", branch: "Halkalı", quote: "Fiyat/performans çok iyi. Paket aldım, seans başı çok uygun geldi.", rating: 5, source: "Google" },
   { name: "Gizem S.", branch: "Şişli", quote: "Kadın ve erkek için ayrı alanlar, gizlilik harika. Tavsiye ederim.", rating: 5, source: "Google" },
 ];
 
@@ -66,18 +66,18 @@ const faqs = [
 ];
 
 const galleryImages = [
-  { src: "/gallery/clinic-sisli-1.jpg", alt: "Şişli Şubesi Resepsiyon", location: "Şişli" },
-  { src: "/gallery/clinic-sisli-2.jpg", alt: "Şişli Şubesi Uygulama Odası", location: "Şişli" },
-  { src: "/gallery/clinic-halkali-1.jpg", alt: "Halkalı Şubesi Giriş", location: "Halkalı" },
-  { src: "/gallery/clinic-halkali-2.jpg", alt: "Halkalı Şubesi Bekleme Alanı", location: "Halkalı" },
-  { src: "/gallery/falcon-device-1.jpg", alt: "Falcon 4 Pro Cihazı", location: "Teknoloji" },
-  { src: "/gallery/falcon-device-2.jpg", alt: "Falcon 4 Pro Başlık Detayı", location: "Teknoloji" },
+  { src: "/clinic1.jpg", alt: "Şişli Şubesi Resepsiyon", location: "Şişli" },
+  { src: "/clinic2.jpg", alt: "Şişli Şubesi Uygulama Odası", location: "Şişli" },
+  { src: "/clinic3.jpg", alt: "Halkalı Şubesi Giriş", location: "Halkalı" },
+  { src: "/clinic4.jpg", alt: "Halkalı Şubesi Bekleme Alanı", location: "Halkalı" },
+  { src: "/c1.jpg", alt: "Falcon 4 Pro Cihazı", location: "Teknoloji" },
+  { src: "/c2.jpg", alt: "Falcon 4 Pro Başlık Detayı", location: "Teknoloji" },
 ];
 
 const videoTestimonials = [
-  { name: "Elif K.", branch: "Şişli", video: "/videos/testimonial-elif.mp4", poster: "/videos/poster-elif.jpg", quote: "6 seansda hayatım değişti." },
-  { name: "Merve A.", branch: "Halkalı", video: "/videos/testimonial-merve.mp4", poster: "/videos/poster-merve.jpg", quote: "Hiç acı hissetmedim." },
-  { name: "Zeynep D.", branch: "Şişli", video: "/videos/testimonial-zeynep.mp4", poster: "/videos/poster-zeynep.jpg", quote: "Bronz ciltimde bile güvenliydi." },
+  { name: "Elif K.", branch: "Şişli", quote: "6 seansda hayatım değişti." },
+  { name: "Merve A.", branch: "Halkalı", quote: "Hiç acı hissetmedim." },
+  { name: "Zeynep D.", branch: "Şişli", quote: "Bronz ciltimde bile güvenliydi." },
 ];
 
 const falconTechSpecs = [
@@ -164,7 +164,7 @@ const whyUsItems = [
           <div class="relative">
             <div class="relative rounded-3xl overflow-hidden shadow-2xl bg-navy/5">
               <img
-                src="/hero/falcon-hero.webp"
+                src="/sliderdoctor.png"
                 alt="Falcon 4 Pro cihazı ve Mr. Falcon Beauty klinik ortamı"
                 class="w-full aspect-[4/3] object-cover"
                 loading="eager"
@@ -213,7 +213,7 @@ const whyUsItems = [
 
           <div class="relative rounded-3xl overflow-hidden">
             <img
-              src="/about/clinic-interior.webp"
+              src="/homeabout.png"
               alt="Mr. Falcon Beauty Şişli şubesi iç görünümü"
               class="w-full aspect-[4/3] object-cover"
             />
@@ -239,7 +239,7 @@ const whyUsItems = [
 
         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {[
-            { icon: "🎯", title: "Seçmelik Fototermoliz", desc: "Lazer ışığı melanozitler tarafından emilerek kıl kökünü ısırdır, çevre dokuları korur." },
+            { icon: "🎯", title: "Seçici Fototermoliz", desc: "Lazer ışığı melanozitler tarafından emilerek kıl kökünü ısırdır, çevre dokuları korur." },
             { icon: "🔬", title: "Anagen Fazı Hedefleme", desc: "Sadece büyüme aşamasındaki (anagen) kıllar etkilendiği için birden fazla seans gerekir." },
             { icon: "🌈", title: "4 Dalga Boyu Avantajı", desc: "755nm (ince/koyu kıl), 810nm (hız), 940nm (derinlik), 1064nm (bronz cilt) - hepsi bir arada." },
             { icon: "🤖", title: "AI Enerji Optimizasyonu", desc: "Cihaz cilt tipini (Fitzpatrick I-VI) tarar, kıl kalınlığını ölçer, joule/ms/Hz'yi otomatik set eder." },
@@ -256,41 +256,23 @@ const whyUsItems = [
       </div>
     </section>
 
-    <!-- VIDEO GALLERY / TESTIMONIALS -->
+    <!-- VIDEO GALLERY / TESTIMONIALS → replaced with static testimonial cards -->
     <section id="video-gallery" class="py-20 bg-white">
       <div class="mx-auto max-w-6xl px-5">
         <div class="text-center max-w-3xl mx-auto mb-12">
           <p class="mb-2 text-sm font-semibold uppercase tracking-[0.2em] text-primary">Gerçek Müşteriler</p>
-          <h2 class="font-display text-3xl font-semibold text-black md:text-4xl">Video Yorumlarıyla Gerçek Sonuçlar</h2>
+          <h2 class="font-display text-3xl font-semibold text-black md:text-4xl">Müşterilerimiz Ne Diyor?</h2>
         </div>
 
         <div class="grid md:grid-cols-3 gap-8">
           {videoTestimonials.map((v) => (
-            <article class="rounded-2xl overflow-hidden border border-black/10 bg-white">
-              <div class="relative aspect-video bg-navy/5">
-                <video
-                  class="w-full h-full object-cover"
-                  poster={v.poster}
-                  preload="metadata"
-                  playsinline
-                  controls
-                  muted
-                >
-                  <source src={v.video} type="video/mp4" />
-                </video>
-                <div class="absolute inset-0 flex items-center justify-center bg-navy/30">
-                  <button class="w-16 h-16 rounded-full bg-white/90 flex items-center justify-center text-black hover:bg-white transition-colors" aria-label={`İzle: ${v.name}`}>
-                    ▶
-                  </button>
-                </div>
-              </div>
-              <div class="p-5">
-                <blockquote class="text-black/80 text-sm leading-relaxed">"{v.quote}"</blockquote>
-                <footer class="mt-3 flex items-center justify-between text-sm">
-                  <cite class="font-semibold text-primary">{v.name}</cite>
-                  <span class="text-black/50">{v.branch}</span>
-                </footer>
-              </div>
+            <article class="rounded-2xl border border-black/10 bg-white p-6 shadow-sm hover:shadow-md transition-shadow">
+              <div class="flex gap-1 text-primary text-sm mb-3">★★★★★</div>
+              <blockquote class="text-black/80 text-sm leading-relaxed">"{v.quote}"</blockquote>
+              <footer class="mt-4 flex items-center justify-between text-sm">
+                <cite class="font-semibold text-primary">{v.name}</cite>
+                <span class="text-black/50">{v.branch}</span>
+              </footer>
             </article>
           ))}
         </div>
@@ -308,7 +290,7 @@ const whyUsItems = [
         <div class="grid lg:grid-cols-2 gap-12 items-start">
           <div class="relative rounded-2xl overflow-hidden aspect-[4/3] bg-white/5">
             <img
-              src="/tech/falcon-device-main.webp"
+              src="/falcons.png"
               alt="Falcon 4 Pro cihazı ön görünüm"
               class="w-full h-full object-cover"
             />
@@ -508,7 +490,7 @@ const whyUsItems = [
                   <option value="full-body">Tüm Vücut</option>
                   <option value="face-neck">Yüz & Boyun</option>
                   <option value="underarm">Bacak Altı</option>
-                  <option value="bikini">Bikini / Brasilien</option>
+                  <option value="bikini">Bikini / Brezilya</option>
                   <option value="legs">Bacak (Tam)</option>
                   <option value="arms">Kol (Tam)</option>
                   <option value="back-chest">Sırt / Göğüs (Erkek)</option>
@@ -526,6 +508,7 @@ const whyUsItems = [
                 <label for="kvkk">KVKK aydınlatma metnini okudum, onaylıyorum. Verilerim randevu için işlensin.</label>
               </div>
 
+              <div class="cf-turnstile" data-sitekey="0x4AAAAAAAe3UYEAyXZ5Iqy4vEMqCLYzNB8" data-theme="light" data-callback="onTurnstileCallback"></div>
               <button type="submit" class="w-full sm:w-auto rounded-full bg-navy px-8 py-3 font-semibold text-white transition-colors hover:bg-primary">
                 Ücretsiz Analiz İste & Randevu Al
               </button>
@@ -631,6 +614,7 @@ const whyUsItems = [
 
   <Footer locale="tr" />
 
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
   <script>
     // FAQ Accordion
     document.querySelectorAll('#faq-accordion button').forEach(btn => {
@@ -662,15 +646,17 @@ const whyUsItems = [
         });
         const data = await res.json();
         if (res.ok && data.success) {
-          msgEl.textContent = '✅ Randevu talebiniz alındı! 15 dk içinde size dönüş yapacağız.';
+          msgEl.textContent = '✅ ' + (data.message || 'Randevu talebiniz alındı! 15 dk içinde size dönüş yapacağız.');
           msgEl.className = 'text-green-700';
           form.reset();
+          if (typeof turnstile !== 'undefined') turnstile.reset();
         } else {
           throw new Error(data.message || 'Bir hata oluştu');
         }
       } catch (err) {
         msgEl.textContent = '❌ ' + (err.message || 'Gönderim başarısız, lütfen WhatsApp\'tan yazın.');
         msgEl.className = 'text-red-700';
+        if (typeof turnstile !== 'undefined') turnstile.reset();
       } finally {
         msgEl.classList.remove('hidden');
         btn.disabled = false;

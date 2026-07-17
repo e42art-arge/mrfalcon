@@ -68,8 +68,9 @@ branches.sort((a, b) => a.data.slug.localeCompare(b.data.slug));
             </div>
             <div class="flex items-start gap-2 text-sm text-black/60">
               <input type="checkbox" id="kvkk" name="kvkk" required class="mt-1 w-4 h-4 rounded border-black/30 text-primary focus:ring-primary" />
-              <label for="kvkk">KVKK aydınlatma metnini okudum, onaylıyorum. Verilerim randevu için işlensin.</label>
+              <label for="kvkk"><a href='/kvkk-aydinlatma-metni' class='text-primary hover:underline' target='_blank'>KVKK aydınlatma metnini</a> okudum, onaylıyorum. Verilerim randevu için işlensin.</label>
             </div>
+            <div class="cf-turnstile" data-sitekey="0x4AAAAAAAe3UYEAyXZ5Iqy4vEMqCLYzNB8" data-theme="light" data-callback="onTurnstileCallback"></div>
             <button type="submit" class="w-full sm:w-auto rounded-full bg-navy px-8 py-3 font-semibold text-white transition-colors hover:bg-primary">
               Ücretsiz Analiz İste & Randevu Al
             </button>
@@ -90,8 +91,12 @@ branches.sort((a, b) => a.data.slug.localeCompare(b.data.slug));
             </article>
           ))}
 
-          <div class="rounded-2xl overflow-hidden aspect-[4/3] bg-navy/5 shadow-md">
-            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3008.65!2d28.79!3d41.05!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14caa5df9db6a8eb%3A0xb895e35088c1b864!2sMr.%20Falcon%20Beauty%20Halkal%C4%B1!5e0!3m2!1str!2str!4v1781863289752" class="w-full h-full border-0" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Mr. Falcon Beauty Halkalı Harita"></iframe>
+          <div class="grid md:grid-cols-2 gap-4">
+            {branches.map((b) => (
+              <div class="rounded-2xl overflow-hidden aspect-[4/3] shadow-md">
+                <iframe src={b.data.mapEmbed} class="w-full h-full border-0" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title={b.data.name}></iframe>
+              </div>
+            ))}
           </div>
         </div>
       </div>
@@ -109,4 +114,46 @@ branches.sort((a, b) => a.data.slug.localeCompare(b.data.slug));
   </section>
 
   <Footer locale="tr" />
+
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+  <script>
+    // Form submit via fetch
+    document.getElementById('appointment-form')?.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const form = e.target;
+      const msgEl = document.getElementById('form-status');
+      const btn = form.querySelector('button[type="submit"]');
+      const originalText = btn.textContent;
+      btn.disabled = true;
+      btn.textContent = 'Gönderiliyor...';
+      msgEl.classList.add('hidden');
+
+      try {
+        const formData = new FormData(form);
+        const res = await fetch('/api/contact', {
+          method: 'POST',
+          body: formData,
+        });
+        const data = await res.json();
+        if (res.ok && data.success) {
+          msgEl.textContent = '✅ Randevu talebiniz alındı! 15 dk içinde size dönüş yapacağız.';
+          msgEl.className = 'text-green-700';
+          form.reset();
+          // Reset Turnstile
+          if (typeof turnstile !== 'undefined') turnstile.reset();
+        } else {
+          throw new Error(data.message || 'Bir hata oluştu');
+        }
+      } catch (err) {
+        msgEl.textContent = '❌ ' + (err.message || 'Gönderim başarısız, lütfen WhatsApp\'tan yazın.');
+        msgEl.className = 'text-red-700';
+        // Reset Turnstile
+        if (typeof turnstile !== 'undefined') turnstile.reset();
+      } finally {
+        msgEl.classList.remove('hidden');
+        btn.disabled = false;
+        btn.textContent = originalText;
+      }
+    });
+  </script>
 </BaseLayout>

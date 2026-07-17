@@ -70,11 +70,25 @@ const whyUs = [
     <div class="mx-auto max-w-6xl px-5">
       <div class="text-center max-w-3xl mx-auto mb-12">
         <p class="mb-2 text-sm font-semibold uppercase tracking-[0.2em] text-primary">Real Clients</p>
-        <h2 class="font-display text-3xl font-semibold md:text-4xl">Video Testimonials</h2>
+        <h2 class="font-display text-3xl font-semibold md:text-4xl">Client Testimonials</h2>
         <p class="mt-3 text-black/60">Our satisfied clients share their Falcon Laser Hair Removal experiences.</p>
       </div>
       <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-        {["shorts25.jpg","shorts26.jpg","shorts27.jpg","shorts28.jpg"].map((img) => (<div class="relative aspect-[9/16] rounded-2xl overflow-hidden bg-black/10 shadow-md"><div class="absolute inset-0 flex items-center justify-center"><div class="w-14 h-14 rounded-full bg-white/90 flex items-center justify-center text-black">▶</div></div><div class="absolute bottom-3 left-3 right-3 text-xs text-white bg-black/60 px-2 py-1 rounded">Testimonial</div></div>))}
+        {[
+          { quote: "Life changed in 6 sessions. Painless and fast.", name: "Elif K.", branch: "Şişli" },
+          { quote: "Didn't feel any pain at all. Staff very caring.", name: "Merve A.", branch: "Halkalı" },
+          { quote: "Safe even on my tanned skin. Amazing tech.", name: "Zeynep D.", branch: "Şişli" },
+          { quote: "Great value for money. Highly recommend.", name: "Ayşe Y.", branch: "Halkalı" },
+        ].map((t) => (
+          <div class="rounded-2xl bg-white p-6 shadow-sm border border-black/5 hover:shadow-md transition-shadow">
+            <div class="flex gap-1 text-primary text-sm mb-3">★★★★★</div>
+            <blockquote class="text-sm text-black/80 leading-relaxed">"{t.quote}"</blockquote>
+            <footer class="mt-4 flex items-center justify-between text-xs">
+              <cite class="font-semibold text-primary">{t.name}</cite>
+              <span class="text-black/50">{t.branch}</span>
+            </footer>
+          </div>
+        ))}
       </div>
     </div>
   </section>

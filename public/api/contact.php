@@ -1,74 +1,106 @@
 <?php
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $name = strip_tags(trim($_POST["name"]));
-    $email = filter_var(trim($_POST["email"]), FILTER_SANITIZE_EMAIL);
-    $company = strip_tags(trim($_POST["company"]));
-    $message = strip_tags(trim($_POST["message"]));
-    $turnstileResponse = $_POST['cf-turnstile-response'] ?? '';
+header('Content-Type: application/json');
 
-    // Turnstile Verification
-    $secretKey = "0x4AAAAAAAe3UYEBfAD0SXIcnrxgL5SgzNM";
-
-    $chVerify = curl_init();
-    curl_setopt($chVerify, CURLOPT_URL, "https://challenges.cloudflare.com/turnstile/v0/siteverify");
-    curl_setopt($chVerify, CURLOPT_POST, true);
-    curl_setopt($chVerify, CURLOPT_POSTFIELDS, http_build_query([
-        "secret" => $secretKey,
-        "response" => $turnstileResponse
-    ]));
-    curl_setopt($chVerify, CURLOPT_RETURNTRANSFER, true);
-
-    $verifyResponse = curl_exec($chVerify);
-    $curlError = curl_error($chVerify);
-    $verifyResult = json_decode($verifyResponse, true);
-    curl_close($chVerify);
-
-    if ($curlError || !($verifyResult['success'] ?? false)) {
-        header("Location: index.html?status=captcha-error#contact");
-        exit;
-    }
-
-    if (empty($name) || empty($message) || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        http_response_code(400);
-        echo "Lütfen formu eksiksiz doldurun.";
-        exit;
-    }
-
-    $apiKey = "rm_live_7b37ddcd28d669fe8b3eab53b293c8ff27a7f9313aa67a65";
-    $apiUrl = "https://redmail.e42art.com/api/v1/send";
-
-    $data = [
-        "to" => "emre@ad.com.tr",
-        "reply_to" => $email,
-        "subject" => "Yeni İletişim Formu Mesajı: $name",
-        "body" => "
-            <h2>Yeni İletişim Formu Mesajı</h2>
-            <p><strong>Ad Soyad:</strong> $name</p>
-            <p><strong>E-posta:</strong> $email</p>
-            <p><strong>Şirket:</strong> $company</p>
-            <p><strong>Mesaj:</strong><br>$message</p>
-        "
-    ];
-
-    $ch = curl_init($apiUrl);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($ch, CURLOPT_POST, true);
-    curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
-    curl_setopt($ch, CURLOPT_HTTPHEADER, [
-        "Content-Type: application/json",
-        "X-API-KEY: $apiKey"
-    ]);
-
-    $response = curl_exec($ch);
-    $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-    curl_close($ch);
-
-    if ($httpCode >= 200 && $httpCode < 300) {
-        header("Location: index.html?status=success#contact");
-    } else {
-        header("Location: index.html?status=error#contact");
-    }
-} else {
-    header("Location: index.html");
+if ($_SERVER["REQUEST_METHOD"] !== "POST") {
+    http_response_code(405);
+    echo json_encode(["success" => false, "message" => "Yalnızca POST istekleri kabul edilir."]);
+    exit;
 }
-?>
+
+// Required fields
+$name = strip_tags(trim($_POST["name"] ?? ''));
+$phone = strip_tags(trim($_POST["phone"] ?? ''));
+
+if (empty($name) || empty($phone)) {
+    http_response_code(400);
+    echo json_encode(["success" => false, "message" => "Ad Soyad ve Telefon zorunludur."]);
+    exit;
+}
+
+// Turnstile Verification
+$turnstileResponse = $_POST['cf-turnstile-response'] ?? '';
+$secretKey = "0x4AAAAAAAe3UYEBfAD0SXIcnrxgL5SgzNM";
+
+$chVerify = curl_init();
+curl_setopt($chVerify, CURLOPT_URL, "https://challenges.cloudflare.com/turnstile/v0/siteverify");
+curl_setopt($chVerify, CURLOPT_POST, true);
+curl_setopt($chVerify, CURLOPT_POSTFIELDS, http_build_query([
+    "secret" => $secretKey,
+    "response" => $turnstileResponse
+]));
+curl_setopt($chVerify, CURLOPT_RETURNTRANSFER, true);
+
+$verifyResponse = curl_exec($chVerify);
+$curlError = curl_error($chVerify);
+$verifyResult = json_decode($verifyResponse, true);
+curl_close($chVerify);
+
+if ($curlError || !($verifyResult['success'] ?? false)) {
+    http_response_code(400);
+    echo json_encode(["success" => false, "message" => "Doğrulama başarısız. Lütfen tekrar deneyin."]);
+    exit;
+}
+
+// Optional fields
+$email = filter_var(trim($_POST["email"] ?? ''), FILTER_SANITIZE_EMAIL);
+$clinic = strip_tags(trim($_POST["clinic"] ?? ''));
+$concern = strip_tags(trim($_POST["concern"] ?? ''));
+$message = strip_tags(trim($_POST["message"] ?? ''));
+$form_type = strip_tags(trim($_POST["form_type"] ?? 'appointment'));
+$kvkk = $_POST["kvkk"] ?? '';
+
+// Build HTML email
+$rows = "";
+$rows .= "<tr><td style='padding:8px 12px;border:1px solid #ddd;font-weight:bold;background:#f9f9f9'>Ad Soyad</td><td style='padding:8px 12px;border:1px solid #ddd'>$name</td></tr>";
+$rows .= "<tr><td style='padding:8px 12px;border:1px solid #ddd;font-weight:bold;background:#f9f9f9'>Telefon</td><td style='padding:8px 12px;border:1px solid #ddd'>$phone</td></tr>";
+if ($email) {
+    $rows .= "<tr><td style='padding:8px 12px;border:1px solid #ddd;font-weight:bold;background:#f9f9f9'>E-posta</td><td style='padding:8px 12px;border:1px solid #ddd'>$email</td></tr>";
+}
+if ($clinic) {
+    $rows .= "<tr><td style='padding:8px 12px;border:1px solid #ddd;font-weight:bold;background:#f9f9f9'>Şube</td><td style='padding:8px 12px;border:1px solid #ddd'>$clinic</td></tr>";
+}
+if ($concern) {
+    $rows .= "<tr><td style='padding:8px 12px;border:1px solid #ddd;font-weight:bold;background:#f9f9f9'>İlgi Alanı</td><td style='padding:8px 12px;border:1px solid #ddd'>$concern</td></tr>";
+}
+if ($message) {
+    $rows .= "<tr><td style='padding:8px 12px;border:1px solid #ddd;font-weight:bold;background:#f9f9f9'>Mesaj</td><td style='padding:8px 12px;border:1px solid #ddd'>" . nl2br($message) . "</td></tr>";
+}
+$rows .= "<tr><td style='padding:8px 12px;border:1px solid #ddd;font-weight:bold;background:#f9f9f9'>Form Tipi</td><td style='padding:8px 12px;border:1px solid #ddd'>$form_type</td></tr>";
+$rows .= "<tr><td style='padding:8px 12px;border:1px solid #ddd;font-weight:bold;background:#f9f9f9'>KVKK Onayı</td><td style='padding:8px 12px;border:1px solid #ddd'>" . ($kvkk ? "Onaylandı" : "Onaylanmadı") . "</td></tr>";
+
+$body = "
+    <h2 style='color:#333'>Yeni Randevu Talebi</h2>
+    <table style='border-collapse:collapse;width:100%;max-width:600px;font-family:sans-serif;font-size:14px'>
+        $rows
+    </table>
+";
+
+$apiKey = "rm_live_7b37ddcd28d669fe8b3eab53b293c8ff27a7f9313aa67a65";
+$apiUrl = "https://redmail.e42art.com/api/v1/send";
+
+$data = [
+    "to" => "emre@ad.com.tr",
+    "reply_to" => $email ?: "noreply@mrfalcon.com",
+    "subject" => "Yeni Randevu Talebi: $name",
+    "body" => $body
+];
+
+$ch = curl_init($apiUrl);
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($ch, CURLOPT_POST, true);
+curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
+curl_setopt($ch, CURLOPT_HTTPHEADER, [
+    "Content-Type: application/json",
+    "X-API-KEY: $apiKey"
+]);
+
+$response = curl_exec($ch);
+$httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+curl_close($ch);
+
+if ($httpCode >= 200 && $httpCode < 300) {
+    echo json_encode(["success" => true, "message" => "Randevu talebiniz alındı! 15 dakika içinde size dönüş yapacağız."]);
+} else {
+    http_response_code(500);
+    echo json_encode(["success" => false, "message" => "Gönderim sırasında bir hata oluştu. Lütfen WhatsApp'tan iletişime geçin."]);
+}

@@ -32,9 +32,6 @@ const langLabel = en ? "TR" : "EN";
   <div class="mx-auto flex max-w-6xl items-center justify-between px-5 py-4">
     <a href={homeHref} class="flex items-center gap-2" aria-label="Mr. Falcon Beauty Ana Sayfa">
       <img src="/logo.png" alt="" class="h-10 w-auto" />
-      <span class="font-display text-xl font-semibold tracking-tight text-black hidden sm:block">
-        Mr. Falcon <span class="text-navy">Beauty</span>
-      </span>
     </a>
     <nav class="hidden items-center gap-7 text-sm font-medium text-black/80 md:flex">
       {nav.map((item) => (
@@ -45,6 +42,7 @@ const langLabel = en ? "TR" : "EN";
       <a
         href={langHref}
         class="rounded-full border border-black/20 px-3 py-1 text-xs font-semibold tracking-wide text-black/70 transition-colors hover:border-primary hover:text-primary"
+        title={en ? "Türkçe" : "English"}
       >
         {langLabel}
       </a>
@@ -54,6 +52,90 @@ const langLabel = en ? "TR" : "EN";
       >
         {en ? "Book" : "Randevu"}
       </a>
+      <button
+        id="menu-toggle"
+        class="flex md:hidden items-center justify-center p-1 text-2xl text-black/70 transition-colors hover:text-primary"
+        aria-label={en ? "Toggle menu" : "Menüyü aç/kapa"}
+      >
+        <span id="menu-icon">&#9776;</span>
+      </button>
+    </div>
+  </div>
+  <!-- Mobile menu -->
+  <div
+    id="mobile-menu"
+    class="max-h-0 overflow-hidden transition-all duration-300 ease-in-out bg-white md:hidden"
+  >
+    <div class="mx-auto max-w-6xl px-5 pb-6 pt-2">
+      <nav class="flex flex-col gap-1">
+        {nav.map((item) => (
+          <a
+            href={item.href}
+            class="block rounded-lg px-3 py-3 text-sm font-medium text-black/80 transition-colors hover:bg-gray-100 hover:text-primary"
+          >
+            {item.label}
+          </a>
+        ))}
+      </nav>
+      <div class="mt-4 flex items-center gap-3 pt-4">
+        <a
+          href={langHref}
+          class="rounded-full border border-black/20 px-3 py-1.5 text-xs font-semibold tracking-wide text-black/70 transition-colors hover:border-primary hover:text-primary"
+        >
+          {langLabel}
+        </a>
+        <a
+          href={en ? "/en/contact" : "/iletisim"}
+          class="rounded-full bg-navy px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-primary"
+        >
+          {en ? "Book" : "Randevu"}
+        </a>
+      </div>
     </div>
   </div>
 </header>
+
+<script>
+  (function () {
+    const toggle = document.getElementById("menu-toggle");
+    const menu = document.getElementById("mobile-menu");
+    const icon = document.getElementById("menu-icon");
+    if (!toggle || !menu || !icon) return;
+
+    function open(isOpen) {
+      if (isOpen) {
+        menu.classList.remove("max-h-0");
+        menu.classList.add("max-h-screen");
+        icon.innerHTML = "&#10005;";
+        toggle.setAttribute("aria-expanded", "true");
+      } else {
+        menu.classList.add("max-h-0");
+        menu.classList.remove("max-h-screen");
+        icon.innerHTML = "&#9776;";
+        toggle.setAttribute("aria-expanded", "false");
+      }
+    }
+
+    toggle.addEventListener("click", function () {
+      open(menu.classList.contains("max-h-0"));
+    });
+
+    // Close on link click
+    menu.querySelectorAll("a").forEach(function (link) {
+      link.addEventListener("click", function () {
+        open(false);
+      });
+    });
+
+    // Close on outside click
+    document.addEventListener("click", function (e) {
+      if (
+        !menu.classList.contains("max-h-0") &&
+        !toggle.contains(e.target) &&
+        !menu.contains(e.target)
+      ) {
+        open(false);
+      }
+    });
+  })();
+</script>
