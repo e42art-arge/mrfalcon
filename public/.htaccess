@@ -1,16 +1,10 @@
-# Mr. Falcon Beauty — OpenLiteSpeed rules
-# Form posts directly to /api/contact.php; no extension-less rewrite needed.
-# This file only handles SPA-style fallback for client routes.
+RewriteEngine On
+RewriteBase /
 
-<IfModule mod_rewrite.c>
-    RewriteEngine On
-    RewriteBase /
+# Redirect trailing slashes
+RewriteRule ^(.*)/$ / [L,R=301]
 
-    # Existing files & directories pass through untouched
-    RewriteCond %{REQUEST_FILENAME} -f [OR]
-    RewriteCond %{REQUEST_FILENAME} -d
-    RewriteRule ^ - [L]
-
-    # SPA-style fallback to index.html for unknown client routes
-    RewriteRule ^ index.html [L]
-</IfModule>
+# Route to index.html if file doesn't exist
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . index.html [L]
