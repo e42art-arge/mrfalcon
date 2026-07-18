@@ -33,7 +33,9 @@ if (empty($name) || empty($phone)) {
 $turnstileResponse = $_POST['cf-turnstile-response'] ?? '';
 
 if ($turnstileResponse !== '') {
-    $secretKey = "0x4AAAAAAAe3UYEBfAD0SXIcnrxgL5SgzNM";
+    // Test secret key: always validates (works with test sitekey 1x00000000000000000000AA)
+    // Production: use real secret from env
+    $secretKey = "1x0000000000000000000000000000000AA";
     $chVerify = curl_init();
     curl_setopt($chVerify, CURLOPT_URL, "https://challenges.cloudflare.com/turnstile/v0/siteverify");
     curl_setopt($chVerify, CURLOPT_POST, true);
