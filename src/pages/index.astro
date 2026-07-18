@@ -149,17 +149,17 @@ const whyUsItems = [
       <!-- Background decorative elements -->
       <div class="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
         <!-- Top gradient orb -->
-        <div class="absolute top-1/4 left-1/4 w-[600px] h-[600px] bg-primary/10 rounded-full blur-3xl animate-blob-slow" style="animation-duration: 20s;"></div>
+        <div class="absolute top-1/4 left-1/4 w-[300px] h-[300px] md:w-[600px] md:h-[600px] bg-primary/10 rounded-full blur-3xl animate-blob-slow" style="animation-duration: 20s;"></div>
         <!-- Bottom gradient orb -->
-        <div class="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] bg-sky/10 rounded-full blur-3xl animate-blob-slow" style="animation-duration: 25s; animation-delay: -5s;"></div>
+        <div class="absolute bottom-1/4 right-1/4 w-[250px] h-[250px] md:w-[500px] md:h-[500px] bg-sky/10 rounded-full blur-3xl animate-blob-slow" style="animation-duration: 25s; animation-delay: -5s;"></div>
         <!-- Floating particles container -->
         <div id="hero-particles" class="absolute inset-0"></div>
       </div>
 
       <!-- Trust Signals Bar - Sticky -->
       <div class="border-b border-black/5 bg-white/50 backdrop-blur sticky top-16 z-40" data-animate="trust-bar" data-gsap-trigger="trust-bar">
-        <div class="mx-auto flex max-w-7xl items-center justify-between gap-4 px-5 py-3 text-sm font-medium text-black/70 md:py-2">
-          <div class="flex flex-wrap items-center gap-6 text-center md:justify-start" data-gsap="stagger" data-gsap-delay="0.1">
+        <div class="mx-auto flex max-w-7xl items-center justify-center gap-4 px-5 py-3 text-sm font-medium text-black/70 md:py-2">
+          <div class="flex flex-wrap items-center justify-center gap-3 text-xs md:gap-6 md:text-sm" data-gsap="stagger" data-gsap-delay="0.1">
             {trustSignals.map((t) => (
               <span class="flex items-center gap-1.5 text-primary">{t.icon} <strong>{t.text}</strong></span>
             ))}
@@ -191,10 +191,10 @@ const whyUsItems = [
             </p>
 
             <!-- CTA Buttons -->
-            <div class="flex flex-wrap items-center justify-center gap-4 lg:justify-start mb-10" data-gsap="stagger" data-gsap-delay="0.5">
+            <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-4 lg:justify-start mb-10" data-gsap="stagger" data-gsap-delay="0.5">
               <a
                 href="#contacts"
-                class="group relative rounded-full bg-navy px-8 py-3.5 font-semibold text-white transition-all duration-300 hover:bg-primary hover:shadow-[0_20px_40px_-12px_rgba(14,116,144,0.4)]"
+                class="group relative text-center rounded-full bg-navy px-8 py-3.5 font-semibold text-white transition-all duration-300 hover:bg-primary hover:shadow-[0_20px_40px_-12px_rgba(14,116,144,0.4)]"
                 data-hover="scale"
                 data-gsap="fadeUp"
               >
@@ -203,7 +203,7 @@ const whyUsItems = [
               </a>
               <a
                 href="#falcon-4-pro"
-                class="group relative rounded-full border-2 border-black/15 px-8 py-3.5 font-semibold text-black transition-all duration-300 hover:border-primary hover:text-primary hover:bg-primary/5"
+                class="group relative text-center rounded-full border-2 border-black/15 px-8 py-3.5 font-semibold text-black transition-all duration-300 hover:border-primary hover:text-primary hover:bg-primary/5"
                 data-hover="scale"
                 data-gsap="fadeUp"
               >
@@ -252,7 +252,7 @@ const whyUsItems = [
               />
 
               <!-- Floating Tech Badges -->
-              <div class="absolute top-6 right-6 flex flex-col gap-3" data-gsap="stagger" data-gsap-delay="0.3">
+              <div class="absolute top-6 right-6 hidden lg:flex flex-col gap-3" data-gsap="stagger" data-gsap-delay="0.3">
                 {[
                   { icon: "🎯", text: "4 Dalga Boyu" },
                   { icon: "🤖", text: "AI Kontrol" },
@@ -275,7 +275,7 @@ const whyUsItems = [
             <div class="absolute -bottom-12 -left-12 w-32 h-32 border-b-2 border-l-2 border-primary/20 rounded-bl-3xl opacity-50" aria-hidden="true"></div>
 
             <!-- Floating Stats Card (outside image container to avoid overflow clipping) -->
-            <div class="absolute -bottom-6 -left-6 md:-bottom-8 md:-left-8 p-6 md:p-8 bg-white/95 backdrop-blur rounded-2xl shadow-2xl max-w-xs border border-black/5 z-20" data-gsap="float" data-gsap-delay="0.5">
+            <div class="absolute -bottom-6 left-1/2 -translate-x-1/2 md:left-auto md:-translate-x-0 md:-bottom-8 md:-left-8 p-4 md:p-8 bg-white/95 backdrop-blur rounded-2xl shadow-2xl max-w-[calc(100%-2rem)] md:max-w-xs border border-black/5 z-20" data-gsap="float" data-gsap-delay="0.5">
               <div class="flex items-center gap-3 text-primary text-2xl font-display font-bold">
                 <span class="animate-pulse" style="animation-duration: 2s;">⭐</span>
                 <span data-gsap="counter" data-target="4.9" data-suffix="" data-prefix="" data-duration="2">4.9</span>
