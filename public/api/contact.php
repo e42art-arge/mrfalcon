@@ -87,7 +87,7 @@ $body = "
     </table>
 ";
 
-$apiKey = "rm_live_7b37ddcd28d669fe8b3eab53b293c8ff27a7f9313aa67a65";
+$apiKey = "rm_live_edef33f76c05a1eca0fdd85d2b0982d8bb2de437e1c3143b";
 $apiUrl = "https://redmail.e42art.com/api/v1/send";
 
 $data = [
