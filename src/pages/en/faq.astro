@@ -34,7 +34,7 @@ faqs.sort((a, b) => (a.data.order || 0) - (b.data.order || 0));
                 <svg class="accordion-chevron w-5 h-5 text-primary flex-shrink-0 ml-4 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
               </button>
             </dt>
-            <dd id={`faq-en-answer-${i}`} class="accordion-answer hidden px-6 pb-4 text-sm text-black/70 leading-relaxed" hidden>{faq.data.answer}</dd>
+            <dd id={`faq-en-answer-${i}`} class="accordion-answer hidden px-6 pb-4 pt-2 text-sm text-black/70 leading-relaxed" hidden>{faq.data.answer}</dd>
           </div>
         ))}
       </dl>
