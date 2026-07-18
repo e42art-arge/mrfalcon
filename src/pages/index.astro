@@ -4,6 +4,7 @@ import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import VideoGallery from "../components/VideoGallery.astro";
 import PressSlider from "../components/PressSlider.astro";
+import { reviews } from "../data/reviews";
 
 const trustSignals = [
   { icon: "🏆", text: "15.000+" },
@@ -43,18 +44,6 @@ const processSteps = [
   { step: 7, title: "Sonuç & Garanti", desc: "%95+ kıl azalma hedeflenir. Yılın sonuna kadar ücretsiz kontrol seansları dahil." },
 ];
 
-const reviews = [
-  { name: "Elif K.", branch: "Şişli", quote: "Ağrısız ve çok hızlı, sonuçlar harika. 6 seansda %95 kıl kalmadı.", rating: 5, source: "Google" },
-  { name: "Merve A.", branch: "Halkalı", quote: "Personel çok ilgili, ortam çok hijyenik. Arkadaşlarıma da tavsiye ettim.", rating: 5, source: "Google" },
-  { name: "Zeynep D.", branch: "Şişli", quote: "Falcon 4 Pro farkı gerçekten hissediliyor. Bronz ciltimde bile güvenliydi.", rating: 5, source: "Google" },
-  { name: "Ayşe Y.", branch: "Halkalı", quote: "Uzun yıllar denedim, en etkili bu oldu. Randevu sistemi de çok pratik.", rating: 5, source: "Google" },
-  { name: "Selin Ö.", branch: "Şişli", quote: "Kusursuz hijyen, uzman kadro. İlk seanstaki test atışı beni çok güvendirdi.", rating: 5, source: "Google" },
-  { name: "Buse T.", branch: "Halkalı", quote: "Yazın bronz ciltle bile yaptırdım, yan etki yok. Teknoloji harika.", rating: 5, source: "Google" },
-  { name: "Ceren K.", branch: "Şişli", quote: "Randevu hatırlatmaları, takip mesajları... Müşteri odaklılık hissediliyor.", rating: 5, source: "Google" },
-  { name: "Derya M.", branch: "Halkalı", quote: "Fiyat/performans çok iyi. Paket aldım, seans başı çok uygun geldi.", rating: 5, source: "Google" },
-  { name: "Gizem S.", branch: "Şişli", quote: "Kadın ve erkek için ayrı alanlar, gizlilik harika. Tavsiye ederim.", rating: 5, source: "Google" },
-];
-
 const faqs = [
   { q: "Lazer epilasyon ağrılı mı?", a: "Falcon 4 Pro'nun -20°C safir soğutma sistemi sayesinde işlem neredeyse ağrısızdır. Hassas bölgelerde hafif bir ısı hissi olabilir." },
   { q: "Kaç seans gerekir?", a: "Ortalama 6-8 seans.%95+ kıl azalma hedeflenir. Cilt tipi, kıl kalınlığı ve hormon durumu seans sayısını etkiler." },
@@ -74,12 +63,6 @@ const galleryImages = [
   { src: "/images/clinic/clinic4.jpg", alt: "Halkalı Şubesi Bekleme Alanı", location: "Halkalı" },
   { src: "/images/c1.jpg", alt: "Falcon 4 Pro Cihazı", location: "Teknoloji" },
   { src: "/images/c2.jpg", alt: "Falcon 4 Pro Başlık Detayı", location: "Teknoloji" },
-];
-
-const videoTestimonials = [
-  { name: "Elif K.", branch: "Şişli", quote: "6 seansda hayatım değişti." },
-  { name: "Merve A.", branch: "Halkalı", quote: "Hiç acı hissetmedim." },
-  { name: "Zeynep D.", branch: "Şişli", quote: "Bronz ciltimde bile güvenliydi." },
 ];
 
 // Video Gallery Data (from LP site)
@@ -390,13 +373,13 @@ const whyUsItems = [
         </div>
 
         <div class="grid md:grid-cols-3 gap-8">
-          {videoTestimonials.map((v) => (
+          {reviews.slice(0, 3).map((r) => (
             <article class="rounded-2xl border border-black/10 bg-white p-6 shadow-surface hover:shadow-card-hover transition-all duration-normal" data-hover="lift">
               <div class="flex gap-1 text-primary text-sm mb-3">★★★★★</div>
-              <blockquote class="text-black/80 text-body-sm leading-relaxed">"{v.quote}"</blockquote>
+              <blockquote class="text-black/80 text-body-sm leading-relaxed">"{r.text}"</blockquote>
               <footer class="mt-4 flex items-center justify-between text-caption">
-                <cite class="font-semibold text-primary">{v.name}</cite>
-                <span class="text-black/50">{v.branch}</span>
+                <cite class="font-semibold text-primary">{r.name}</cite>
+                <span class="text-black/50">Google</span>
               </footer>
             </article>
           ))}
@@ -539,16 +522,16 @@ const whyUsItems = [
         </div>
 
         <div class="grid md:grid-cols-3 gap-6">
-          {reviews.map((r) => (
+          {reviews.slice(0, 9).map((r) => (
             <article class="rounded-2xl border border-black/10 p-6 hover:shadow-lg transition-shadow">
               <div class="flex gap-1 text-primary text-sm mb-3">
                 {[...Array(r.rating)].map((_, i) => <span key={i}>★</span>)}
-                <span class="ml-2 text-xs text-black/50">({r.source})</span>
+                <span class="ml-2 text-xs text-black/50">(Google)</span>
               </div>
-              <blockquote class="text-black/80 text-sm leading-relaxed mb-4">"{r.quote}"</blockquote>
+              <blockquote class="text-black/80 text-sm leading-relaxed mb-4">"{r.text}"</blockquote>
               <footer class="flex items-center justify-between text-xs">
                 <cite class="font-semibold text-primary">{r.name}</cite>
-                <span class="text-black/50">{r.branch}</span>
+                <span class="text-black/50">Google</span>
               </footer>
             </article>
           ))}
