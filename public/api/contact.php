@@ -92,7 +92,7 @@ $apiUrl = "https://redmail.e42art.com/api/v1/send";
 
 $data = [
     "to" => "info@mrfalconbeauty.com",
-    "reply_to" => $email ?: "noreply@mrfalcon.com",
+    "reply_to" => "noreply@mrfalconbeauty.com",
     "subject" => "Yeni Randevu Talebi: $name",
     "body" => $body
 ];
