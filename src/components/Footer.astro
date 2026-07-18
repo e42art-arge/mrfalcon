@@ -32,7 +32,7 @@ const company = en
 const waLink = "https://api.whatsapp.com/send?phone=905525939890&text=Merhaba web siteniz üzerinden size ulaşıyorum, Falcon Lazer Epilasyon hakkında bilgi alabilir miyim ?";
 ---
 
-<footer class="relative bg-gradient-to-b from-navy to-[#103358] text-white">
+<footer class="relative bg-gradient-to-b from-sky-light to-white text-navy">
   <div class="h-1 w-full bg-gradient-to-r from-sky via-primary to-sky"></div>
 
   <div class="mx-auto max-w-6xl px-5 pt-14 pb-8">
@@ -41,15 +41,12 @@ const waLink = "https://api.whatsapp.com/send?phone=905525939890&text=Merhaba we
       <div class="md:col-span-4">
         <a
           href={en ? "/en" : "/"}
-          class="inline-flex items-center gap-3 transition-opacity hover:opacity-90"
+          class="inline-flex transition-opacity hover:opacity-90"
           aria-label="Mr. Falcon Beauty Ana Sayfa"
         >
-          <span class="flex h-11 w-11 items-center justify-center rounded-xl bg-white/10 ring-1 ring-white/15 backdrop-blur">
-            <img src="/images/logo.png" alt="Mr. Falcon Beauty Logo" class="h-7 w-auto" />
-          </span>
-          <span class="text-lg font-semibold tracking-tight">Mr. Falcon Beauty</span>
+          <img src="/images/logo.png" alt="Mr. Falcon Beauty Logo" class="h-10 w-auto" />
         </a>
-        <p class="mt-4 max-w-xs text-sm leading-relaxed text-white/70">
+        <p class="mt-4 max-w-xs text-sm leading-relaxed text-navy/70">
           {en
             ? "Painless laser hair removal with Falcon 4 Pro technology across Istanbul."
             : "Falcon 4 Pro teknolojisiyle ağrısız lazer epilasyon, İstanbul genelinde."}
@@ -67,12 +64,12 @@ const waLink = "https://api.whatsapp.com/send?phone=905525939890&text=Merhaba we
 
       <!-- Services -->
       <nav class="md:col-span-2" aria-label={en ? "Services" : "Hizmetler"}>
-        <h3 class="text-xs font-semibold uppercase tracking-wider text-sky">{en ? "Services" : "Hizmetler"}</h3>
-        <ul class="mt-4 space-y-2.5 text-sm text-white/75">
+        <h3 class="text-xs font-semibold uppercase tracking-wider text-primary">{en ? "Services" : "Hizmetler"}</h3>
+        <ul class="mt-4 space-y-2.5 text-sm text-navy/75">
           {services.map((item) => (
             <li>
-              <a class="inline-flex items-center gap-1.5 transition-colors duration-200 hover:text-white" href={item.href}>
-                <span class="h-1 w-1 rounded-full bg-sky/60 transition-colors duration-200 group-hover:bg-sky" aria-hidden="true"></span>
+              <a class="inline-flex items-center gap-1.5 transition-colors duration-200 hover:text-primary" href={item.href}>
+                <span class="h-1 w-1 rounded-full bg-primary/40" aria-hidden="true"></span>
                 {item.label}
               </a>
             </li>
@@ -82,12 +79,12 @@ const waLink = "https://api.whatsapp.com/send?phone=905525939890&text=Merhaba we
 
       <!-- Company -->
       <nav class="md:col-span-2" aria-label={en ? "Company" : "Kurumsal"}>
-        <h3 class="text-xs font-semibold uppercase tracking-wider text-sky">{en ? "Company" : "Kurumsal"}</h3>
-        <ul class="mt-4 space-y-2.5 text-sm text-white/75">
+        <h3 class="text-xs font-semibold uppercase tracking-wider text-primary">{en ? "Company" : "Kurumsal"}</h3>
+        <ul class="mt-4 space-y-2.5 text-sm text-navy/75">
           {company.map((item) => (
             <li>
-              <a class="inline-flex items-center gap-1.5 transition-colors duration-200 hover:text-white" href={item.href}>
-                <span class="h-1 w-1 rounded-full bg-sky/60" aria-hidden="true"></span>
+              <a class="inline-flex items-center gap-1.5 transition-colors duration-200 hover:text-primary" href={item.href}>
+                <span class="h-1 w-1 rounded-full bg-primary/40" aria-hidden="true"></span>
                 {item.label}
               </a>
             </li>
@@ -97,36 +94,36 @@ const waLink = "https://api.whatsapp.com/send?phone=905525939890&text=Merhaba we
 
       <!-- Contact -->
       <div class="md:col-span-4">
-        <h3 class="text-xs font-semibold uppercase tracking-wider text-sky">{en ? "Contact" : "İletişim"}</h3>
-        <ul class="mt-4 space-y-3 text-sm text-white/75">
+        <h3 class="text-xs font-semibold uppercase tracking-wider text-primary">{en ? "Contact" : "İletişim"}</h3>
+        <ul class="mt-4 space-y-3 text-sm text-navy/75">
           <li class="flex items-center gap-2.5">
-            <Icon name="map-pin" class="h-4 w-4 shrink-0 text-sky" />
+            <Icon name="map-pin" class="h-4 w-4 shrink-0 text-primary" />
             <span>{en ? "Şişli & Halkalı — Istanbul" : "Şişli & Halkalı — İstanbul"}</span>
           </li>
           <li class="flex items-center gap-2.5">
-            <Icon name="phone" class="h-4 w-4 shrink-0 text-sky" />
-            <a class="transition-colors duration-200 hover:text-white" href="tel:+905525939890">+90 552 593 98 90</a>
+            <Icon name="phone" class="h-4 w-4 shrink-0 text-primary" />
+            <a class="transition-colors duration-200 hover:text-primary" href="tel:+905525939890">+90 552 593 98 90</a>
           </li>
           <li class="flex items-center gap-2.5">
-            <Icon name="phone" class="h-4 w-4 shrink-0 text-sky" />
-            <a class="transition-colors duration-200 hover:text-white" href="tel:+905063717071">+90 506 371 70 71</a>
+            <Icon name="phone" class="h-4 w-4 shrink-0 text-primary" />
+            <a class="transition-colors duration-200 hover:text-primary" href="tel:+905063717071">+90 506 371 70 71</a>
           </li>
           <li class="flex items-center gap-2.5">
-            <Icon name="message-circle" class="h-4 w-4 shrink-0 text-sky" />
-            <a class="transition-colors duration-200 hover:text-white" href="mailto:info@mrfalconbeauty.com">info@mrfalconbeauty.com</a>
+            <Icon name="message-circle" class="h-4 w-4 shrink-0 text-primary" />
+            <a class="transition-colors duration-200 hover:text-primary" href="mailto:info@mrfalconbeauty.com">info@mrfalconbeauty.com</a>
           </li>
         </ul>
       </div>
     </div>
 
-    <div class="mt-10 border-t border-white/10"></div>
+    <div class="mt-10 border-t border-navy/10"></div>
 
-    <div class="flex flex-col gap-3 pt-6 text-xs text-white/50 md:flex-row md:items-center md:justify-between">
+    <div class="flex flex-col gap-3 pt-6 text-xs text-navy/50 md:flex-row md:items-center md:justify-between">
       <span>© {new Date().getFullYear()} Mr. Falcon Beauty. {en ? "All rights reserved." : "Tüm hakları saklıdır."}</span>
       <div class="flex flex-wrap items-center gap-x-5 gap-y-2">
-        <a class="transition-colors duration-200 hover:text-white" href={en ? "/en/faq" : "/sss"}>{en ? "FAQ" : "SSS"}</a>
-        <a class="transition-colors duration-200 hover:text-white" href={en ? "/en/reviews" : "/yorumlar"}>{en ? "Reviews" : "Yorumlar"}</a>
-        <a class="transition-colors duration-200 hover:text-white" href={en ? "/en/contact" : "/iletisim"}>{en ? "Contact" : "İletişim"}</a>
+        <a class="transition-colors duration-200 hover:text-primary" href={en ? "/en/faq" : "/sss"}>{en ? "FAQ" : "SSS"}</a>
+        <a class="transition-colors duration-200 hover:text-primary" href={en ? "/en/reviews" : "/yorumlar"}>{en ? "Reviews" : "Yorumlar"}</a>
+        <a class="transition-colors duration-200 hover:text-primary" href={en ? "/en/contact" : "/iletisim"}>{en ? "Contact" : "İletişim"}</a>
       </div>
     </div>
   </div>
