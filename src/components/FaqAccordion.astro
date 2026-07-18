@@ -1,0 +1,46 @@
+---
+interface Props {
+  items: { q: string; a: string }[];
+  tone?: "light" | "dark";
+  locale?: "tr" | "en";
+}
+const { items, tone = "light", locale = "tr" } = Astro.props;
+const dark = tone === "dark";
+const containerClass = dark
+  ? "border-white/10 bg-white/5"
+  : "border-black/10 bg-white";
+const btnClass = dark ? "text-white" : "text-black";
+const panelClass = dark ? "text-white/90" : "text-black/70";
+---
+
+<dl class="space-y-3" data-faq>
+  {items.map((item, i) => (
+    <div class:list={["faq-item border rounded-xl overflow-hidden", containerClass]}>
+      <button
+        type="button"
+        class:list={["faq-btn w-full px-6 py-4 flex items-center justify-between text-left font-medium focus:outline-none focus:ring-2 focus:ring-primary", btnClass]}
+        aria-expanded="false"
+        aria-controls={`faq-answer-${i}`}
+      >
+        <span>{item.q}</span>
+        <svg class="faq-chevron w-5 h-5 text-primary flex-shrink-0 ml-4 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+      </button>
+      <dd id={`faq-answer-${i}`} class:list={["faq-panel hidden px-6 pb-4 pt-2 text-sm leading-relaxed", panelClass]}>{item.a}</dd>
+    </div>
+  ))}
+</dl>
+
+<script>
+  document.querySelectorAll(".faq-btn").forEach((btn) => {
+    if (btn.dataset.bound) return;
+    btn.dataset.bound = "1";
+    btn.addEventListener("click", () => {
+      const panel = btn.parentElement?.querySelector(".faq-panel");
+      if (!panel) return;
+      const isOpen = !panel.classList.contains("hidden");
+      panel.classList.toggle("hidden", !isOpen);
+      btn.setAttribute("aria-expanded", String(isOpen));
+      btn.querySelector(".faq-chevron")?.classList.toggle("rotate-180", !isOpen);
+    });
+  });
+</script>

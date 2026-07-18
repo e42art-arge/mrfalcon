@@ -4,118 +4,34 @@ import Header from "../../components/Header.astro";
 import Footer from "../../components/Footer.astro";
 import VideoGallery from "../../components/VideoGallery.astro";
 import PressSlider from "../../components/PressSlider.astro";
+import FaqAccordion from "../../components/FaqAccordion.astro";
+import ReviewCard from "../../components/ReviewCard.astro";
+import ClinicCard from "../../components/ClinicCard.astro";
+import BranchMap from "../../components/BranchMap.astro";
+import StatGrid from "../../components/StatGrid.astro";
+import BookingCta from "../../components/BookingCta.astro";
 import { reviews } from "../../data/reviews";
+import { getCollection } from "astro:content";
+import { trustSignals } from "../../data/trustSignals";
+import { siteMetrics } from "../../data/siteMetrics";
+import { processSteps } from "../../data/processSteps";
+import { falconTechSpecs } from "../../data/falconTechSpecs";
+import { whyUsItems } from "../../data/whyUsItems";
+import { clinicGallery } from "../../data/clinicGallery";
+import { satisfactionVideos, faqVideos, pressVideos } from "../../data/videos";
 
-const trustSignals = [
-  { icon: "🏆", text: "15,000+" },
-  { icon: "⭐", text: "5.0/5" },
-  { icon: "🏥", text: "2 Branches" },
-  { icon: "⚡", text: "Falcon 4 Pro" },
+const branches = (await getCollection("branches")).sort((a, b) => a.data.slug.localeCompare(b.data.slug));
+const faqEntries = (await getCollection("faq", (e) => e.id.startsWith("en/"))).sort((a, b) => a.data.order - b.data.order);
+const faqs = faqEntries.map((e) => ({ q: e.data.question, a: e.data.answer }));
+
+const laserScience = [
+  { icon: "🎯", title: "Selective Photothermolysis", desc: "Laser light is absorbed by melanocytes to heat the hair follicle, protecting surrounding tissues." },
+  { icon: "🔬", title: "Targeting Anagen Phase", desc: "Since only hair in growth phase (anagen) is affected, multiple sessions are required." },
+  { icon: "🌈", title: "4 Wavelength Advantage", desc: "755nm (fine/dark hair), 808nm (speed), 940nm (depth), 1064nm (tanned skin) - all in one." },
+  { icon: "🤖", title: "AI Energy Optimization", desc: "Device scans skin type (Fitzpatrick I-VI), measures hair thickness, auto-sets joule/ms/Hz." },
+  { icon: "❄️", title: "Sapphire Contact Cooling", desc: "-20°C tip temperature protects epidermis, targets dermis. Pain signals are blocked." },
+  { icon: "🛡️", title: "Safety Protocols", desc: "Test shot mandatory, goggles mandatory, UVC disinfection, single-use cap, skin cooling gel." },
 ];
-
-const clinics = [
-  { id: "sisli", name: "Şişli / Mecidiyeköy", address: "Merkez, Büyükdere Cd. No:33-35 Kat:1, 34381 Şişli/İstanbul" },
-  { id: "halkali", name: "Halkalı / Küçükçekmece", address: "Atatürk, Hürriyet Cd. 15/1, 34303 Küçükçekmece/İstanbul" },
-];
-
-const aboutMetrics = [
-  { value: "15,000+", label: "Happy Clients" },
-  { value: "5.0/5", label: "Google Rating" },
-  { value: "2", label: "Istanbul Branches" },
-  { value: "10+", label: "Years Experience" },
-];
-
-const advantages = [
-  { icon: "🎯", title: "4 Wavelengths", desc: "755nm Alexandrite, 808nm Diode, 940nm and 1064nm Nd:YAG in one device. Optimized for every skin type and hair color." },
-  { icon: "🤖", title: "AI Skin Analysis", desc: "AI-powered skin and hair analysis determines custom energy parameters for every client." },
-  { icon: "❄️", title: "Sapphire Cooling", desc: "Down to -20°C cooling for nearly zero pain during hair removal." },
-  { icon: "☀️", title: "Safe All Year", desc: "Nd:YAG 1064nm allows safe treatment on tanned skin and during summer months." },
-  { icon: "🦠", title: "UVC Hygiene", desc: "Handpiece is disinfected with UVC light before every session, single-use caps are used." },
-  { icon: "⚡", title: "Fast Sessions", desc: "4 cm² spot size and 10 Hz frequency complete full body hair removal in 15-20 minutes." },
-];
-
-const processSteps = [
-  { step: 1, title: "Free Analysis", desc: "Our expert team analyzes skin type, hair thickness and color. A personalized protocol is prepared." },
-  { step: 2, title: "Test Shot", desc: "A small test area is treated to measure skin reaction and energy tolerance. Safety is priority." },
-  { step: 3, title: "Protocol Setup", desc: "Specific parameters (joules, ms, Hz) across Falcon 4 Pro's 4 wavelengths are set for your skin type." },
-  { step: 4, title: "Treatment", desc: "Painless, fast and hygienic session with cooled handpiece. UVC disinfection with every pulse." },
-  { step: 5, title: "Aftercare", desc: "Cooling gel, SPF50+ protection and follow-up calendar provided. Side effect risk is minimized." },
-  { step: 6, title: "Session Tracking", desc: "Hair reduction rate measured after every session, parameters updated. Average 6-8 sessions." },
-  { step: 7, title: "Result & Warranty", desc: "95%+ hair reduction target. Free control sessions included until the end of the year." },
-];
-
-const faqs = [
-  { q: "Is laser hair removal painful?", a: "Thanks to Falcon 4 Pro's -20°C sapphire cooling system, the process is nearly painless. A slight heat sensation may occur in sensitive areas." },
-  { q: "How many sessions are needed?", a: "Average 6-8 sessions. 95%+ hair reduction is targeted. Skin type, hair thickness and hormones affect session count." },
-  { q: "I have a tan, can I do it in summer?", a: "Yes. Since Nd:YAG 1064nm wavelength doesn't target melanocytes, it is safely applied on tanned and dark skin." },
-  { q: "How long between sessions?", a: "Face & Neck: 4-6 weeks. Body: 6-8 weeks. Planned according to hair cycle (anagen phase)." },
-  { q: "What are the side effects?", a: "Temporary redness, slight swelling disappears in 1-2 hours. Burn and spot risk minimized with Falcon 4 Pro." },
-  { q: "Can men do it too?", a: "Yes. Applied for men in areas like back, chest, neck, inside nose. We have separate waiting areas." },
-  { q: "When after pregnancy/birth?", a: "Not applied during pregnancy. Can start 3-6 months after birth with doctor approval. Safe during breastfeeding." },
-  { q: "How to book an appointment?", a: "Via website, WhatsApp or phone. You can choose Şişli or Halkalı branch." },
-  { q: "How is pricing?", a: "Varies by area and package. First consultation and skin analysis is free. Per session is cheaper with packages." },
-];
-
-const galleryImages = [
-  { src: "/images/clinic/clinic1.jpg", alt: "Şişli Branch Reception", location: "Şişli" },
-  { src: "/images/clinic/clinic2.jpg", alt: "Şişli Branch Treatment Room", location: "Şişli" },
-  { src: "/images/clinic/clinic3.jpg", alt: "Halkalı Branch Entrance", location: "Halkalı" },
-  { src: "/images/clinic/clinic4.jpg", alt: "Halkalı Branch Waiting Area", location: "Halkalı" },
-  { src: "/images/c1.jpg", alt: "Falcon 4 Pro Device", location: "Technology" },
-  { src: "/images/c2.jpg", alt: "Falcon 4 Pro Handpiece Detail", location: "Technology" },
-];
-
-const falconTechSpecs = [
-  { label: "Wavelengths", value: "755nm Alexandrite + 808nm Diode + 940nm + 1064nm Nd:YAG" },
-  { label: "Spot Size", value: "4 cm² (optimized for large body areas)" },
-  { label: "Frequency", value: "1-10 Hz (fast body hair removal)" },
-  { label: "Cooling", value: "Sapphire crystal, adjustable between -20°C and +5°C" },
-  { label: "Energy", value: "1-120 J/cm² (AI automatic by skin type)" },
-  { label: "Pulse Duration", value: "5-400 ms (optimized for fine/thick hair)" },
-  { label: "Hygiene", value: "UVC LED disinfection + single-use handpiece cap" },
-  { label: "Screen", value: "15.6\" touch, AI skin analysis integrated" },
-];
-
-const pressVideos = [
-  { id: 18, thumbnail: "/images/shorts/shorts18.jpg", videoUrl: "/videos/shorts/shorts18.mp4", channel: "Beyaz TV" },
-  { id: 21, thumbnail: "/images/shorts/shorts21.jpg", videoUrl: "/videos/shorts/shorts21.mp4", channel: "CNN Türk" },
-  { id: 22, thumbnail: "/images/shorts/shorts22.jpg", videoUrl: "/videos/shorts/shorts22.mp4", channel: "TLC" },
-  { id: 23, thumbnail: "/images/shorts/shorts23.jpg", videoUrl: "/videos/shorts/shorts23.mp4", channel: "TLC" },
-  { id: 24, thumbnail: "/images/shorts/shorts24.jpg", videoUrl: "/videos/shorts/shorts24.mp4", channel: "CNN Türk" },
-];
-
-// Video Gallery Data (from LP site)
-const satisfactionVideos = [
-  { id: 25, thumbnail: "/images/shorts/shorts25.jpg", videoUrl: "/videos/shorts/shorts25.mp4", title: "Satisfaction Videos", description: "Laser Hair Removal" },
-  { id: 26, thumbnail: "/images/shorts/shorts26.jpg", videoUrl: "/videos/shorts/shorts26.mp4", title: "Satisfaction Videos", description: "Laser Hair Removal" },
-  { id: 27, thumbnail: "/images/shorts/shorts27.jpg", videoUrl: "/videos/shorts/shorts27.mp4", title: "Satisfaction Videos", description: "Laser Hair Removal" },
-  { id: 28, thumbnail: "/images/shorts/shorts28.jpg", videoUrl: "/videos/shorts/shorts28.mp4", title: "Satisfaction Videos", description: "Laser Hair Removal" },
-];
-
-const faqVideos = [
-  { id: 1, thumbnail: "/images/shorts/shorts1.jpg", videoUrl: "/videos/shorts/shorts1.mp4", title: "Frequently Asked Questions", description: "Falcon 4 Pro & Laser Hair Removal" },
-  { id: 2, thumbnail: "/images/shorts/shorts2.jpg", videoUrl: "/videos/shorts/shorts2.mp4", title: "Frequently Asked Questions", description: "Falcon 4 Pro & Laser Hair Removal" },
-  { id: 3, thumbnail: "/images/shorts/shorts3.jpg", videoUrl: "/videos/shorts/shorts3.mp4", title: "Frequently Asked Questions", description: "Falcon 4 Pro & Laser Hair Removal" },
-  { id: 4, thumbnail: "/images/shorts/shorts4.jpg", videoUrl: "/videos/shorts/shorts4.mp4", title: "Frequently Asked Questions", description: "Falcon 4 Pro & Laser Hair Removal" },
-  { id: 5, thumbnail: "/images/shorts/shorts5.jpg", videoUrl: "/videos/shorts/shorts5.mp4", title: "Frequently Asked Questions", description: "Falcon 4 Pro & Laser Hair Removal" },
-  { id: 6, thumbnail: "/images/shorts/shorts6.jpg", videoUrl: "/videos/shorts/shorts6.mp4", title: "Frequently Asked Questions", description: "Falcon 4 Pro & Laser Hair Removal" },
-  { id: 7, thumbnail: "/images/shorts/shorts7.jpg", videoUrl: "/videos/shorts/shorts7.mp4", title: "Frequently Asked Questions", description: "Falcon 4 Pro & Laser Hair Removal" },
-  { id: 8, thumbnail: "/images/shorts/shorts8.jpg", videoUrl: "/videos/shorts/shorts8.mp4", title: "Frequently Asked Questions", description: "Falcon 4 Pro & Laser Hair Removal" },
-  { id: 9, thumbnail: "/images/shorts/shorts9.jpg", videoUrl: "/videos/shorts/shorts9.mp4", title: "Frequently Asked Questions", description: "Falcon 4 Pro & Laser Hair Removal" },
-  { id: 10, thumbnail: "/images/shorts/shorts10.jpg", videoUrl: "/videos/shorts/shorts10.mp4", title: "Frequently Asked Questions", description: "Falcon 4 Pro & Laser Hair Removal" },
-  { id: 11, thumbnail: "/images/shorts/shorts11.jpg", videoUrl: "/videos/shorts/shorts11.mp4", title: "Frequently Asked Questions", description: "Falcon 4 Pro & Laser Hair Removal" },
-  { id: 12, thumbnail: "/images/shorts/shorts12.jpg", videoUrl: "/videos/shorts/shorts12.mp4", title: "Frequently Asked Questions", description: "Falcon 4 Pro & Laser Hair Removal" },
-];
-
-const whyUsItems = [
-  { icon: "🎓", title: "Expert Staff", desc: "Applied by certified expert aestheticians." },
-  { icon: "🔬", title: "FDA/CE Approved", desc: "Falcon 4 Pro device is FDA and CE certified, medical grade (Class IIb)." },
-  { icon: "📊", title: "Transparent Process", desc: "Photo tracking before/after, hair count report and energy parameters shared every session." },
-  { icon: "🛡️", title: "Warranty Package", desc: "Free control session until year end if you get a package. Money back guarantee if no results." },
-  { icon: "📍", title: "Two Easy Locations", desc: "Mecidiyeköy (Şişli) and Halkalı (Küçükçekmece) - Easy access by Metro, Metrobus, Bus." },
-  { icon: "💬", title: "24/7 Support", desc: "Instant response via WhatsApp for post-session follow-up, booking changes and questions." },
-];
-
 ---
 
 <BaseLayout
@@ -127,53 +43,42 @@ const whyUsItems = [
   <Header locale="en" />
 
   <main>
-    <!-- HERO SECTION - GSAP + Lenis Enhanced -->
-    <section id="hero" class="relative overflow-hidden bg-gradient-to-b from-beige to-white" data-hero>
-      <!-- Background decorative elements -->
+    <!-- HERO SECTION -->
+    <section id="hero" class="relative overflow-hidden bg-gradient-to-b from-sky-light to-white" data-hero>
       <div class="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
-        <!-- Top gradient orb -->
         <div class="absolute top-1/4 left-1/4 w-[300px] h-[300px] md:w-[600px] md:h-[600px] bg-primary/10 rounded-full blur-3xl animate-blob-slow" style="animation-duration: 20s;"></div>
-        <!-- Bottom gradient orb -->
         <div class="absolute bottom-1/4 right-1/4 w-[250px] h-[250px] md:w-[500px] md:h-[500px] bg-sky/10 rounded-full blur-3xl animate-blob-slow" style="animation-duration: 25s; animation-delay: -5s;"></div>
-        <!-- Floating particles container -->
         <div id="hero-particles" class="absolute inset-0"></div>
       </div>
 
-      <!-- Trust Signals Bar - Sticky -->
       <div class="border-b border-black/5 bg-white/50 backdrop-blur sticky top-16 z-40" data-animate="trust-bar" data-gsap-trigger="trust-bar">
         <div class="mx-auto flex max-w-7xl items-center justify-center gap-4 px-5 py-3 text-sm font-medium text-black/70 md:py-2">
           <div class="flex flex-wrap items-center justify-center gap-3 text-xs md:gap-6 md:text-sm" data-gsap="stagger" data-gsap-delay="0.1">
-            {trustSignals.map((t) => (
+            {trustSignals.en.map((t) => (
               <span class="flex items-center gap-1.5 text-primary">{t.icon} <strong>{t.text}</strong></span>
             ))}
           </div>
         </div>
       </div>
 
-      <!-- Hero Content -->
       <div class="mx-auto max-w-7xl px-5 py-20 md:py-28 lg:py-32 relative z-10">
         <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-          <!-- Left Column: Text Content -->
           <div class="text-center lg:text-left" data-hero-content>
-            <!-- Eyebrow -->
             <p class="mb-6 text-sm font-semibold uppercase tracking-[0.25em] text-primary" data-gsap="fadeUp" data-gsap-delay="0.1">
               Falcon 4 Pro Technology
             </p>
 
-            <!-- Main Headline - Split Text Animation -->
             <h1 class="mb-8 font-display text-4xl font-semibold leading-tight text-black md:text-6xl lg:text-7xl xl:text-8xl" data-gsap-split="lines" data-gsap="splitLines" data-gsap-delay="0.2">
-              The New Standard in
+              Laser Hair Removal's
               <br />
-              <span class="text-primary relative">Painless Laser Removal</span>
+              <span class="text-primary relative">New Standard</span>
             </h1>
 
-            <!-- Subheadline -->
             <p class="mb-10 max-w-xl text-lg leading-relaxed text-black/70 mx-auto lg:mx-0" data-gsap="fadeUp" data-gsap-delay="0.4">
-              Meet four wavelengths, AI-powered control and -20°C sapphire cooling.
+              Four wavelengths, AI-controlled precision and -20°C sapphire cooling.
               The Mr. Falcon Beauty difference across both sides of Istanbul.
             </p>
 
-            <!-- CTA Buttons -->
             <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-4 lg:justify-start mb-10" data-gsap="stagger" data-gsap-delay="0.5">
               <a
                 href="#contacts"
@@ -197,7 +102,6 @@ const whyUsItems = [
               </a>
             </div>
 
-            <!-- Trust Indicators -->
             <div class="flex flex-wrap items-center justify-center gap-3 md:gap-6 lg:justify-start" data-gsap="stagger" data-gsap-delay="0.6">
               <div class="flex items-center gap-2 text-sm text-black/60" data-gsap="fadeUp">
                 <svg class="w-4 h-4 text-primary flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
@@ -209,11 +113,10 @@ const whyUsItems = [
               </div>
               <div class="flex items-center gap-2 text-sm text-black/60" data-gsap="fadeUp">
                 <svg class="w-4 h-4 text-primary flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
-                <span>Test shot performed</span>
+                <span>Test shot applied</span>
               </div>
             </div>
 
-            <!-- Scroll Indicator -->
             <div class="mt-16 flex flex-col items-center lg:items-start" data-gsap="fadeUp" data-gsap-delay="0.8">
               <p class="mb-2 text-xs uppercase tracking-wider text-black/40">Scroll to explore</p>
               <div class="relative w-6 h-10 rounded-full border border-black/15 flex items-center justify-center">
@@ -222,9 +125,7 @@ const whyUsItems = [
             </div>
           </div>
 
-          <!-- Right Column: Hero Visual -->
           <div class="relative" data-hero-visual>
-            <!-- Main Hero Image with Parallax -->
             <div class="relative rounded-3xl overflow-hidden shadow-2xl bg-navy/5" data-gsap="parallax" data-gsap-speed="0.3">
               <img
                 src="/images/sliderdoctor.png"
@@ -234,7 +135,6 @@ const whyUsItems = [
                 data-gsap="reveal"
               />
 
-              <!-- Floating Tech Badges -->
               <div class="absolute top-6 right-6 hidden lg:flex flex-col gap-3" data-gsap="stagger" data-gsap-delay="0.3">
                 {[
                   { icon: "🎯", text: "4 Wavelengths" },
@@ -253,19 +153,17 @@ const whyUsItems = [
               </div>
             </div>
 
-            <!-- Decorative accent lines -->
             <div class="absolute -top-12 -right-12 w-32 h-32 border-t-2 border-r-2 border-primary/20 rounded-tr-3xl opacity-50" aria-hidden="true"></div>
             <div class="absolute -bottom-12 -left-12 w-32 h-32 border-b-2 border-l-2 border-primary/20 rounded-bl-3xl opacity-50" aria-hidden="true"></div>
 
-            <!-- Floating Stats Card (outside image container to avoid overflow clipping) -->
             <div class="absolute -bottom-6 left-1/2 -translate-x-1/2 md:left-auto md:-translate-x-0 md:-bottom-8 md:-left-8 p-4 md:p-8 bg-white/95 backdrop-blur rounded-2xl shadow-2xl max-w-[calc(100%-2rem)] md:max-w-xs border border-black/5 z-20" data-gsap="float" data-gsap-delay="0.5">
               <div class="flex items-center gap-3 text-primary text-2xl font-display font-bold">
                 <span class="animate-pulse" style="animation-duration: 2s;">⭐</span>
                 <span data-gsap="counter" data-target="5.0" data-decimals="1" data-suffix="" data-prefix="" data-duration="2">5.0</span>
               </div>
-              <p class="mt-1 text-sm text-black/70">On Google with 58+ reviews</p>
+              <p class="mt-1 text-sm text-black/70">from 58+ Google reviews</p>
               <div class="mt-4 flex flex-wrap items-center gap-3 text-xs text-black/60">
-                <span class="flex items-center gap-1 px-2 py-1 bg-green-50 text-green-700 rounded-full">✓ FDA/CE Approved</span>
+                <span class="flex items-center gap-1 px-2 py-1 bg-green-50 text-green-700 rounded-full">✓ FDA/CE Cleared</span>
                 <span class="flex items-center gap-1 px-2 py-1 bg-blue-50 text-blue-700 rounded-full">✓ 95%+ Success</span>
                 <span class="flex items-center gap-1 px-2 py-1 bg-purple-50 text-purple-700 rounded-full">✓ Warranty Package</span>
               </div>
@@ -274,7 +172,6 @@ const whyUsItems = [
         </div>
       </div>
 
-      <!-- Wave divider -->
       <div class="absolute bottom-0 left-0 right-0 overflow-hidden" aria-hidden="true">
         <svg class="w-full h-16 md:h-24" viewBox="0 0 1440 120" preserveAspectRatio="none">
           <path
@@ -284,35 +181,30 @@ const whyUsItems = [
           />
           <defs>
             <linearGradient id="heroWaveGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stop-color="#0E7490" />
-              <stop offset="100%" stop-color="#0E7490" stop-opacity="0" />
+              <stop offset="0%" stop-color="#17468A" />
+              <stop offset="100%" stop-color="#17468A" stop-opacity="0" />
             </linearGradient>
           </defs>
         </svg>
       </div>
     </section>
 
-    <!-- ABOUT US / MR FALCON BEAUTY -->
+    <!-- ABOUT US -->
     <section id="about-us" class="py-20 bg-white">
       <div class="mx-auto max-w-6xl px-5">
         <div class="grid lg:grid-cols-2 gap-12 items-center">
           <div>
             <p class="mb-2 text-sm font-semibold uppercase tracking-[0.2em] text-primary">Mr. Falcon Beauty</p>
             <h2 class="mb-6 font-display text-3xl font-semibold text-black md:text-4xl lg:text-5xl">
-              Istanbul's Trusted Laser Hair Removal Center
+              Istanbul's Trusted Laser Hair Removal Clinic
             </h2>
             <p class="mb-6 text-lg leading-relaxed text-black/70">
-              Since 2014, we have served over 15,000 clients in our Şişli/Mecidiyeköy and Halkalı/Küçükçekmece branches with 
-              safe, effective and hygienic laser hair removal. With Falcon 4 Pro technology, we removed pain, side effects 
-              and uncertainty by setting the new standard: "AI controlled, 4 wavelengths, cooled".
+              Since 2014, we've served 15,000+ clients across our Şişli/Mecidiyeköy and Halkalı/Küçükçekmece branches
+              with safe, effective and hygienic laser hair removal. With Falcon 4 Pro technology we set a new standard:
+              AI-controlled, 4-wavelength, cooled.
             </p>
-            <div class="grid grid-cols-2 gap-6 mb-8">
-              {aboutMetrics.map((m) => (
-                <div class="p-4 rounded-2xl bg-sky-light/50">
-                  <div class="font-display text-3xl font-bold text-black md:text-4xl">{m.value}</div>
-                  <div class="text-sm text-black/60">{m.label}</div>
-                </div>
-              ))}
+            <div class="mb-8">
+              <StatGrid items={siteMetrics.en} class="grid-cols-2 lg:grid-cols-2 gap-6" />
             </div>
             <a href="#falcon-4-pro" class="inline-flex items-center gap-2 font-semibold text-primary hover:text-black transition-colors">
               Falcon 4 Pro Technology →
@@ -325,7 +217,7 @@ const whyUsItems = [
               alt="Interior view of Mr. Falcon Beauty Şişli branch"
               class="w-full"
             />
-            <div class="absolute bottom-0 left-0 right-0 p-6 md:p-8 bg-gradient-to-t from-ink/90 to-transparent text-white">
+            <div class="absolute bottom-0 left-0 right-0 p-6 md:p-8 bg-gradient-to-t from-navy/90 to-transparent text-white">
               <div class="flex items-center gap-3 text-primary text-xl font-display font-bold">🏆</div>
               <p class="mt-2 text-lg font-medium">First Falcon 4 Pro Clinic in Turkey</p>
               <p class="mt-1 text-sm text-white/80">Leading in Istanbul since 2024</p>
@@ -346,14 +238,7 @@ const whyUsItems = [
         </div>
 
         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {[
-            { icon: "🎯", title: "Selective Photothermolysis", desc: "Laser light is absorbed by melanocytes to heat the hair follicle, protecting surrounding tissues." },
-            { icon: "🔬", title: "Targeting Anagen Phase", desc: "Since only hair in growth phase (anagen) is affected, multiple sessions are required." },
-            { icon: "🌈", title: "4 Wavelength Advantage", desc: "755nm (fine/dark hair), 808nm (speed), 940nm (depth), 1064nm (tanned skin) - all in one." },
-            { icon: "🤖", title: "AI Energy Optimization", desc: "Device scans skin type (Fitzpatrick I-VI), measures hair thickness, auto-sets joule/ms/Hz." },
-            { icon: "❄️", title: "Sapphire Contact Cooling", desc: "-20°C tip temperature protects epidermis, targets dermis. Pain signals are blocked." },
-            { icon: "🛡️", title: "Safety Protocols", desc: "Test shot mandatory, goggles mandatory, UVC disinfection, single-use cap, skin cooling gel." },
-          ].map((item) => (
+          {laserScience.map((item) => (
             <div class="rounded-2xl bg-white p-6 shadow-sm border border-black/5 hover:shadow-md transition-shadow">
               <div class="text-3xl">{item.icon}</div>
               <h3 class="mt-4 font-display text-xl font-semibold text-black">{item.title}</h3>
@@ -364,7 +249,7 @@ const whyUsItems = [
       </div>
     </section>
 
-    <!-- VIDEO GALLERY / TESTIMONIALS → replaced with static testimonial cards -->
+    <!-- VIDEO GALLERY / TESTIMONIALS -->
     <section id="video-gallery" class="py-20 bg-white">
       <div class="mx-auto max-w-6xl px-5">
         <div class="text-center max-w-3xl mx-auto mb-12">
@@ -374,26 +259,18 @@ const whyUsItems = [
 
         <div class="grid md:grid-cols-3 gap-8">
           {reviews.slice(0, 3).map((r) => (
-            <article class="rounded-2xl border border-black/10 bg-white p-6 shadow-sm hover:shadow-md transition-shadow">
-              <div class="flex gap-1 text-primary text-sm mb-3">★★★★★</div>
-              <blockquote class="text-black/80 text-sm leading-relaxed">"{r.text}"</blockquote>
-              <footer class="mt-4 flex items-center justify-between text-sm">
-                <cite class="font-semibold text-primary">{r.name}</cite>
-                <span class="text-black/50">Google</span>
-              </footer>
-            </article>
+            <ReviewCard review={r} variant="compact" />
           ))}
         </div>
       </div>
     </section>
 
-    <!-- SATISFACTION VIDEOS (Client Videos) -->
-    <VideoGallery videos={satisfactionVideos} sectionId="satisfaction-videos" class="bg-sky-light/30" locale="en" />
+    <!-- SATISFACTION VIDEOS -->
+    <VideoGallery videos={satisfactionVideos.en} sectionId="satisfaction-videos" class="bg-sky-light/30" locale="en" />
 
-    <!-- PRESS (News Videos Slider) -->
+    <!-- PRESS -->
     <PressSlider videos={pressVideos} locale="en" />
 
-    <!-- Fancybox for press videos -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.css" />
     <script type="module">
       import { Fancybox } from "https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.esm.js";
@@ -405,10 +282,10 @@ const whyUsItems = [
       });
     </script>
 
-    <!-- VIDEO GALLERY (FAQ Videos) -->
-    <VideoGallery videos={faqVideos} sectionId="video-gallery" locale="en" />
+    <!-- FAQ VIDEOS -->
+    <VideoGallery videos={faqVideos.en} sectionId="video-gallery" locale="en" />
 
-    <!-- FALCON 4 PRO TECH DEEP DIVE -->
+    <!-- FALCON 4 PRO TECH -->
     <section id="falcon-4-pro" class="py-20 bg-navy text-white">
       <div class="mx-auto max-w-6xl px-5">
         <div class="text-center max-w-3xl mx-auto mb-12">
@@ -428,7 +305,7 @@ const whyUsItems = [
           <div>
             <h3 class="font-display text-2xl font-semibold text-primary mb-6">Technical Details</h3>
             <dl class="space-y-4 text-sm">
-              {falconTechSpecs.map((s) => (
+              {falconTechSpecs.en.map((s) => (
                 <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between py-3 border-b border-white/10">
                   <dt class="font-medium text-white">{s.label}</dt>
                   <dd class="mt-1 sm:mt-0 text-white font-mono text-xs sm:text-sm">{s.value}</dd>
@@ -455,7 +332,7 @@ const whyUsItems = [
       </div>
     </section>
 
-    <!-- WHY US / ADVANTAGES -->
+    <!-- WHY US -->
     <section id="why-us" class="py-20 bg-white">
       <div class="mx-auto max-w-6xl px-5">
         <div class="text-center max-w-3xl mx-auto mb-16">
@@ -464,7 +341,7 @@ const whyUsItems = [
         </div>
 
         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {whyUsItems.map((item) => (
+          {whyUsItems.en.map((item) => (
             <article class="rounded-2xl p-6 border border-black/5 hover:border-primary/30 hover:shadow-lg transition-all">
               <div class="text-3xl">{item.icon}</div>
               <h3 class="mt-4 font-display text-xl font-semibold text-black">{item.title}</h3>
@@ -484,7 +361,7 @@ const whyUsItems = [
         </div>
 
         <div class="space-y-6">
-          {processSteps.map((step) => (
+          {processSteps.home.en.map((step) => (
             <article class="relative flex gap-6 p-6 bg-white rounded-2xl border border-black/5 hover:shadow-md transition-shadow">
               <div class="flex-shrink-0 w-12 h-12 rounded-full bg-sky-light/50 flex items-center justify-center font-display text-xl font-bold text-primary">
                 {step.step}
@@ -523,17 +400,7 @@ const whyUsItems = [
 
         <div class="grid md:grid-cols-3 gap-6">
           {reviews.slice(0, 9).map((r) => (
-            <article class="rounded-2xl border border-black/10 p-6 hover:shadow-lg transition-shadow">
-              <div class="flex gap-1 text-primary text-sm mb-3">
-                {[...Array(r.rating)].map((_, i) => <span key={i}>★</span>)}
-                <span class="ml-2 text-xs text-black/50">(Google)</span>
-              </div>
-              <blockquote class="text-black/80 text-sm leading-relaxed mb-4">"{r.text}"</blockquote>
-              <footer class="flex items-center justify-between text-xs">
-                <cite class="font-semibold text-primary">{r.name}</cite>
-                <span class="text-black/50">Google</span>
-              </footer>
-            </article>
+            <ReviewCard review={r} />
           ))}
         </div>
 
@@ -545,7 +412,7 @@ const whyUsItems = [
       </div>
     </section>
 
-    <!-- GALLERY / CLINIC PHOTOS -->
+    <!-- GALLERY -->
     <section id="gallery" class="py-20 bg-sky-light/30">
       <div class="mx-auto max-w-6xl px-5">
         <div class="text-center max-w-3xl mx-auto mb-12">
@@ -554,7 +421,7 @@ const whyUsItems = [
         </div>
 
         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {galleryImages.map((img, i) => (
+          {clinicGallery.slice(0, 6).map((img, i) => (
             <article class="relative rounded-2xl overflow-hidden group">
               <img
                 src={img.src}
@@ -562,235 +429,155 @@ const whyUsItems = [
                 class="w-full transition-transform duration-500 group-hover:scale-105"
                 loading={i < 3 ? "eager" : "lazy"}
               />
-              <div class="absolute inset-0 bg-gradient-to-t from-ink/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+              <div class="absolute inset-0 bg-gradient-to-t from-navy/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
                 <div>
                   <p class="text-white font-semibold">{img.alt}</p>
                   <p class="text-xs text-primary">{img.location}</p>
                 </div>
               </div>
             </article>
-              ))}
-            </div>
-          </div>
-        </section>
+          ))}
+        </div>
+      </div>
+    </section>
 
-        <!-- CONTACT / APPOINTMENT FORM -->
-        <section id="contacts" class="py-20 bg-white">
-          <div class="mx-auto max-w-6xl px-5">
-            <div class="grid lg:grid-cols-2 gap-12">
-              <!-- Form -->
+    <!-- CONTACT / APPOINTMENT FORM -->
+    <section id="contacts" class="py-20 bg-white">
+      <div class="mx-auto max-w-6xl px-5">
+        <div class="grid lg:grid-cols-2 gap-12">
+          <div>
+            <h2 class="font-display text-3xl font-semibold text-black mb-2">Free Skin & Hair Analysis</h2>
+            <p class="text-black/70 mb-8">Fill the form, we'll get back to you within 15 minutes. Choose your branch.</p>
+
+            <form id="appointment-form" class="space-y-5" action="/api/contact" method="POST">
+              <input type="hidden" name="form_type" value="appointment" />
+              <input type="hidden" name="locale" value="en" />
+
+              <div class="grid sm:grid-cols-2 gap-5">
+                <div>
+                  <label for="name" class="block text-sm font-medium text-black/70 mb-1">Full Name *</label>
+                  <input type="text" id="name" name="name" required class="w-full rounded-lg border border-black/15 bg-white px-4 py-3 text-sm text-black focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary" placeholder="Your Name" />
+                </div>
+                <div>
+                  <label for="phone" class="block text-sm font-medium text-black/70 mb-1">Phone *</label>
+                  <input type="tel" id="phone" name="phone" required class="w-full rounded-lg border border-black/15 bg-white px-4 py-3 text-sm text-black focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary" placeholder="05XX XXX XX XX" />
+                </div>
+              </div>
+
               <div>
-                <h2 class="font-display text-3xl font-semibold text-black mb-2">Free Skin & Hair Analysis</h2>
-                <p class="text-black/70 mb-8">Fill the form, we'll get back to you within 15 minutes. Specify branch preference.</p>
-
-                <form id="appointment-form" class="space-y-5" action="/api/contact" method="POST">
-                  <input type="hidden" name="form_type" value="appointment" />
-                  <input type="hidden" name="locale" value="en" />
-
-                  <div class="grid sm:grid-cols-2 gap-5">
-                    <div>
-                      <label for="name" class="block text-sm font-medium text-black/70 mb-1">Full Name *</label>
-                      <input type="text" id="name" name="name" required class="w-full rounded-lg border border-black/15 bg-white px-4 py-3 text-sm text-black focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary" placeholder="Your Full Name" />
-                    </div>
-                    <div>
-                      <label for="phone" class="block text-sm font-medium text-black/70 mb-1">Phone *</label>
-                      <input type="tel" id="phone" name="phone" required class="w-full rounded-lg border border-black/15 bg-white px-4 py-3 text-sm text-black focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary" placeholder="+90 5XX XXX XX XX" />
-                    </div>
-                  </div>
-
-                  <div>
-                    <label for="email" class="block text-sm font-medium text-black/70 mb-1">Email</label>
-                    <input type="email" id="email" name="email" class="w-full rounded-lg border border-black/15 bg-white px-4 py-3 text-sm text-black focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary" placeholder="example@email.com" />
-                  </div>
-
-                  <div>
-                    <label for="clinic" class="block text-sm font-medium text-black/70 mb-1">Branch Preference *</label>
-                    <select id="clinic" name="clinic" required class="w-full rounded-lg border border-black/15 bg-white px-4 py-3 text-sm text-black focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary">
-                      <option value="">Choose Branch</option>
-                      <option value="sisli">🏥 Şişli / Mecidiyeköy — Merkez, Büyükdere Cd. No:33-35 Kat:1, 34381 Şişli/İstanbul</option>
-                      <option value="halkali">🏥 Halkalı / Küçükçekmece — Atatürk, Hürriyet Cd. 15/1, 34303 Küçükçekmece/İstanbul</option>
-                    </select>
-                  </div>
-
-                  <div>
-                    <label for="concern" class="block text-sm font-medium text-black/70 mb-1">Area of Interest</label>
-                    <select id="concern" name="concern" class="w-full rounded-lg border border-black/15 bg-white px-4 py-3 text-sm text-black focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary">
-                      <option value="">Select</option>
-                      <option value="full-body">Full Body</option>
-                      <option value="face-neck">Face & Neck</option>
-                      <option value="underarm">Underarm</option>
-                      <option value="bikini">Bikini / Brazilian</option>
-                      <option value="legs">Legs (Full)</option>
-                      <option value="arms">Arms (Full)</option>
-                      <option value="back-chest">Back / Chest (Men)</option>
-                      <option value="other">Other</option>
-                    </select>
-                  </div>
-
-                  <div>
-                    <label for="message" class="block text-sm font-medium text-black/70 mb-1">Note / Message</label>
-                    <textarea id="message" name="message" rows="3" class="w-full rounded-lg border border-black/15 bg-white px-4 py-3 text-sm text-black focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary" placeholder="Special conditions, hormone therapy, previous laser history etc."></textarea>
-                  </div>
-
-                  <div class="flex items-start gap-2 text-sm text-black/60">
-                    <input type="checkbox" id="kvkk" name="kvkk" required class="mt-1 w-4 h-4 rounded border-black/30 text-primary focus:ring-primary" />
-                    <label for="kvkk">I have read and agree to the privacy policy. My data can be processed for booking.</label>
-                  </div>
-
-                  <button type="submit" class="w-full sm:w-auto rounded-full bg-navy px-8 py-3 font-semibold text-white transition-colors hover:bg-primary">
-                    Request Free Analysis & Book
-                  </button>
-
-                  <p id="form-message" class="hidden text-sm" aria-live="polite"></p>
-                </form>
+                <label for="email" class="block text-sm font-medium text-black/70 mb-1">Email</label>
+                <input type="email" id="email" name="email" class="w-full rounded-lg border border-black/15 bg-white px-4 py-3 text-sm text-black focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary" placeholder="example@email.com" />
               </div>
 
-              <!-- Clinic Info & Map -->
-              <div class="space-y-8">
-                <div class="rounded-2xl overflow-hidden aspect-[4/3] bg-navy/5">
-                  <iframe
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3008.65!2d28.79!3d41.05!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14caa5df9db6a8eb%3A0xb895e35088c1b864!2sMr.%20Falcon%20Beauty%20Halkal%C4%B1!5e0!3m2!1str!2str!4v1781863289752"
-                    class="w-full h-full border-0"
-                    allowfullscreen
-                    loading="lazy"
-                    referrerpolicy="no-referrer-when-downgrade"
-                    title="Mr. Falcon Beauty Halkalı Location"
-                  ></iframe>
-                </div>
-
-                <div class="grid sm:grid-cols-2 gap-6">
-                  {clinics.map((c) => (
-                    <article class="rounded-2xl bg-sky-light/30 p-6 border border-black/5">
-                      <h3 class="font-display text-lg font-semibold text-black flex items-center gap-2">
-                        🏥 {c.name}
-                      </h3>
-                      <address class="mt-3 not-italic text-sm text-black/70 leading-relaxed">
-                        {c.address}<br />
-                        Istanbul
-                      </address>
-                      <div class="mt-4 space-y-2 text-sm">
-                        <a href={`tel:+905063717071`} class="flex items-center gap-2 text-black/70 hover:text-primary transition-colors">
-                          <span>📞</span> +90 506 371 70 71
-                        </a>
-                        <a href={`https://api.whatsapp.com/send?phone=905063717071&text=Hello, I am reaching out from your website, can I get information about Falcon Laser Hair Removal?`} target="_blank" rel="noopener" class="flex items-center gap-2 text-black/70 hover:text-primary transition-colors">
-                          <span>💬</span> WhatsApp
-                        </a>
-                      </div>
-                    </article>
-                  ))}
-                </div>
+              <div>
+                <label for="clinic" class="block text-sm font-medium text-black/70 mb-1">Preferred Branch *</label>
+                <select id="clinic" name="clinic" required class="w-full rounded-lg border border-black/15 bg-white px-4 py-3 text-sm text-black focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary">
+                  <option value="">Select Branch</option>
+                  {branches.map((b) => <option value={b.data.slug}>{b.data.name}</option>)}
+                </select>
               </div>
+
+              <div>
+                <label for="concern" class="block text-sm font-medium text-black/70 mb-1">Area of Interest</label>
+                <select id="concern" name="concern" class="w-full rounded-lg border border-black/15 bg-white px-4 py-3 text-sm text-black focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary">
+                  <option value="">Select</option>
+                  <option value="full-body">Full Body</option>
+                  <option value="face-neck">Face & Neck</option>
+                  <option value="underarm">Underarm</option>
+                  <option value="bikini">Bikini / Brazilian</option>
+                  <option value="legs">Legs (Full)</option>
+                  <option value="arms">Arms (Full)</option>
+                  <option value="back-chest">Back / Chest</option>
+                  <option value="other">Other</option>
+                </select>
+              </div>
+
+              <div>
+                <label for="message" class="block text-sm font-medium text-black/70 mb-1">Note / Message</label>
+                <textarea id="message" name="message" rows="3" class="w-full rounded-lg border border-black/15 bg-white px-4 py-3 text-sm text-black focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary" placeholder="Special condition, hormone therapy, previous laser history etc."></textarea>
+              </div>
+
+              <div class="flex items-start gap-2 text-sm text-black/60">
+                <input type="checkbox" id="kvkk" name="kvkk" required class="mt-1 w-4 h-4 rounded border-black/30 text-primary focus:ring-primary" />
+                <label for="kvkk">I have read and approve the KVKK disclosure. My data may be processed for appointment.</label>
+              </div>
+
+              <div class="cf-turnstile" data-sitekey="0x4AAAAAAAe3UYEAyXZ5Iqy4vEMqCLYzNB8" data-theme="light" data-callback="onTurnstileCallback"></div>
+              <button type="submit" class="w-full sm:w-auto rounded-full bg-navy px-8 py-3 font-semibold text-white transition-colors hover:bg-primary">
+                Request Free Analysis & Book
+              </button>
+
+              <p id="form-message" class="hidden text-sm" aria-live="polite"></p>
+            </form>
+          </div>
+
+          <div class="space-y-8">
+            <BranchMap branch={branches[1].data} />
+            <div class="grid sm:grid-cols-2 gap-6">
+              {branches.map((b) => <ClinicCard branch={b.data} />)}
             </div>
           </div>
-        </section>
+        </div>
+      </div>
+    </section>
 
-        <!-- FAQ ACCORDION -->
-        <section id="faq" class="py-20 bg-navy text-white">
-          <div class="mx-auto max-w-3xl px-5">
-            <div class="text-center mb-12">
-              <p class="mb-2 text-sm font-semibold uppercase tracking-[0.2em] text-primary">FAQ</p>
-              <h2 class="font-display text-3xl font-semibold md:text-4xl">FAQ — Everything About Laser Hair Removal</h2>
-            </div>
+    <!-- FAQ ACCORDION -->
+    <section id="faq" class="py-20 bg-navy text-white">
+      <div class="mx-auto max-w-3xl px-5">
+        <div class="text-center mb-12">
+          <p class="mb-2 text-sm font-semibold uppercase tracking-[0.2em] text-primary">Frequently Asked Questions</p>
+          <h2 class="font-display text-3xl font-semibold md:text-4xl">FAQ — Everything About Laser Hair Removal</h2>
+        </div>
 
-            <dl class="space-y-3" id="faq-accordion">
-              {faqs.map((faq, i) => (
-                <div class="border border-white/10 rounded-xl overflow-hidden" key={i}>
-                  <button
-                    type="button"
-                    class="w-full px-6 py-4 flex items-center justify-between text-left font-medium focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-navy"
-                    aria-expanded="false"
-                    aria-controls={`faq-answer-${i}`}
-                  >
-                    <span>{faq.q}</span>
-                    <svg class="w-5 h-5 text-primary flex-shrink-0 ml-4 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-                  </button>
-                  <dd id={`faq-answer-${i}`} class="hidden px-6 pb-4 pt-2 text-sm text-white/90 leading-relaxed" hidden>{faq.a}</dd>
-                </div>
-              ))}
-            </dl>
+        <FaqAccordion items={faqs} tone="dark" />
 
-            <p class="mt-10 text-center text-sm text-white/60">
-              Question not listed? <a href="https://wa.me/905525939890" target="_blank" rel="noopener" class="text-primary hover:underline">Ask on WhatsApp</a>
-            </p>
-          </div>
-        </section>
+        <p class="mt-10 text-center text-sm text-white/60">
+          Not in the list? <a href="https://wa.me/905525939890" target="_blank" rel="noopener" class="text-primary hover:underline">Ask on WhatsApp</a>
+        </p>
+      </div>
+    </section>
 
-        <!-- FINAL CTA -->
-        <section class="py-20 bg-sky-light/50">
-          <div class="mx-auto max-w-3xl px-5 text-center">
-            <h2 class="font-display text-3xl font-semibold text-black md:text-4xl">Ready?</h2>
-            <p class="mt-4 text-lg text-black/70">Free first consultation and skin analysis. Pick a branch, book your appointment.</p>
-            <div class="mt-8 flex flex-wrap items-center justify-center gap-4">
-              <a href="#contacts" class="rounded-full bg-navy px-8 py-3 font-semibold text-white transition-colors hover:bg-primary">
-                Book Appointment
-              </a>
-              <a href="https://wa.me/905525939890" target="_blank" rel="noopener" class="rounded-full border-2 border-black/15 px-8 py-3 font-semibold text-black transition-colors hover:border-primary hover:text-primary">
-                Text on WhatsApp
-              </a>
-            </div>
-            <p class="mt-6 text-sm text-black/60">📍 Şişli/Mecidiyeköy · 📍 Halkalı/Küçükçekmece · 📞 +90 506 371 70 71</p>
-          </div>
-        </section>
-      </main>
+    <BookingCta locale="en" />
+  </main>
 
-      <Footer locale="en" />
+  <Footer locale="en" />
 
-      <script is:inline>
-        // FAQ Accordion
-        document.querySelectorAll('#faq-accordion button').forEach(btn => {
-          btn.addEventListener('click', () => {
-            const dd = btn.nextElementSibling;
-            const isOpen = !dd.hidden;
-            dd.hidden = isOpen;
-            dd.classList.toggle('hidden', isOpen);
-            btn.setAttribute('aria-expanded', !isOpen);
-            btn.querySelector('svg')?.classList.toggle('rotate-180', !isOpen);
-          });
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+  <script>
+    document.getElementById('appointment-form')?.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const form = e.target;
+      const msgEl = document.getElementById('form-message');
+      const btn = form.querySelector('button[type="submit"]');
+      const originalText = btn.textContent;
+      btn.disabled = true;
+      btn.textContent = 'Sending...';
+      msgEl.classList.add('hidden');
+
+      try {
+        const formData = new FormData(form);
+        const res = await fetch('/api/contact', {
+          method: 'POST',
+          body: formData,
         });
-
-        // Form submit via fetch
-        document.getElementById('appointment-form')?.addEventListener('submit', async (e) => {
-          e.preventDefault();
-          const form = e.target;
-          const msgEl = document.getElementById('form-message');
-          const btn = form.querySelector('button[type="submit"]');
-          const originalText = btn.textContent;
-          btn.disabled = true;
-          btn.textContent = 'Sending...';
-          msgEl.classList.add('hidden');
-
-          try {
-            const formData = new FormData(form);
-            const res = await fetch('/api/contact', {
-              method: 'POST',
-              body: formData,
-            });
-            const data = await res.json();
-            if (res.ok && data.success) {
-              msgEl.textContent = '✅ Appointment request received! We will get back to you within 15 min.';
-              msgEl.className = 'text-green-700';
-              form.reset();
-            } else {
-              throw new Error(data.message || 'An error occurred');
-            }
-          } catch (err) {
-            msgEl.textContent = '❌ ' + (err.message || 'Submission failed, please message on WhatsApp.');
-            msgEl.className = 'text-red-700';
-          } finally {
-            msgEl.classList.remove('hidden');
-            btn.disabled = false;
-            btn.textContent = originalText;
-          }
-        });
-
-        // Clinic selector from URL
-        const urlParams = new URLSearchParams(window.location.search);
-        const clinicParam = urlParams.get('clinic');
-        if (clinicParam) {
-          const select = document.getElementById('clinic');
-          if (select) select.value = clinicParam;
-          const heroSelect = document.getElementById('hero-clinic-select');
-          if (heroSelect) heroSelect.value = `/en/#contacts?clinic=${clinicParam}`;
+        const data = await res.json();
+        if (res.ok && data.success) {
+          msgEl.textContent = '✅ ' + (data.message || 'Your appointment request received! We will get back within 15 min.');
+          msgEl.className = 'text-green-700';
+          form.reset();
+          if (typeof turnstile !== 'undefined') turnstile.reset();
+        } else {
+          throw new Error(data.message || 'Something went wrong');
         }
-      </script>
-    </BaseLayout>
+      } catch (err) {
+        msgEl.textContent = '❌ ' + (err.message || 'Submission failed, please write on WhatsApp.');
+        msgEl.className = 'text-red-700';
+        if (typeof turnstile !== 'undefined') turnstile.reset();
+      } finally {
+        msgEl.classList.remove('hidden');
+        btn.disabled = false;
+        btn.textContent = originalText;
+      }
+    });
+  </script>
+</BaseLayout>

@@ -4,118 +4,34 @@ import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import VideoGallery from "../components/VideoGallery.astro";
 import PressSlider from "../components/PressSlider.astro";
+import FaqAccordion from "../components/FaqAccordion.astro";
+import ReviewCard from "../components/ReviewCard.astro";
+import ClinicCard from "../components/ClinicCard.astro";
+import BranchMap from "../components/BranchMap.astro";
+import StatGrid from "../components/StatGrid.astro";
+import BookingCta from "../components/BookingCta.astro";
 import { reviews } from "../data/reviews";
+import { getCollection } from "astro:content";
+import { trustSignals } from "../data/trustSignals";
+import { siteMetrics } from "../data/siteMetrics";
+import { processSteps } from "../data/processSteps";
+import { falconTechSpecs } from "../data/falconTechSpecs";
+import { whyUsItems } from "../data/whyUsItems";
+import { clinicGallery } from "../data/clinicGallery";
+import { satisfactionVideos, faqVideos, pressVideos } from "../data/videos";
 
-const trustSignals = [
-  { icon: "🏆", text: "15.000+" },
-  { icon: "⭐", text: "5.0/5" },
-  { icon: "🏥", text: "2 Şube" },
-  { icon: "⚡", text: "Falcon 4 Pro" },
+const branches = (await getCollection("branches")).sort((a, b) => a.data.slug.localeCompare(b.data.slug));
+const faqEntries = (await getCollection("faq", (e) => e.id.startsWith("tr/"))).sort((a, b) => a.data.order - b.data.order);
+const faqs = faqEntries.map((e) => ({ q: e.data.question, a: e.data.answer }));
+
+const laserScience = [
+  { icon: "🎯", title: "Seçici Fototermoliz", desc: "Lazer ışığı melanozitler tarafından emilerek kıl kökünü ısıtır, çevre dokuları korur." },
+  { icon: "🔬", title: "Anagen Fazı Hedefleme", desc: "Sadece büyüme aşamasındaki (anagen) kıllar etkilendiği için birden fazla seans gerekir." },
+  { icon: "🌈", title: "4 Dalga Boyu Avantajı", desc: "755nm (ince/koyu kıl), 808nm (hız), 940nm (derinlik), 1064nm (bronz cilt) - hepsi bir arada." },
+  { icon: "🤖", title: "AI Enerji Optimizasyonu", desc: "Cihaz cilt tipini (Fitzpatrick I-VI) tarar, kıl kalınlığını ölçer, joule/ms/Hz'yi otomatik set eder." },
+  { icon: "❄️", title: "Safir Kontak Soğutma", desc: "-20°C başlık sıcaklığı ile epiderme korunur, dermis hedeflenir. Ağrı sinyali bloke edilir." },
+  { icon: "🛡️", title: "Güvenlik Protokolleri", desc: "Test atışı zorunlu, gözlük zorunlu, UVC dezenfeksiyon, tek kullanımlık kapak, cilt soğutma jeli." },
 ];
-
-const clinics = [
-  { id: "sisli", name: "Şişli / Mecidiyeköy", address: "Merkez, Büyükdere Cd. No:33-35 Kat:1, 34381 Şişli/İstanbul" },
-  { id: "halkali", name: "Halkalı / Küçükçekmece", address: "Atatürk, Hürriyet Cd. 15/1, 34303 Küçükçekmece/İstanbul" },
-];
-
-const aboutMetrics = [
-  { value: "15.000+", label: "Mutlu Müşteri" },
-  { value: "5.0/5", label: "Google Değerlendirme" },
-  { value: "2", label: "İstanbul Şubesi" },
-  { value: "10+", label: "Yıl Deneyim" },
-];
-
-const advantages = [
-  { icon: "🎯", title: "4 Dalga Boyu", desc: "755nm Alexandrite, 808nm Diode, 940nm ve 1064nm Nd:YAG tek cihazda. Her cilt tipi ve kıl rengi için optimize edilmiş." },
-  { icon: "🤖", title: "AI Cilt Analizi", desc: "Yapay zeka destekli cilt ve kıl analizi ile her müşteriye özel enerji parametreleri belirlenir." },
-  { icon: "❄️", title: "Safir Soğutma", desc: "-20°C'a kadar soğutma ile epilasyon sırasında neredeyse sıfır ağrı hissi." },
-  { icon: "☀️", title: "4 Mevsim Güvenli", desc: "Nd:YAG 1064nm sayesinde bronz ciltlerde ve yaz aylarında da güvenli uygulama." },
-  { icon: "🦠", title: "UVC Hijyen", desc: "Her seans öncesi başlık UVC ışığıyla dezenfekte edilir, tek kullanımlık kapak kullanılır." },
-  { icon: "⚡", title: "Hızlı Seans", desc: "4 cm² spot boyu ve 10 Hz frekans ile vücut epilasyonu 15-20 dakikada tamamlanır." },
-];
-
-const processSteps = [
-  { step: 1, title: "Ücretsiz Analiz", desc: "Uzman ekibimiz cilt tipinizi, kıl kalınlığını ve renkini analiz eder. Kişiye özel protokol hazırlanır." },
-  { step: 2, title: "Test Atışı", desc: "Küçük bir test alanı uygulanarak cilt tepkisi ve enerji toleransı ölçülür. Güvenlik önceliklidir." },
-  { step: 3, title: "Protokol Belirleme", desc: "Falcon 4 Pro'nun 4 dalga boyu üzerinden cilt tipinize özel parametreler (joules, ms, Hz) set edilir." },
-  { step: 4, title: "Uygulama", desc: "Soğutmalı başlıkla ağrısız, hızlı ve hijyenik seans. Her vurışta UVC dezenfeksiyon." },
-  { step: 5, title: "Sonrası Bakım", desc: "Soğutucu jel, SPF50+ koruyucu ve takip takvimi verilir. Yan etki riski minimize edilir." },
-  { step: 6, title: "Seans Takibi", desc: "Her seans sonrası kıl azalma oranı ölçülür, parametreler güncellenir. Ortalama 6-8 seans." },
-  { step: 7, title: "Sonuç & Garanti", desc: "%95+ kıl azalma hedeflenir. Yılın sonuna kadar ücretsiz kontrol seansları dahil." },
-];
-
-const faqs = [
-  { q: "Lazer epilasyon ağrılı mı?", a: "Falcon 4 Pro'nun -20°C safir soğutma sistemi sayesinde işlem neredeyse ağrısızdır. Hassas bölgelerde hafif bir ısı hissi olabilir." },
-  { q: "Kaç seans gerekir?", a: "Ortalama 6-8 seans.%95+ kıl azalma hedeflenir. Cilt tipi, kıl kalınlığı ve hormon durumu seans sayısını etkiler." },
-  { q: "Bronz ciltim var, yaz yapabilir miyim?", a: "Evet. Nd:YAG 1064nm dalga boyu melanozitleri hedef almadığı için bronz ve koyu ciltlerde de güvenle uygulanır." },
-  { q: "Seans arası ne kadar süre olmalı?", a: "Yüz ve boyun: 4-6 hafta. Vücut: 6-8 hafta. Kıl döngüsüne (anagen faz) göre planlanır." },
-  { q: "Yan etkileri nelerdir?", a: "Geçici kızarıklık, hafif şişlik 1-2 saatte geçer. Yanık, leke riski Falcon 4 Pro ile minimize edilmiştir." },
-  { q: "Erkekler de yapabilir mi?", a: "Evet. Sırt, göğüs, boyun, burun gibi bölgelerde erkekler için de uygulanır. Ayrı bekleme alanlarımız vardır." },
-  { q: "Hamilelik/doğum sonrası ne zaman?", a: "Hamilelikte uygulanmaz. Doğum sonrası 3-6 ay ve doktor onayıyla başlanabilir. Emzirme döneminde de güvenlidir." },
-  { q: "Randevu nasıl alınır?", a: "Web sitemizden, WhatsApp'tan veya telefonla. Şişli ve Halkalı şubelerimizden tercih edebilirsiniz." },
-  { q: "Fiyatlandırma nasıl?", a: "Bölgeye ve pakete göre değişir. İlk danışmanlık ve cilt analizi ücretsizdir. Paket alırsanız seans başı daha uygun." },
-];
-
-const galleryImages = [
-  { src: "/images/clinic/clinic1.jpg", alt: "Şişli Şubesi Resepsiyon", location: "Şişli" },
-  { src: "/images/clinic/clinic2.jpg", alt: "Şişli Şubesi Uygulama Odası", location: "Şişli" },
-  { src: "/images/clinic/clinic3.jpg", alt: "Halkalı Şubesi Giriş", location: "Halkalı" },
-  { src: "/images/clinic/clinic4.jpg", alt: "Halkalı Şubesi Bekleme Alanı", location: "Halkalı" },
-  { src: "/images/c1.jpg", alt: "Falcon 4 Pro Cihazı", location: "Teknoloji" },
-  { src: "/images/c2.jpg", alt: "Falcon 4 Pro Başlık Detayı", location: "Teknoloji" },
-];
-
-// Video Gallery Data (from LP site)
-const satisfactionVideos = [
-  { id: 25, thumbnail: "/images/shorts/shorts25.jpg", videoUrl: "/videos/shorts/shorts25.mp4", title: "Memnuniyet Videoları", description: "Lazer Epilasyon", category: "satisfaction" },
-  { id: 26, thumbnail: "/images/shorts/shorts26.jpg", videoUrl: "/videos/shorts/shorts26.mp4", title: "Memnuniyet Videoları", description: "Lazer Epilasyon", category: "satisfaction" },
-  { id: 27, thumbnail: "/images/shorts/shorts27.jpg", videoUrl: "/videos/shorts/shorts27.mp4", title: "Memnuniyet Videoları", description: "Lazer Epilasyon", category: "satisfaction" },
-  { id: 28, thumbnail: "/images/shorts/shorts28.jpg", videoUrl: "/videos/shorts/shorts28.mp4", title: "Memnuniyet Videoları", description: "Lazer Epilasyon", category: "satisfaction" },
-];
-
-const faqVideos = [
-  { id: 1, thumbnail: "/images/shorts/shorts1.jpg", videoUrl: "/videos/shorts/shorts1.mp4", title: "Sıkça Sorulan Sorular", description: "Falcon 4 Pro & Lazer Epilasyon", category: "faq" },
-  { id: 2, thumbnail: "/images/shorts/shorts2.jpg", videoUrl: "/videos/shorts/shorts2.mp4", title: "Sıkça Sorulan Sorular", description: "Falcon 4 Pro & Lazer Epilasyon", category: "faq" },
-  { id: 3, thumbnail: "/images/shorts/shorts3.jpg", videoUrl: "/videos/shorts/shorts3.mp4", title: "Sıkça Sorulan Sorular", description: "Falcon 4 Pro & Lazer Epilasyon", category: "faq" },
-  { id: 4, thumbnail: "/images/shorts/shorts4.jpg", videoUrl: "/videos/shorts/shorts4.mp4", title: "Sıkça Sorulan Sorular", description: "Falcon 4 Pro & Lazer Epilasyon", category: "faq" },
-  { id: 5, thumbnail: "/images/shorts/shorts5.jpg", videoUrl: "/videos/shorts/shorts5.mp4", title: "Sıkça Sorulan Sorular", description: "Falcon 4 Pro & Lazer Epilasyon", category: "faq" },
-  { id: 6, thumbnail: "/images/shorts/shorts6.jpg", videoUrl: "/videos/shorts/shorts6.mp4", title: "Sıkça Sorulan Sorular", description: "Falcon 4 Pro & Lazer Epilasyon", category: "faq" },
-  { id: 7, thumbnail: "/images/shorts/shorts7.jpg", videoUrl: "/videos/shorts/shorts7.mp4", title: "Sıkça Sorulan Sorular", description: "Falcon 4 Pro & Lazer Epilasyon", category: "faq" },
-  { id: 8, thumbnail: "/images/shorts/shorts8.jpg", videoUrl: "/videos/shorts/shorts8.mp4", title: "Sıkça Sorulan Sorular", description: "Falcon 4 Pro & Lazer Epilasyon", category: "faq" },
-  { id: 9, thumbnail: "/images/shorts/shorts9.jpg", videoUrl: "/videos/shorts/shorts9.mp4", title: "Sıkça Sorulan Sorular", description: "Falcon 4 Pro & Lazer Epilasyon", category: "faq" },
-  { id: 10, thumbnail: "/images/shorts/shorts10.jpg", videoUrl: "/videos/shorts/shorts10.mp4", title: "Sıkça Sorulan Sorular", description: "Falcon 4 Pro & Lazer Epilasyon", category: "faq" },
-  { id: 11, thumbnail: "/images/shorts/shorts11.jpg", videoUrl: "/videos/shorts/shorts11.mp4", title: "Sıkça Sorulan Sorular", description: "Falcon 4 Pro & Lazer Epilasyon", category: "faq" },
-  { id: 12, thumbnail: "/images/shorts/shorts12.jpg", videoUrl: "/videos/shorts/shorts12.mp4", title: "Sıkça Sorulan Sorular", description: "Falcon 4 Pro & Lazer Epilasyon", category: "faq" },
-];
-
-const pressVideos = [
-  { id: 18, thumbnail: "/images/shorts/shorts18.jpg", videoUrl: "/videos/shorts/shorts18.mp4", channel: "Beyaz TV" },
-  { id: 21, thumbnail: "/images/shorts/shorts21.jpg", videoUrl: "/videos/shorts/shorts21.mp4", channel: "CNN Türk" },
-  { id: 22, thumbnail: "/images/shorts/shorts22.jpg", videoUrl: "/videos/shorts/shorts22.mp4", channel: "TLC" },
-  { id: 23, thumbnail: "/images/shorts/shorts23.jpg", videoUrl: "/videos/shorts/shorts23.mp4", channel: "TLC" },
-  { id: 24, thumbnail: "/images/shorts/shorts24.jpg", videoUrl: "/videos/shorts/shorts24.mp4", channel: "CNN Türk" },
-];
-
-const falconTechSpecs = [
-  { label: "Dalga Boyları", value: "755nm Alexandrite + 808nm Diode + 940nm + 1064nm Nd:YAG" },
-  { label: "Spot Boyutu", value: "4 cm² (büyük vücut alanları için optimize)" },
-  { label: "Frekans", value: "1-10 Hz (hızlı vücut epilasyonu)" },
-  { label: "Soğutma", value: "Safir kristal, -20°C ile +5°C arası ayarlanabilir" },
-  { label: "Enerji", value: "1-120 J/cm² (cilt tipine göre AI ile otomatik)" },
-  { label: "Nabız Süresi", value: "5-400 ms (ince/kalın kıl için optimize)" },
-  { label: "Hijyen", value: "UVC LED dezenfeksiyon + tek kullanımlık başlık kapağı" },
-  { label: "Ekran", value: "15.6\" dokunmatik, AI cilt analizi entegre" },
-];
-
-const whyUsItems = [
-  { icon: "🎓", title: "Uzman Kadro", desc: "Sertifikalı uzman estetisyenler tarafından uygulanır." },
-  { icon: "🔬", title: "FDA/CE Onaylı", desc: "Falcon 4 Pro cihazı FDA ve CE sertifikalı, tıbbi cihaz sınıfındadır (Class IIb)." },
-  { icon: "📊", title: "Şeffaf Süreç", desc: "Her seans öncesi/sonrası fotoğraflı takip, kıl sayım raporu ve enerji parametreleri paylaşılır." },
-  { icon: "🛡️", title: "Garanti Paket", desc: "Paket alırsanız yıl sonuna kadar ücretsiz kontrol seansı. Sonuç gelmezse para iadesi garantisi." },
-  { icon: "📍", title: "İki Kolay Konum", desc: "Mecidiyeköy (Şişli) ve Halkalı (Küçükçekmece) - Metro, metrobüs, otobüsle erişim kolay." },
-  { icon: "💬", title: "7/24 Destek", desc: "WhatsApp hattımızdan seans sonrası takip, randevu değişikliği ve sorularınız için anında yanıt." },
-];
-
 ---
 
 <BaseLayout
@@ -128,52 +44,41 @@ const whyUsItems = [
 
   <main>
     <!-- HERO SECTION - GSAP + Lenis Enhanced -->
-    <section id="hero" class="relative overflow-hidden bg-gradient-to-b from-beige to-white" data-hero>
-      <!-- Background decorative elements -->
+    <section id="hero" class="relative overflow-hidden bg-gradient-to-b from-sky-light to-white" data-hero>
       <div class="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
-        <!-- Top gradient orb -->
         <div class="absolute top-1/4 left-1/4 w-[300px] h-[300px] md:w-[600px] md:h-[600px] bg-primary/10 rounded-full blur-3xl animate-blob-slow" style="animation-duration: 20s;"></div>
-        <!-- Bottom gradient orb -->
         <div class="absolute bottom-1/4 right-1/4 w-[250px] h-[250px] md:w-[500px] md:h-[500px] bg-sky/10 rounded-full blur-3xl animate-blob-slow" style="animation-duration: 25s; animation-delay: -5s;"></div>
-        <!-- Floating particles container -->
         <div id="hero-particles" class="absolute inset-0"></div>
       </div>
 
-      <!-- Trust Signals Bar - Sticky -->
       <div class="border-b border-black/5 bg-white/50 backdrop-blur sticky top-16 z-40" data-animate="trust-bar" data-gsap-trigger="trust-bar">
         <div class="mx-auto flex max-w-7xl items-center justify-center gap-4 px-5 py-3 text-sm font-medium text-black/70 md:py-2">
           <div class="flex flex-wrap items-center justify-center gap-3 text-xs md:gap-6 md:text-sm" data-gsap="stagger" data-gsap-delay="0.1">
-            {trustSignals.map((t) => (
+            {trustSignals.tr.map((t) => (
               <span class="flex items-center gap-1.5 text-primary">{t.icon} <strong>{t.text}</strong></span>
             ))}
           </div>
         </div>
       </div>
 
-      <!-- Hero Content -->
       <div class="mx-auto max-w-7xl px-5 py-20 md:py-28 lg:py-32 relative z-10">
         <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-          <!-- Left Column: Text Content -->
           <div class="text-center lg:text-left" data-hero-content>
-            <!-- Eyebrow -->
             <p class="mb-6 text-sm font-semibold uppercase tracking-[0.25em] text-primary" data-gsap="fadeUp" data-gsap-delay="0.1">
               Falcon 4 Pro Technology
             </p>
 
-            <!-- Main Headline - Split Text Animation -->
             <h1 class="mb-8 font-display text-4xl font-semibold leading-tight text-black md:text-6xl lg:text-7xl xl:text-8xl" data-gsap-split="lines" data-gsap="splitLines" data-gsap-delay="0.2">
               Ağrısız Lazer Epilasyonun
               <br />
               <span class="text-primary relative">Yeni Standardı</span>
             </h1>
 
-            <!-- Subheadline -->
             <p class="mb-10 max-w-xl text-lg leading-relaxed text-black/70 mx-auto lg:mx-0" data-gsap="fadeUp" data-gsap-delay="0.4">
               Dört dalga boyu, yapay zeka destekli kontrol ve -20°C safir soğutma ile tanışın.
               İstanbul'un iki yakasında Mr. Falcon Beauty farkı.
             </p>
 
-            <!-- CTA Buttons -->
             <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-4 lg:justify-start mb-10" data-gsap="stagger" data-gsap-delay="0.5">
               <a
                 href="#contacts"
@@ -197,7 +102,6 @@ const whyUsItems = [
               </a>
             </div>
 
-            <!-- Trust Indicators -->
             <div class="flex flex-wrap items-center justify-center gap-3 md:gap-6 lg:justify-start" data-gsap="stagger" data-gsap-delay="0.6">
               <div class="flex items-center gap-2 text-sm text-black/60" data-gsap="fadeUp">
                 <svg class="w-4 h-4 text-primary flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
@@ -213,7 +117,6 @@ const whyUsItems = [
               </div>
             </div>
 
-            <!-- Scroll Indicator -->
             <div class="mt-16 flex flex-col items-center lg:items-start" data-gsap="fadeUp" data-gsap-delay="0.8">
               <p class="mb-2 text-xs uppercase tracking-wider text-black/40">Keşfetmek için kaydırın</p>
               <div class="relative w-6 h-10 rounded-full border border-black/15 flex items-center justify-center">
@@ -222,9 +125,7 @@ const whyUsItems = [
             </div>
           </div>
 
-          <!-- Right Column: Hero Visual -->
           <div class="relative" data-hero-visual>
-            <!-- Main Hero Image with Parallax -->
             <div class="relative rounded-3xl overflow-hidden shadow-2xl bg-navy/5" data-gsap="parallax" data-gsap-speed="0.3">
               <img
                 src="/images/sliderdoctor.png"
@@ -234,7 +135,6 @@ const whyUsItems = [
                 data-gsap="reveal"
               />
 
-              <!-- Floating Tech Badges -->
               <div class="absolute top-6 right-6 hidden lg:flex flex-col gap-3" data-gsap="stagger" data-gsap-delay="0.3">
                 {[
                   { icon: "🎯", text: "4 Dalga Boyu" },
@@ -253,11 +153,9 @@ const whyUsItems = [
               </div>
             </div>
 
-            <!-- Decorative accent lines -->
             <div class="absolute -top-12 -right-12 w-32 h-32 border-t-2 border-r-2 border-primary/20 rounded-tr-3xl opacity-50" aria-hidden="true"></div>
             <div class="absolute -bottom-12 -left-12 w-32 h-32 border-b-2 border-l-2 border-primary/20 rounded-bl-3xl opacity-50" aria-hidden="true"></div>
 
-            <!-- Floating Stats Card (outside image container to avoid overflow clipping) -->
             <div class="absolute -bottom-6 left-1/2 -translate-x-1/2 md:left-auto md:-translate-x-0 md:-bottom-8 md:-left-8 p-4 md:p-8 bg-white/95 backdrop-blur rounded-2xl shadow-2xl max-w-[calc(100%-2rem)] md:max-w-xs border border-black/5 z-20" data-gsap="float" data-gsap-delay="0.5">
               <div class="flex items-center gap-3 text-primary text-2xl font-display font-bold">
                 <span class="animate-pulse" style="animation-duration: 2s;">⭐</span>
@@ -274,7 +172,6 @@ const whyUsItems = [
         </div>
       </div>
 
-      <!-- Wave divider -->
       <div class="absolute bottom-0 left-0 right-0 overflow-hidden" aria-hidden="true">
         <svg class="w-full h-16 md:h-24" viewBox="0 0 1440 120" preserveAspectRatio="none">
           <path
@@ -284,8 +181,8 @@ const whyUsItems = [
           />
           <defs>
             <linearGradient id="heroWaveGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stop-color="#0E7490" />
-              <stop offset="100%" stop-color="#0E7490" stop-opacity="0" />
+              <stop offset="0%" stop-color="#17468A" />
+              <stop offset="100%" stop-color="#17468A" stop-opacity="0" />
             </linearGradient>
           </defs>
         </svg>
@@ -306,13 +203,8 @@ const whyUsItems = [
               güvenli, etkili ve hijyenik lazer epilasyon hizmeti verdik. Falcon 4 Pro teknolojisiyle ağrıyı, yan etkileri
               ve belirsizliği ortadan kaldırarak "yapay zeka kontrollü, 4 dalga boyulu, soğutmalı" yeni standartı koyduk.
             </p>
-            <div class="grid grid-cols-2 gap-6 mb-8">
-              {aboutMetrics.map((m) => (
-                <div class="p-4 rounded-2xl bg-sky-light/50">
-                  <div class="font-display text-3xl font-bold text-black md:text-4xl">{m.value}</div>
-                  <div class="text-sm text-black/60">{m.label}</div>
-                </div>
-              ))}
+            <div class="mb-8">
+              <StatGrid items={siteMetrics.tr} class="grid-cols-2 lg:grid-cols-2 gap-6" />
             </div>
             <a href="#falcon-4-pro" class="inline-flex items-center gap-2 font-semibold text-primary hover:text-black transition-colors">
               Falcon 4 Pro Teknolojisi →
@@ -325,7 +217,7 @@ const whyUsItems = [
               alt="Mr. Falcon Beauty Şişli şubesi iç görünümü"
               class="w-full"
             />
-            <div class="absolute bottom-0 left-0 right-0 p-6 md:p-8 bg-gradient-to-t from-ink/90 to-transparent text-white">
+            <div class="absolute bottom-0 left-0 right-0 p-6 md:p-8 bg-gradient-to-t from-navy/90 to-transparent text-white">
               <div class="flex items-center gap-3 text-primary text-xl font-display font-bold">🏆</div>
               <p class="mt-2 text-lg font-medium">Türkiye'nin İlk Falcon 4 Pro Kliniği</p>
               <p class="mt-1 text-sm text-white/80">2024'ten beri İstanbul'da önderlik ediyoruz</p>
@@ -346,14 +238,7 @@ const whyUsItems = [
         </div>
 
         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {[
-            { icon: "🎯", title: "Seçici Fototermoliz", desc: "Lazer ışığı melanozitler tarafından emilerek kıl kökünü ısıtır, çevre dokuları korur." },
-            { icon: "🔬", title: "Anagen Fazı Hedefleme", desc: "Sadece büyüme aşamasındaki (anagen) kıllar etkilendiği için birden fazla seans gerekir." },
-            { icon: "🌈", title: "4 Dalga Boyu Avantajı", desc: "755nm (ince/koyu kıl), 808nm (hız), 940nm (derinlik), 1064nm (bronz cilt) - hepsi bir arada." },
-            { icon: "🤖", title: "AI Enerji Optimizasyonu", desc: "Cihaz cilt tipini (Fitzpatrick I-VI) tarar, kıl kalınlığını ölçer, joule/ms/Hz'yi otomatik set eder." },
-            { icon: "❄️", title: "Safir Kontak Soğutma", desc: "-20°C başlık sıcaklığı ile epiderme korunur, dermis hedeflenir. Ağrı sinyali bloke edilir." },
-            { icon: "🛡️", title: "Güvenlik Protokolleri", desc: "Test atışı zorunlu, gözlük zorunlu, UVC dezenfeksiyon, tek kullanımlık kapak, cilt soğutma jeli." },
-          ].map((item) => (
+          {laserScience.map((item) => (
             <div class="rounded-2xl bg-white p-6 shadow-sm border border-black/5 hover:shadow-md transition-shadow">
               <div class="text-3xl">{item.icon}</div>
               <h3 class="mt-4 font-display text-xl font-semibold text-black">{item.title}</h3>
@@ -374,26 +259,18 @@ const whyUsItems = [
 
         <div class="grid md:grid-cols-3 gap-8">
           {reviews.slice(0, 3).map((r) => (
-            <article class="rounded-2xl border border-black/10 bg-white p-6 shadow-surface hover:shadow-card-hover transition-all duration-normal" data-hover="lift">
-              <div class="flex gap-1 text-primary text-sm mb-3">★★★★★</div>
-              <blockquote class="text-black/80 text-body-sm leading-relaxed">"{r.text}"</blockquote>
-              <footer class="mt-4 flex items-center justify-between text-caption">
-                <cite class="font-semibold text-primary">{r.name}</cite>
-                <span class="text-black/50">Google</span>
-              </footer>
-            </article>
+            <ReviewCard review={r} variant="compact" />
           ))}
         </div>
       </div>
     </section>
 
     <!-- MEMNUNİYET VİDEOLARI (Danışan Videoları) -->
-    <VideoGallery videos={satisfactionVideos} sectionId="satisfaction-videos" class="bg-sky-light/30" />
+    <VideoGallery videos={satisfactionVideos.tr} sectionId="satisfaction-videos" class="bg-sky-light/30" />
 
     <!-- BASINDA HABERLER (Press Videos Slider) -->
     <PressSlider videos={pressVideos} locale="tr" />
 
-    <!-- Fancybox for press videos -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.css" />
     <script type="module">
       import { Fancybox } from "https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.esm.js";
@@ -406,7 +283,7 @@ const whyUsItems = [
     </script>
 
     <!-- VİDEO GALERİ (SSS Videoları) -->
-    <VideoGallery videos={faqVideos} sectionId="video-gallery" />
+    <VideoGallery videos={faqVideos.tr} sectionId="video-gallery" />
 
     <!-- FALCON 4 PRO TECH DEEP DIVE -->
     <section id="falcon-4-pro" class="py-20 bg-navy text-white">
@@ -428,7 +305,7 @@ const whyUsItems = [
           <div>
             <h3 class="font-display text-2xl font-semibold text-primary mb-6">Teknoloji Detayları</h3>
             <dl class="space-y-4 text-sm">
-              {falconTechSpecs.map((s) => (
+              {falconTechSpecs.tr.map((s) => (
                 <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between py-3 border-b border-white/10">
                   <dt class="font-medium text-white">{s.label}</dt>
                   <dd class="mt-1 sm:mt-0 text-white font-mono text-xs sm:text-sm">{s.value}</dd>
@@ -464,7 +341,7 @@ const whyUsItems = [
         </div>
 
         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {whyUsItems.map((item) => (
+          {whyUsItems.tr.map((item) => (
             <article class="rounded-2xl p-6 border border-black/5 hover:border-primary/30 hover:shadow-lg transition-all">
               <div class="text-3xl">{item.icon}</div>
               <h3 class="mt-4 font-display text-xl font-semibold text-black">{item.title}</h3>
@@ -484,7 +361,7 @@ const whyUsItems = [
         </div>
 
         <div class="space-y-6">
-          {processSteps.map((step) => (
+          {processSteps.home.tr.map((step) => (
             <article class="relative flex gap-6 p-6 bg-white rounded-2xl border border-black/5 hover:shadow-md transition-shadow">
               <div class="flex-shrink-0 w-12 h-12 rounded-full bg-sky-light/50 flex items-center justify-center font-display text-xl font-bold text-primary">
                 {step.step}
@@ -523,17 +400,7 @@ const whyUsItems = [
 
         <div class="grid md:grid-cols-3 gap-6">
           {reviews.slice(0, 9).map((r) => (
-            <article class="rounded-2xl border border-black/10 p-6 hover:shadow-lg transition-shadow">
-              <div class="flex gap-1 text-primary text-sm mb-3">
-                {[...Array(r.rating)].map((_, i) => <span key={i}>★</span>)}
-                <span class="ml-2 text-xs text-black/50">(Google)</span>
-              </div>
-              <blockquote class="text-black/80 text-sm leading-relaxed mb-4">"{r.text}"</blockquote>
-              <footer class="flex items-center justify-between text-xs">
-                <cite class="font-semibold text-primary">{r.name}</cite>
-                <span class="text-black/50">Google</span>
-              </footer>
-            </article>
+            <ReviewCard review={r} />
           ))}
         </div>
 
@@ -554,7 +421,7 @@ const whyUsItems = [
         </div>
 
         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {galleryImages.map((img, i) => (
+          {clinicGallery.slice(0, 6).map((img, i) => (
             <article class="relative rounded-2xl overflow-hidden group">
               <img
                 src={img.src}
@@ -562,7 +429,7 @@ const whyUsItems = [
                 class="w-full transition-transform duration-500 group-hover:scale-105"
                 loading={i < 3 ? "eager" : "lazy"}
               />
-              <div class="absolute inset-0 bg-gradient-to-t from-ink/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+              <div class="absolute inset-0 bg-gradient-to-t from-navy/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
                 <div>
                   <p class="text-white font-semibold">{img.alt}</p>
                   <p class="text-xs text-primary">{img.location}</p>
@@ -578,7 +445,6 @@ const whyUsItems = [
     <section id="contacts" class="py-20 bg-white">
       <div class="mx-auto max-w-6xl px-5">
         <div class="grid lg:grid-cols-2 gap-12">
-          <!-- Form -->
           <div>
             <h2 class="font-display text-3xl font-semibold text-black mb-2">Ücretsiz Cilt & Kıl Analizi</h2>
             <p class="text-black/70 mb-8">Formu doldurun, 15 dakika içinde size dönelim. Şube tercihinizi belirtin.</p>
@@ -607,8 +473,7 @@ const whyUsItems = [
                 <label for="clinic" class="block text-sm font-medium text-black/70 mb-1">Şube Tercihi *</label>
                 <select id="clinic" name="clinic" required class="w-full rounded-lg border border-black/15 bg-white px-4 py-3 text-sm text-black focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary">
                   <option value="">Şube Seçiniz</option>
-                  <option value="sisli">🏥 Şişli / Mecidiyeköy — Merkez, Büyükdere Cd. No:33-35 Kat:1, 34381 Şişli/İstanbul</option>
-                  <option value="halkali">🏥 Halkalı / Küçükçekmece — Atatürk, Hürriyet Cd. 15/1, 34303 Küçükçekmece/İstanbul</option>
+                  {branches.map((b) => <option value={b.data.slug}>{b.data.name}</option>)}
                 </select>
               </div>
 
@@ -646,39 +511,10 @@ const whyUsItems = [
             </form>
           </div>
 
-          <!-- Clinic Info & Map -->
           <div class="space-y-8">
-            <div class="rounded-2xl overflow-hidden aspect-[4/3] bg-navy/5">
-              <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3008.65!2d28.79!3d41.05!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14caa5df9db6a8eb%3A0xb895e35088c1b864!2sMr.%20Falcon%20Beauty%20Halkal%C4%B1!5e0!3m2!1str!2str!4v1781863289752"
-                class="w-full h-full border-0"
-                allowfullscreen
-                loading="lazy"
-                referrerpolicy="no-referrer-when-downgrade"
-                title="Mr. Falcon Beauty Halkalı Konum"
-              ></iframe>
-            </div>
-
+            <BranchMap branch={branches[1].data} />
             <div class="grid sm:grid-cols-2 gap-6">
-              {clinics.map((c) => (
-                <article class="rounded-2xl bg-sky-light/30 p-6 border border-black/5">
-                  <h3 class="font-display text-lg font-semibold text-black flex items-center gap-2">
-                    {c.id === "sisli" ? "🏥" : "🏥"} {c.name}
-                  </h3>
-                  <address class="mt-3 not-italic text-sm text-black/70 leading-relaxed">
-                    {c.address}<br />
-                    İstanbul
-                  </address>
-                  <div class="mt-4 space-y-2 text-sm">
-                    <a href={`tel:+905063717071`} class="flex items-center gap-2 text-black/70 hover:text-primary transition-colors">
-                      <span>📞</span> +90 506 371 70 71
-                    </a>
-                    <a href={`https://api.whatsapp.com/send?phone=905063717071&text=Merhaba web siteniz üzerinden size ulaşıyorum, Falcon Lazer Epilasyon hakkında bilgi alabilir miyim ?`} target="_blank" rel="noopener" class="flex items-center gap-2 text-black/70 hover:text-primary transition-colors">
-                      <span>💬</span> WhatsApp
-                    </a>
-                  </div>
-                </article>
-              ))}
+              {branches.map((b) => <ClinicCard branch={b.data} />)}
             </div>
           </div>
         </div>
@@ -693,23 +529,7 @@ const whyUsItems = [
           <h2 class="font-display text-3xl font-semibold md:text-4xl">SSS — Lazer Epilasyon Hakkında Her Şey</h2>
         </div>
 
-        <dl class="space-y-3" id="faq-accordion">
-          {faqs.map((faq, i) => (
-            <div class="border border-white/10 rounded-xl overflow-hidden">
-              <button
-                type="button"
-                class="w-full px-6 py-4 flex items-center justify-between text-left font-medium focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-navy"
-                aria-expanded="false"
-                aria-controls={`faq-answer-${i}`}
-
-              >
-                <span>{faq.q}</span>
-                <svg class="w-5 h-5 text-primary flex-shrink-0 ml-4 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-              </button>
-              <dd id={`faq-answer-${i}`} class="hidden px-6 pb-4 pt-2 text-sm text-white/90 leading-relaxed" hidden>{faq.a}</dd>
-            </div>
-          ))}
-        </dl>
+        <FaqAccordion items={faqs} tone="dark" />
 
         <p class="mt-10 text-center text-sm text-white/60">
           Sorunuz listede yok mu? <a href="https://wa.me/905525939890" target="_blank" rel="noopener" class="text-primary hover:underline">WhatsApp'tan sorun</a>
@@ -717,40 +537,13 @@ const whyUsItems = [
       </div>
     </section>
 
-    <!-- FINAL CTA -->
-    <section class="py-20 bg-sky-light/50">
-      <div class="mx-auto max-w-3xl px-5 text-center">
-        <h2 class="font-display text-3xl font-semibold text-black md:text-4xl">Hazır mısınız?</h2>
-        <p class="mt-4 text-lg text-black/70">İlk danışmanlık ve cilt analizi ücretsiz. Şube seçin, randevunuzu alın.</p>
-        <div class="mt-8 flex flex-wrap items-center justify-center gap-4">
-          <a href="#contacts" class="rounded-full bg-navy px-8 py-3 font-semibold text-white transition-colors hover:bg-primary">
-            Randevu Al
-          </a>
-          <a href="https://wa.me/905525939890" target="_blank" rel="noopener" class="rounded-full border-2 border-black/15 px-8 py-3 font-semibold text-black transition-colors hover:border-primary hover:text-primary">
-            WhatsApp'tan Yaz
-          </a>
-        </div>
-        <p class="mt-6 text-sm text-black/60">📍 Şişli/Mecidiyeköy · 📍 Halkalı/Küçükçekmece · 📞 +90 506 371 70 71</p>
-      </div>
-    </section>
+    <BookingCta locale="tr" />
   </main>
 
   <Footer locale="tr" />
 
   <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
   <script>
-    // FAQ Accordion
-    document.querySelectorAll('#faq-accordion button').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const dd = btn.nextElementSibling;
-        const isOpen = !dd.hidden;
-        dd.hidden = isOpen;
-        dd.classList.toggle('hidden', isOpen);
-        btn.setAttribute('aria-expanded', !isOpen);
-        btn.querySelector('svg')?.classList.toggle('rotate-180', !isOpen);
-      });
-    });
-
     // Form submit via fetch
     document.getElementById('appointment-form')?.addEventListener('submit', async (e) => {
       e.preventDefault();
@@ -789,18 +582,11 @@ const whyUsItems = [
     });
 
     // Clinic selector from URL
-    const heroClinicSelect = document.getElementById('hero-clinic-select');
-    heroClinicSelect?.addEventListener('change', (e) => {
-      window.location.href = e.target.value;
-    });
-
     const urlParams = new URLSearchParams(window.location.search);
     const clinicParam = urlParams.get('clinic');
     if (clinicParam) {
       const select = document.getElementById('clinic');
       if (select) select.value = clinicParam;
-      const heroSelect = document.getElementById('hero-clinic-select');
-      if (heroSelect) heroSelect.value = `#contacts?clinic=${clinicParam}`;
     }
   </script>
 </BaseLayout>

@@ -1,0 +1,28 @@
+---
+interface Branch {
+  slug: string;
+  name: string;
+  district: string;
+  address: string;
+  phone: string;
+  whatsapp: string;
+  hours?: string;
+}
+interface Props {
+  branch: Branch;
+}
+const { branch } = Astro.props;
+---
+
+<article class="rounded-2xl bg-sky-light/30 p-6 border border-black/5">
+  <h3 class="font-display text-lg font-semibold flex items-center gap-2 text-black">🏥 {branch.name}</h3>
+  <address class="mt-3 not-italic text-sm text-black/70 leading-relaxed">{branch.address}</address>
+  <div class="mt-4 space-y-2 text-sm">
+    <a href={`tel:${branch.phone}`} class="flex items-center gap-2 text-black/70 hover:text-primary transition-colors">
+      <span>📞</span> {branch.phone}
+    </a>
+    <a href={branch.whatsapp} target="_blank" rel="noopener" class="flex items-center gap-2 text-black/70 hover:text-primary transition-colors">
+      <span>💬</span> WhatsApp
+    </a>
+  </div>
+</article>

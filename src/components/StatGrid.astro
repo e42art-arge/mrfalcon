@@ -1,0 +1,20 @@
+---
+interface Metric {
+  value: string;
+  label: string;
+}
+interface Props {
+  items: Metric[];
+  class?: string;
+}
+const { items, class: className = "" } = Astro.props;
+---
+
+<div class:list={["grid sm:grid-cols-2 lg:grid-cols-4 gap-6 text-center", className]}>
+  {items.map((m) => (
+    <div class="rounded-2xl bg-white p-6 border border-black/5">
+      <div class="font-display text-3xl font-bold text-black md:text-4xl">{m.value}</div>
+      <div class="text-sm text-black/60">{m.label}</div>
+    </div>
+  ))}
+</div>

@@ -26,14 +26,4 @@ const branches = defineCollection({
   }),
 });
 
-const tech = defineCollection({
-  loader: glob({ pattern: '**/[^_]*.json', base: "./src/content/tech" }),
-  schema: z.object({
-    name: z.string(),
-    wavelength: z.string().optional(),
-    description: z.string(),
-    icon: z.string().optional(),
-  }),
-});
-
-export const collections = { faq, branches, tech };
+export const collections = { faq, branches };

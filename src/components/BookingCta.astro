@@ -1,0 +1,31 @@
+---
+interface Props {
+  locale?: "tr" | "en";
+}
+const { locale = "tr" } = Astro.props;
+const en = locale === "en";
+---
+
+<section class="py-20 bg-sky-light/50">
+  <div class="mx-auto max-w-3xl px-5 text-center">
+    <h2 class="font-display text-3xl font-semibold text-black md:text-4xl">
+      {en ? "Ready to Start?" : "Hazır mısınız?"}
+    </h2>
+    <p class="mt-4 text-lg text-black/70">
+      {en
+        ? "First consultation and skin analysis are free. Choose a branch and book your appointment."
+        : "İlk danışmanlık ve cilt analizi ücretsiz. Şube seçin, randevunuzu alın."}
+    </p>
+    <div class="mt-8 flex flex-wrap items-center justify-center gap-4">
+      <a href={en ? "/en/contact" : "/iletisim"} class="rounded-full bg-navy px-8 py-3 font-semibold text-white transition-colors hover:bg-primary">
+        {en ? "Book Now" : "Randevu Al"}
+      </a>
+      <a href="https://wa.me/905525939890" target="_blank" rel="noopener" class="rounded-full border-2 border-black/15 px-8 py-3 font-semibold text-black transition-colors hover:border-primary hover:text-primary">
+        {en ? "WhatsApp Us" : "WhatsApp'tan Yaz"}
+      </a>
+    </div>
+    <p class="mt-6 text-sm text-black/60">
+      {en ? "📍 Şişli/Mecidiyeköy · 📍 Halkalı/Küçükçekmece · 📞 +90 506 371 70 71" : "📍 Şişli/Mecidiyeköy · 📍 Halkalı/Küçükçekmece · 📞 +90 506 371 70 71"}
+    </p>
+  </div>
+</section>
