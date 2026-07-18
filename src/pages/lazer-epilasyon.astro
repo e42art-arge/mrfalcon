@@ -84,9 +84,9 @@ const falconSpecs = [
         <h2 class="font-display text-3xl font-semibold md:text-4xl">Memnuniyet Yorumları</h2>
         <p class="mt-3 text-black/60">Falcon Lazer Epilasyon sonuçlarından memnun kalan danışanlarımızın yorumları.</p>
       </div>
-      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div class="columns-1 gap-6 sm:columns-2 lg:columns-4">
         {reviews.slice(0, 4).map((r) => (
-          <ReviewCard review={r} variant="compact" />
+          <ReviewCard review={r} locale="tr" />
         ))}
       </div>
     </div>

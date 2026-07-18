@@ -249,22 +249,6 @@ const laserScience = [
       </div>
     </section>
 
-    <!-- MÜŞTERİ YORUMLARI -->
-    <section id="testimonials" class="py-20 bg-white">
-      <div class="mx-auto max-w-6xl px-5">
-        <div class="text-center max-w-3xl mx-auto mb-12">
-          <p class="mb-2 text-sm font-semibold uppercase tracking-[0.2em] text-primary">Gerçek Müşteriler</p>
-          <h2 class="font-display text-3xl font-semibold text-black md:text-4xl">Müşterilerimiz Ne Diyor?</h2>
-        </div>
-
-        <div class="grid md:grid-cols-3 gap-8">
-          {reviews.slice(0, 3).map((r) => (
-            <ReviewCard review={r} variant="compact" />
-          ))}
-        </div>
-      </div>
-    </section>
-
     <!-- MEMNUNİYET VİDEOLARI (Danışan Videoları) -->
     <VideoGallery videos={satisfactionVideos.tr} sectionId="satisfaction-videos" class="bg-sky-light/30" />
 
@@ -389,18 +373,18 @@ const laserScience = [
       </div>
     </section>
 
-    <!-- VERIFIED REVIEWS (9) -->
+    <!-- MÜŞTERİ YORUMLARI -->
     <section id="comments" class="py-20 bg-white">
       <div class="mx-auto max-w-6xl px-5">
         <div class="text-center max-w-3xl mx-auto mb-12">
-          <p class="mb-2 text-sm font-semibold uppercase tracking-[0.2em] text-primary">Müşteri Yorumları</p>
-          <h2 class="font-display text-3xl font-semibold text-black md:text-4xl">9 Doğrulanmış Google Değerlendirmesi</h2>
+          <p class="mb-2 text-sm font-semibold uppercase tracking-[0.2em] text-primary">Gerçek Müşteriler</p>
+          <h2 class="font-display text-3xl font-semibold text-black md:text-4xl">Müşterilerimiz Ne Diyor?</h2>
           <p class="mt-3 text-sm text-black/60">Tüm yorumlar Google Haritalar'dan doğrulanmış gerçek müşterilerimize aittir.</p>
         </div>
 
-        <div class="grid md:grid-cols-3 gap-6">
+        <div class="columns-1 gap-6 sm:columns-2 lg:columns-3">
           {reviews.slice(0, 9).map((r) => (
-            <ReviewCard review={r} />
+            <ReviewCard review={r} locale="tr" />
           ))}
         </div>
 

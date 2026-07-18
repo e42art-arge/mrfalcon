@@ -249,22 +249,6 @@ const laserScience = [
       </div>
     </section>
 
-    <!-- VIDEO GALLERY / TESTIMONIALS -->
-    <section id="video-gallery" class="py-20 bg-white">
-      <div class="mx-auto max-w-6xl px-5">
-        <div class="text-center max-w-3xl mx-auto mb-12">
-          <p class="mb-2 text-sm font-semibold uppercase tracking-[0.2em] text-primary">Real Clients</p>
-          <h2 class="font-display text-3xl font-semibold text-black md:text-4xl">What Our Clients Say</h2>
-        </div>
-
-        <div class="grid md:grid-cols-3 gap-8">
-          {reviews.slice(0, 3).map((r) => (
-            <ReviewCard review={r} variant="compact" />
-          ))}
-        </div>
-      </div>
-    </section>
-
     <!-- SATISFACTION VIDEOS -->
     <VideoGallery videos={satisfactionVideos.en} sectionId="satisfaction-videos" class="bg-sky-light/30" locale="en" />
 
@@ -393,14 +377,14 @@ const laserScience = [
     <section id="comments" class="py-20 bg-white">
       <div class="mx-auto max-w-6xl px-5">
         <div class="text-center max-w-3xl mx-auto mb-12">
-          <p class="mb-2 text-sm font-semibold uppercase tracking-[0.2em] text-primary">Client Reviews</p>
-          <h2 class="font-display text-3xl font-semibold text-black md:text-4xl">9 Verified Google Reviews</h2>
+          <p class="mb-2 text-sm font-semibold uppercase tracking-[0.2em] text-primary">Real Clients</p>
+          <h2 class="font-display text-3xl font-semibold text-black md:text-4xl">What Our Clients Say</h2>
           <p class="mt-3 text-sm text-black/60">All reviews are from verified real clients via Google Maps.</p>
         </div>
 
-        <div class="grid md:grid-cols-3 gap-6">
+        <div class="columns-1 gap-6 sm:columns-2 lg:columns-3">
           {reviews.slice(0, 9).map((r) => (
-            <ReviewCard review={r} />
+            <ReviewCard review={r} locale="en" />
           ))}
         </div>
 
