@@ -7,9 +7,19 @@ if ($_SERVER["REQUEST_METHOD"] !== "POST") {
     exit;
 }
 
+// Accept both FormData and JSON body
+$input = $_POST;
+if (empty($input)) {
+    $raw = file_get_contents('php://input');
+    $json = json_decode($raw, true);
+    if (is_array($json)) {
+        $input = $json;
+    }
+}
+
 // Required fields
-$name = strip_tags(trim($_POST["name"] ?? ''));
-$phone = strip_tags(trim($_POST["phone"] ?? ''));
+$name = strip_tags(trim($input["name"] ?? ''));
+$phone = strip_tags(trim($input["phone"] ?? ''));
 
 if (empty($name) || empty($phone)) {
     http_response_code(400);
@@ -18,7 +28,7 @@ if (empty($name) || empty($phone)) {
 }
 
 // Turnstile Verification (optional — skip if empty for testing)
-$turnstileResponse = $_POST['cf-turnstile-response'] ?? '';
+$turnstileResponse = $input['cf-turnstile-response'] ?? '';
 
 if ($turnstileResponse !== '') {
     $secretKey = "0x4AAAAAAAe3UYEBfAD0SXIcnrxgL5SgzNM";
@@ -45,12 +55,12 @@ if ($turnstileResponse !== '') {
 }
 
 // Optional fields
-$email = filter_var(trim($_POST["email"] ?? ''), FILTER_SANITIZE_EMAIL);
-$clinic = strip_tags(trim($_POST["clinic"] ?? ''));
-$concern = strip_tags(trim($_POST["concern"] ?? ''));
-$message = strip_tags(trim($_POST["message"] ?? ''));
-$form_type = strip_tags(trim($_POST["form_type"] ?? 'appointment'));
-$kvkk = $_POST["kvkk"] ?? '';
+$email = filter_var(trim($input["email"] ?? ''), FILTER_SANITIZE_EMAIL);
+$clinic = strip_tags(trim($input["clinic"] ?? ''));
+$concern = strip_tags(trim($input["concern"] ?? ''));
+$message = strip_tags(trim($input["message"] ?? ''));
+$form_type = strip_tags(trim($input["form_type"] ?? 'appointment'));
+$kvkk = $input["kvkk"] ?? '';
 
 // Build HTML email
 $rows = "";

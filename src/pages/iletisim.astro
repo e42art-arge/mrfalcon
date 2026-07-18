@@ -29,7 +29,7 @@ const TURNSTILE_ENABLED = false;
           <h2 class="font-display text-3xl font-semibold mb-2">Ücretsiz Cilt & Kıl Analizi</h2>
           <p class="text-black/70 mb-8">Formu doldurun, 15 dakika içinde size dönelim. Şube tercihinizi belirtin.</p>
 
-          <form id="appointment-form" class="space-y-5" action="/api/contact" method="POST">
+          <form id="appointment-form" class="space-y-5" action="/api/contact.php" method="POST">
             <input type="hidden" name="form_type" value="appointment" />
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
@@ -132,7 +132,7 @@ const TURNSTILE_ENABLED = false;
 
       try {
         const formData = new FormData(form);
-        const res = await fetch('/api/contact', {
+        const res = await fetch('/api/contact.php', {
           method: 'POST',
           body: formData,
         });

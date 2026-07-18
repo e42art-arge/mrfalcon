@@ -27,7 +27,7 @@ branches.sort((a, b) => a.data.slug.localeCompare(b.data.slug));
           <h2 class="font-display text-3xl font-semibold mb-2">Free Skin & Hair Analysis</h2>
           <p class="text-black/70 mb-8">Fill in the form and we'll get back to you within 15 minutes. Let us know your clinic preference.</p>
 
-          <form id="appointment-form-en" class="space-y-5" action="/api/contact" method="POST">
+          <form id="appointment-form-en" class="space-y-5" action="/api/contact.php" method="POST">
             <input type="hidden" name="form_type" value="appointment" />
             <div class="grid grid-cols-2 gap-4">
               <div>
@@ -122,7 +122,7 @@ branches.sort((a, b) => a.data.slug.localeCompare(b.data.slug));
     const fd = new FormData(form);
     const data = Object.fromEntries(fd.entries());
     try {
-      const res = await fetch('/api/contact', {
+      const res = await fetch('/api/contact.php', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data),
