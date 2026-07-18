@@ -13,8 +13,8 @@ const trustSignals = [
 ];
 
 const clinics = [
-  { id: "sisli", name: "Şişli / Mecidiyeköy", address: "Mecidiyeköy Mah. Büyükdere Cad. No:123" },
-  { id: "halkali", name: "Halkalı / Küçükçekmece", address: "Halkalı Merkez Mah. İstiklal Cad. No:45" },
+  { id: "sisli", name: "Şişli / Mecidiyeköy", address: "Merkez, Büyükdere Cd. No:33-35 Kat:1, 34381 Şişli/İstanbul" },
+  { id: "halkali", name: "Halkalı / Küçükçekmece", address: "Atatürk, Hürriyet Cd. 15/1, 34303 Küçükçekmece/İstanbul" },
 ];
 
 const aboutMetrics = [
@@ -25,9 +25,9 @@ const aboutMetrics = [
 ];
 
 const advantages = [
-  { icon: "🎯", title: "4 Wavelengths", desc: "755nm Alexandrite, 810nm Diode, 940nm and 1064nm Nd:YAG in one device. Optimized for every skin type and hair color." },
+  { icon: "🎯", title: "4 Wavelengths", desc: "755nm Alexandrite, 808nm Diode, 940nm and 1064nm Nd:YAG in one device. Optimized for every skin type and hair color." },
   { icon: "🤖", title: "AI Skin Analysis", desc: "AI-powered skin and hair analysis determines custom energy parameters for every client." },
-  { icon: "❄️", title: "Sapphire Cooling", desc: "Down to -10°C cooling for nearly zero pain during hair removal." },
+  { icon: "❄️", title: "Sapphire Cooling", desc: "Down to -20°C cooling for nearly zero pain during hair removal." },
   { icon: "☀️", title: "Safe All Year", desc: "Nd:YAG 1064nm allows safe treatment on tanned skin and during summer months." },
   { icon: "🦠", title: "UVC Hygiene", desc: "Handpiece is disinfected with UVC light before every session, single-use caps are used." },
   { icon: "⚡", title: "Fast Sessions", desc: "4 cm² spot size and 10 Hz frequency complete full body hair removal in 15-20 minutes." },
@@ -56,7 +56,7 @@ const reviews = [
 ];
 
 const faqs = [
-  { q: "Is laser hair removal painful?", a: "Thanks to Falcon 4 Pro's -10°C sapphire cooling system, the process is nearly painless. A slight heat sensation may occur in sensitive areas." },
+  { q: "Is laser hair removal painful?", a: "Thanks to Falcon 4 Pro's -20°C sapphire cooling system, the process is nearly painless. A slight heat sensation may occur in sensitive areas." },
   { q: "How many sessions are needed?", a: "Average 6-8 sessions. 95%+ hair reduction is targeted. Skin type, hair thickness and hormones affect session count." },
   { q: "I have a tan, can I do it in summer?", a: "Yes. Since Nd:YAG 1064nm wavelength doesn't target melanocytes, it is safely applied on tanned and dark skin." },
   { q: "How long between sessions?", a: "Face & Neck: 4-6 weeks. Body: 6-8 weeks. Planned according to hair cycle (anagen phase)." },
@@ -83,10 +83,10 @@ const videoTestimonials = [
 ];
 
 const falconTechSpecs = [
-  { label: "Wavelengths", value: "755nm Alexandrite + 810nm Diode + 940nm + 1064nm Nd:YAG" },
+  { label: "Wavelengths", value: "755nm Alexandrite + 808nm Diode + 940nm + 1064nm Nd:YAG" },
   { label: "Spot Size", value: "4 cm² (optimized for large body areas)" },
   { label: "Frequency", value: "1-10 Hz (fast body hair removal)" },
-  { label: "Cooling", value: "Sapphire crystal, adjustable between -10°C and +5°C" },
+  { label: "Cooling", value: "Sapphire crystal, adjustable between -20°C and +5°C" },
   { label: "Energy", value: "1-120 J/cm² (AI automatic by skin type)" },
   { label: "Pulse Duration", value: "5-400 ms (optimized for fine/thick hair)" },
   { label: "Hygiene", value: "UVC LED disinfection + single-use handpiece cap" },
@@ -186,7 +186,7 @@ const whyUsItems = [
 
             <!-- Subheadline -->
             <p class="mb-10 max-w-xl text-lg leading-relaxed text-black/70 mx-auto lg:mx-0" data-gsap="fadeUp" data-gsap-delay="0.4">
-              Meet four wavelengths, AI-powered control and -10°C sapphire cooling.
+              Meet four wavelengths, AI-powered control and -20°C sapphire cooling.
               The Mr. Falcon Beauty difference across both sides of Istanbul.
             </p>
 
@@ -256,7 +256,7 @@ const whyUsItems = [
                 {[
                   { icon: "🎯", text: "4 Wavelengths" },
                   { icon: "🤖", text: "AI Control" },
-                  { icon: "❄️", text: "-10°C Cooling" },
+                  { icon: "❄️", text: "-20°C Cooling" },
                   { icon: "🛡️", text: "UVC Hygiene" },
                 ].map((badge) => (
                   <div class="group relative px-4 py-3 bg-white/90 backdrop-blur rounded-xl shadow-lg border border-black/5 transition-all duration-300 hover:shadow-xl hover:-translate-x-1 hover:border-primary/30" data-gsap="fadeRight">
@@ -366,9 +366,9 @@ const whyUsItems = [
           {[
             { icon: "🎯", title: "Selective Photothermolysis", desc: "Laser light is absorbed by melanocytes to heat the hair follicle, protecting surrounding tissues." },
             { icon: "🔬", title: "Targeting Anagen Phase", desc: "Since only hair in growth phase (anagen) is affected, multiple sessions are required." },
-            { icon: "🌈", title: "4 Wavelength Advantage", desc: "755nm (fine/dark hair), 810nm (speed), 940nm (depth), 1064nm (tanned skin) - all in one." },
+            { icon: "🌈", title: "4 Wavelength Advantage", desc: "755nm (fine/dark hair), 808nm (speed), 940nm (depth), 1064nm (tanned skin) - all in one." },
             { icon: "🤖", title: "AI Energy Optimization", desc: "Device scans skin type (Fitzpatrick I-VI), measures hair thickness, auto-sets joule/ms/Hz." },
-            { icon: "❄️", title: "Sapphire Contact Cooling", desc: "-10°C tip temperature protects epidermis, targets dermis. Pain signals are blocked." },
+            { icon: "❄️", title: "Sapphire Contact Cooling", desc: "-20°C tip temperature protects epidermis, targets dermis. Pain signals are blocked." },
             { icon: "🛡️", title: "Safety Protocols", desc: "Test shot mandatory, goggles mandatory, UVC disinfection, single-use cap, skin cooling gel." },
           ].map((item) => (
             <div class="rounded-2xl bg-white p-6 shadow-sm border border-black/5 hover:shadow-md transition-shadow">
@@ -456,7 +456,7 @@ const whyUsItems = [
             <div class="mt-8 grid sm:grid-cols-2 gap-4">
               {[
                 { icon: "🎯", title: "Alexandrite 755nm", desc: "Gold standard for fine, dark hair. High melanin absorption." },
-                { icon: "⚡", title: "Diode 810nm", desc: "Balance of speed and depth. Efficient on large body areas." },
+                { icon: "⚡", title: "Diode 808nm", desc: "Balance of speed and depth. Efficient on large body areas." },
                 { icon: "🔬", title: "Nd:YAG 940nm", desc: "Reaching deep follicles, long wavelength protecting vessels." },
                 { icon: "☀️", title: "Nd:YAG 1064nm", desc: "Safe standard for tanned/dark skin (Fitzpatrick IV-VI)." },
               ].map((w) => (
@@ -624,8 +624,8 @@ const whyUsItems = [
                     <label for="clinic" class="block text-sm font-medium text-black/70 mb-1">Branch Preference *</label>
                     <select id="clinic" name="clinic" required class="w-full rounded-lg border border-black/15 bg-white px-4 py-3 text-sm text-black focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary">
                       <option value="">Choose Branch</option>
-                      <option value="sisli">🏥 Şişli / Mecidiyeköy — Mecidiyeköy Mah. Büyükdere Cad. No:123</option>
-                      <option value="halkali">🏥 Halkalı / Küçükçekmece — Halkalı Merkez Mah. İstiklal Cad. No:45</option>
+                      <option value="sisli">🏥 Şişli / Mecidiyeköy — Merkez, Büyükdere Cd. No:33-35 Kat:1, 34381 Şişli/İstanbul</option>
+                      <option value="halkali">🏥 Halkalı / Küçükçekmece — Atatürk, Hürriyet Cd. 15/1, 34303 Küçükçekmece/İstanbul</option>
                     </select>
                   </div>
 
