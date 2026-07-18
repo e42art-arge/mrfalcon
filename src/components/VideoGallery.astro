@@ -11,16 +11,18 @@ interface Props {
   videos: VideoItem[];
   sectionId?: string;
   class?: string;
+  locale?: "tr" | "en";
 }
 
-const { videos, sectionId = "video-gallery", class: className = "" } = Astro.props;
+const { videos, sectionId = "video-gallery", class: className = "", locale = "tr" } = Astro.props;
+const en = locale === "en";
 ---
 
 <section id={sectionId} class={`py-20 ${className}`} data-animate="fadeUp">
   <div class="mx-auto max-w-6xl px-5">
     <div class="text-center max-w-3xl mx-auto mb-12">
-      <p class="mb-2 text-sm font-semibold uppercase tracking-[0.2em] text-primary">Video Galeri</p>
-      <h2 class="font-display text-3xl font-semibold text-black md:text-4xl">Falcon Lazer Epilasyon Hakkında Her Şey</h2>
+      <p class="mb-2 text-sm font-semibold uppercase tracking-[0.2em] text-primary">{en ? "Video Gallery" : "Video Galeri"}</p>
+      <h2 class="font-display text-3xl font-semibold text-black md:text-4xl">{en ? "Everything About Falcon Laser Hair Removal" : "Falcon Lazer Epilasyon Hakkında Her Şey"}</h2>
     </div>
 
     <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6" data-animate="stagger">
@@ -33,7 +35,7 @@ const { videos, sectionId = "video-gallery", class: className = "" } = Astro.pro
             href={video.videoUrl}
             data-fancybox="videos"
             class="relative block overflow-hidden bg-gray-100"
-            aria-label={`İzle: ${video.title}`}
+            aria-label={`${en ? "Watch" : "İzle"}: ${video.title}`}
           >
             <img
               src={video.thumbnail}

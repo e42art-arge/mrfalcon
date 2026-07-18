@@ -83,7 +83,7 @@ const mediaNews = [
         <p class="mt-3 text-black/60">Farklı doku derinlikleri ve kıl tiplerini tek seansta hedefleyen hibrit teknoloji</p>
       </div>
       <div class="grid md:grid-cols-4 gap-6">
-        {[{nm:"755nm", t:"Alexandrite", desc:"Açık ten ve ince kıllar"},{nm:"808nm", t:"Diode", desc:"Tüm cilt tipleri"},{nm:"940nm", t:"Nd:YAG", desc:"Koyu ten ve derin kökler"},{nm:"1064nm", t:"Nd:YAG", desc:"Bronz ten, güvenli"}].map((w) => (
+        {[{nm:"755nm", t:"Alexandrite", desc:"Açık ten ve ince kıllar"},{nm:"808nm", t:"Diode", desc:"Tüm cilt tipleri"},{nm:"940nm", t:"Diode", desc:"Koyu ten ve derin kökler"},{nm:"1064nm", t:"Nd:YAG", desc:"Bronz ten, güvenli"}].map((w) => (
           <article class="rounded-2xl border border-black/5 p-6 text-center bg-sky-light/20"><div class="font-display text-3xl font-bold text-primary">{w.nm}</div><div class="mt-1 font-semibold">{w.t}</div><p class="mt-2 text-xs text-black/60">{w.desc}</p></article>
         ))}
       </div>
