@@ -1,18 +1,6 @@
 import { defineCollection, z } from 'astro:content';
 import { glob } from 'astro/loaders';
 
-const reviews = defineCollection({
-  loader: glob({ pattern: '**/[^_]*.json', base: "./src/content/reviews" }),
-  schema: z.object({
-    name: z.string(),
-    branch: z.string(),
-    quote: z.string(),
-    rating: z.number().min(1).max(5),
-    source: z.string().default('Google'),
-    category: z.string().optional(),
-  }),
-});
-
 const faq = defineCollection({
   loader: glob({ pattern: '**/[^_]*.json', base: "./src/content/faq" }),
   schema: z.object({
@@ -48,4 +36,4 @@ const tech = defineCollection({
   }),
 });
 
-export const collections = { reviews, faq, branches, tech };
+export const collections = { faq, branches, tech };

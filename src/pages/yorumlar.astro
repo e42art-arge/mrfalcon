@@ -2,49 +2,132 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
-import { getCollection } from "astro:content";
+import { reviews, reviewStats, googlePlaceUrl, totalGoogleReviews, initials } from "../data/reviews";
 
-const reviews = await getCollection("reviews", ({ id }) => id.startsWith("tr/"));
-reviews.sort((a, b) => parseInt(a.id.split("/")[1]) - parseInt(b.id.split("/")[1]));
+const en = false;
+
+const timeAgo = (d: Date): string => {
+  const days = Math.floor((Date.now() - d.getTime()) / 86400000);
+  if (days < 7) return days <= 1 ? "Bugün" : `${days} gün önce`;
+  if (days < 30) return `${Math.floor(days / 7)} hafta önce`;
+  if (days < 365) return `${Math.floor(days / 30)} ay önce`;
+  return `${Math.floor(days / 365)} yıl önce`;
+};
 ---
 
-<BaseLayout title="Yorumlar | Mr. Falcon Beauty" description="Mr. Falcon Beauty müşteri yorumları. Gerçek danışanlarımız Falcon 4 Pro lazer epilasyon deneyimlerini anlatıyor." locale="tr" path="/yorumlar">
+<BaseLayout title="Yorumlar | Mr. Falcon Beauty" description="Mr. Falcon Beauty Google yorumları. 58+ danışanımızın Falcon 4 Pro lazer epilasyon ve cilt bakımı deneyimleri." locale="tr" path="/yorumlar">
   <Header locale="tr" />
 
-  <section class="py-20 md:py-28 bg-navy text-white">
-    <div class="mx-auto max-w-6xl px-5 text-center">
-      <p class="mb-4 text-sm font-semibold uppercase tracking-[0.2em] text-primary">Müşteri Yorumları</p>
-      <h1 class="font-display text-4xl font-semibold md:text-6xl">Doğrulanmış Yorumlar</h1>
-      <p class="mx-auto mt-4 max-w-2xl text-lg text-white/80">Aşağıdaki her yorum, Mr. Falcon Beauty'e güvenerek başvuran danışanlarımız tarafından bizzat paylaşılmıştır.</p>
+  <!-- Hero -->
+  <section class="relative overflow-hidden bg-navy text-white">
+    <div class="pointer-events-none absolute -left-24 -top-24 h-72 w-72 rounded-full bg-primary/20 blur-3xl"></div>
+    <div class="pointer-events-none absolute -right-24 top-10 h-72 w-72 rounded-full bg-sky/20 blur-3xl"></div>
+    <div class="relative mx-auto max-w-6xl px-5 py-20 text-center md:py-28">
+      <p class="mb-4 text-sm font-semibold uppercase tracking-[0.2em] text-sky">Google Yorumları</p>
+      <h1 class="font-display text-4xl font-semibold md:text-6xl">Danışanlarımızın Gerçek Deneyimleri</h1>
+      <p class="mx-auto mt-4 max-w-2xl text-lg text-white/80">
+        Falcon 4 Pro lazer epilasyon ve cilt bakımı sürecinde bizi tercih eden danışanlarımızın, Google üzerinden paylaştığı yorumlar.
+      </p>
+
+      <div class="mx-auto mt-10 flex w-full max-w-md flex-col items-center gap-4 rounded-3xl border border-white/10 bg-white/5 p-8 backdrop-blur">
+        <div class="flex items-center gap-2 text-sm font-medium text-white/70">
+          <svg viewBox="0 0 48 48" class="h-5 w-5" aria-hidden="true">
+            <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"></path>
+            <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6.01C43.98 37.95 46.98 31.5 46.98 24.55z"></path>
+            <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"></path>
+            <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6.01c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"></path>
+          </svg>
+          Google
+        </div>
+        <div class="flex items-end gap-3">
+          <span class="font-display text-6xl font-bold leading-none">{reviewStats.avg.toFixed(1)}</span>
+          <span class="mb-1 text-lg text-white/60">/ 5.0</span>
+        </div>
+        <div class="flex gap-1 text-sky" aria-label={`${reviewStats.avg} yıldız`}>
+          {Array.from({ length: 5 }, (_, i) => (
+            <svg class={`h-5 w-5 ${i < Math.round(reviewStats.avg) ? "text-sky" : "text-white/20"}`} fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
+              <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+            </svg>
+          ))}
+        </div>
+        <p class="text-sm text-white/60">{totalGoogleReviews}+ Google yorumu</p>
+        <a href={googlePlaceUrl} target="_blank" rel="noopener noreferrer" class="mt-1 inline-flex items-center gap-2 rounded-full bg-primary px-6 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-sky">
+          Google'da Tüm Yorumları Gör
+        </a>
+      </div>
     </div>
   </section>
 
-  <section class="py-20">
+  <!-- Stats -->
+  <section class="border-b border-black/5 bg-sky-light/60">
+    <div class="mx-auto grid max-w-6xl grid-cols-2 gap-px px-5 py-10 md:grid-cols-4">
+      <div class="px-2 text-center">
+        <p class="font-display text-3xl font-bold text-navy md:text-4xl">{reviewStats.avg.toFixed(1)}</p>
+        <p class="mt-1 text-xs font-medium uppercase tracking-wide text-navy/50">Ortalama Puan</p>
+      </div>
+      <div class="px-2 text-center">
+        <p class="font-display text-3xl font-bold text-navy md:text-4xl">{totalGoogleReviews}+</p>
+        <p class="mt-1 text-xs font-medium uppercase tracking-wide text-navy/50">Google Yorumu</p>
+      </div>
+      <div class="px-2 text-center">
+        <p class="font-display text-3xl font-bold text-navy md:text-4xl">%{reviewStats.fiveStarPct}</p>
+        <p class="mt-1 text-xs font-medium uppercase tracking-wide text-navy/50">5 Yıldız</p>
+      </div>
+      <div class="px-2 text-center">
+        <p class="font-display text-3xl font-bold text-navy md:text-4xl">2</p>
+        <p class="mt-1 text-xs font-medium uppercase tracking-wide text-navy/50">Şube</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Reviews wall -->
+  <section class="py-16 md:py-24">
     <div class="mx-auto max-w-6xl px-5">
-      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div class="columns-1 gap-6 sm:columns-2 lg:columns-3">
         {reviews.map((r) => (
-          <article class="rounded-2xl border border-black/10 p-6 hover:shadow-lg transition-shadow bg-white">
-            <div class="flex gap-1 text-primary text-sm mb-3">
-              {[...Array(r.data.rating)].map((_, i) => <span key={i}>★</span>)}
-              <span class="ml-2 text-xs text-black/50">({r.data.source})</span>
+          <article class="relative mb-6 break-inside-avoid rounded-2xl border border-black/5 bg-white p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
+            <span class="pointer-events-none absolute right-5 top-3 select-none font-display text-6xl leading-none text-primary/10" aria-hidden="true">&rdquo;</span>
+            <div class="flex items-center gap-3">
+              <div class="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-sky to-primary text-sm font-semibold text-white">
+                {initials(r.name)}
+              </div>
+              <div class="min-w-0">
+                <p class="truncate font-semibold text-navy">{r.name}</p>
+                <p class="text-xs text-navy/50">{timeAgo(r.date)}</p>
+              </div>
             </div>
-            <blockquote class="text-black/80 text-sm leading-relaxed mb-4">"{r.data.quote}"</blockquote>
-            <footer class="flex items-center justify-between text-xs">
-              <cite class="font-semibold text-primary not-italic">{r.data.name}</cite>
-              <span class="text-black/50">{r.data.branch}</span>
-            </footer>
+            <div class="mt-3 flex gap-0.5" aria-label={`${r.rating} yıldız`}>
+              {Array.from({ length: 5 }, (_, i) => (
+                <svg class={`h-4 w-4 ${i < r.rating ? "text-primary" : "text-black/10"}`} fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
+                  <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                </svg>
+              ))}
+            </div>
+            <p class="mt-3 text-sm leading-relaxed text-navy/75">{r.text}</p>
+            <div class="mt-4 flex items-center gap-2 border-t border-black/5 pt-3 text-xs text-navy/40">
+              <svg viewBox="0 0 48 48" class="h-3.5 w-3.5" aria-hidden="true">
+                <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"></path>
+                <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6.01C43.98 37.95 46.98 31.5 46.98 24.55z"></path>
+                <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"></path>
+                <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6.01c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"></path>
+              </svg>
+              Google Yorumu
+            </div>
           </article>
         ))}
       </div>
-      <p class="mt-10 text-center text-sm text-black/50">Burada gösterilen tüm yorumlar Google, WhatClinic, Trustpilot ve RealSelf gibi üçüncü taraf platformlarda halka açık olarak mevcuttur.</p>
     </div>
   </section>
 
-  <section class="py-20 bg-sky-light/50">
+  <!-- CTA -->
+  <section class="py-20 bg-sky-light/60">
     <div class="mx-auto max-w-3xl px-5 text-center">
-      <h2 class="font-display text-3xl font-semibold md:text-4xl">Siz de Deneyiminizi Paylaşın</h2>
-      <p class="mt-4 text-lg text-black/70">Falcon 4 Pro ile lazer epilasyon deneyiminizi Google Haritalar üzerinden paylaşabilirsiniz.</p>
-      <div class="mt-8"><a href="/iletisim" class="rounded-full bg-navy px-8 py-3 font-semibold text-white transition-colors hover:bg-primary">Hemen Randevu Al</a></div>
+      <h2 class="font-display text-3xl font-semibold md:text-4xl text-navy">Siz de Deneyiminizi Paylaşın</h2>
+      <p class="mt-4 text-lg text-navy/70">Falcon 4 Pro ile lazer epilasyon deneyiminizi Google Haritalar üzerinden paylaşabilir, sürecinize hemen başlayabilirsiniz.</p>
+      <div class="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
+        <a href="/iletisim" class="rounded-full bg-navy px-8 py-3 font-semibold text-white transition-colors hover:bg-primary">Hemen Randevu Al</a>
+        <a href={googlePlaceUrl} target="_blank" rel="noopener noreferrer" class="rounded-full border border-navy/20 px-8 py-3 font-semibold text-navy transition-colors hover:border-primary hover:text-primary">Google'da Yorum Yap</a>
+      </div>
     </div>
   </section>
 
