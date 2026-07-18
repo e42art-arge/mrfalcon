@@ -91,7 +91,7 @@ $apiKey = "rm_live_7b37ddcd28d669fe8b3eab53b293c8ff27a7f9313aa67a65";
 $apiUrl = "https://redmail.e42art.com/api/v1/send";
 
 $data = [
-    "to" => "emre@ad.com.tr",
+    "to" => "info@mrfalconbeauty.com",
     "reply_to" => $email ?: "noreply@mrfalcon.com",
     "subject" => "Yeni Randevu Talebi: $name",
     "body" => $body
