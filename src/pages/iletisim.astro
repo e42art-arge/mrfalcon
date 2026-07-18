@@ -7,7 +7,9 @@ import { getCollection } from "astro:content";
 const branches = await getCollection("branches");
 branches.sort((a, b) => a.data.slug.localeCompare(b.data.slug));
 
-const TURNSTILE_ENABLED = false;
+const url = Astro.url;
+const statusParam = url.searchParams.get('status');
+const msgParam = url.searchParams.get('message');
 ---
 
 <BaseLayout title="İletişim | Mr. Falcon Beauty" description="Mr. Falcon Beauty iletişim bilgileri. Şişli ve Halkalı şubelerimiz için randevu alın." locale="tr" path="/iletisim">
@@ -28,6 +30,14 @@ const TURNSTILE_ENABLED = false;
         <div>
           <h2 class="font-display text-3xl font-semibold mb-2">Ücretsiz Cilt & Kıl Analizi</h2>
           <p class="text-black/70 mb-8">Formu doldurun, 15 dakika içinde size dönelim. Şube tercihinizi belirtin.</p>
+
+          <!-- Form status banner -->
+          {statusParam === 'success' && (
+            <div class="mb-6 rounded-xl bg-green-50 border border-green-200 p-4 text-sm text-green-800">✅ Randevu talebiniz alındı! 15 dk içinde size dönüş yapacağız.</div>
+          )}
+          {statusParam === 'error' && msgParam && (
+            <div class="mb-6 rounded-xl bg-red-50 border border-red-200 p-4 text-sm text-red-800">❌ {msgParam}</div>
+          )}
 
           <form id="appointment-form" class="space-y-5" action="/api/contact.php" method="POST">
             <input type="hidden" name="form_type" value="appointment" />
@@ -72,11 +82,9 @@ const TURNSTILE_ENABLED = false;
               <input type="checkbox" id="kvkk" name="kvkk" required class="mt-1 w-4 h-4 rounded border-black/30 text-primary focus:ring-primary" />
               <label for="kvkk"><a href='/kvkk-aydinlatma-metni' class='text-primary hover:underline' target='_blank'>KVKK aydınlatma metnini</a> okudum, onaylıyorum. Verilerim randevu için işlensin.</label>
             </div>
-            {TURNSTILE_ENABLED && <div class="cf-turnstile" data-sitekey="0x4AAAAAAAe3UYEAyXZ5Iqy4vEMqCLYzNB8" data-theme="light" data-callback="onTurnstileCallback"></div>}
             <button type="submit" class="w-full sm:w-auto rounded-full bg-navy px-8 py-3 font-semibold text-white transition-colors hover:bg-primary">
               Ücretsiz Analiz İste & Randevu Al
             </button>
-            <div id="form-status" class="text-sm font-medium hidden"></div>
           </form>
         </div>
 
@@ -116,44 +124,4 @@ const TURNSTILE_ENABLED = false;
   </section>
 
   <Footer locale="tr" />
-
-  {TURNSTILE_ENABLED && <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>}
-  <script>
-    // Form submit via fetch
-    document.getElementById('appointment-form')?.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const form = e.target;
-      const msgEl = document.getElementById('form-status');
-      const btn = form.querySelector('button[type="submit"]');
-      const originalText = btn.textContent;
-      btn.disabled = true;
-      btn.textContent = 'Gönderiliyor...';
-      msgEl.classList.add('hidden');
-
-      try {
-        const formData = new FormData(form);
-        const res = await fetch('/api/contact.php', {
-          method: 'POST',
-          body: formData,
-        });
-        const data = await res.json();
-        if (res.ok && data.success) {
-          msgEl.textContent = '✅ Randevu talebiniz alındı! 15 dk içinde size dönüş yapacağız.';
-          msgEl.className = 'text-green-700';
-          form.reset();
-          {TURNSTILE_ENABLED && <fragment>if (typeof turnstile !== 'undefined') turnstile.reset();</fragment>}
-        } else {
-          throw new Error(data.message || 'Bir hata oluştu');
-        }
-      } catch (err) {
-        msgEl.textContent = '❌ ' + (err.message || 'Gönderim başarısız, lütfen WhatsApp\'tan yazın.');
-        msgEl.className = 'text-red-700';
-        {TURNSTILE_ENABLED && <fragment>if (typeof turnstile !== 'undefined') turnstile.reset();</fragment>}
-      } finally {
-        msgEl.classList.remove('hidden');
-        btn.disabled = false;
-        btn.textContent = originalText;
-      }
-    });
-  </script>
 </BaseLayout>

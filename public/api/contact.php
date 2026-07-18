@@ -1,38 +1,28 @@
 <?php
-header('Content-Type: application/json');
+// Classic PHP form POST handler — no JSON, no fetch, plain redirect
 
 if ($_SERVER["REQUEST_METHOD"] !== "POST") {
     http_response_code(405);
-    echo json_encode(["success" => false, "message" => "Yalnızca POST istekleri kabul edilir."]);
     exit;
 }
 
-// Accept both FormData and JSON body
-$input = $_POST;
-if (empty($input)) {
-    $raw = file_get_contents('php://input');
-    $json = json_decode($raw, true);
-    if (is_array($json)) {
-        $input = $json;
-    }
-}
+$referer = $_SERVER['HTTP_REFERER'] ?? '/iletisim';
 
 // Required fields
-$name = strip_tags(trim($input["name"] ?? ''));
-$phone = strip_tags(trim($input["phone"] ?? ''));
+$name = strip_tags(trim($_POST["name"] ?? ''));
+$phone = strip_tags(trim($_POST["phone"] ?? ''));
 
 if (empty($name) || empty($phone)) {
-    http_response_code(400);
-    echo json_encode(["success" => false, "message" => "Ad Soyad ve Telefon zorunludur."]);
+    $sep = (strpos($referer, '?') === false) ? '?' : '&';
+    header("Location: {$referer}{$sep}status=error&message=" . urlencode("Ad Soyad ve Telefon zorunludur."));
     exit;
 }
 
 // Turnstile Verification (optional — skip if empty for testing)
-$turnstileResponse = $input['cf-turnstile-response'] ?? '';
+$turnstileResponse = $_POST['cf-turnstile-response'] ?? '';
 
 if ($turnstileResponse !== '') {
     $secretKey = "0x4AAAAAAAe3UYEBfAD0SXIcnrxgL5SgzNM";
-
     $chVerify = curl_init();
     curl_setopt($chVerify, CURLOPT_URL, "https://challenges.cloudflare.com/turnstile/v0/siteverify");
     curl_setopt($chVerify, CURLOPT_POST, true);
@@ -41,26 +31,24 @@ if ($turnstileResponse !== '') {
         "response" => $turnstileResponse
     ]));
     curl_setopt($chVerify, CURLOPT_RETURNTRANSFER, true);
-
     $verifyResponse = curl_exec($chVerify);
     $curlError = curl_error($chVerify);
     $verifyResult = json_decode($verifyResponse, true);
     curl_close($chVerify);
-
     if ($curlError || !($verifyResult['success'] ?? false)) {
-        http_response_code(400);
-        echo json_encode(["success" => false, "message" => "Doğrulama başarısız. Lütfen tekrar deneyin."]);
+        $sep = (strpos($referer, '?') === false) ? '?' : '&';
+        header("Location: {$referer}{$sep}status=error&message=" . urlencode("Doğrulama başarısız. Lütfen tekrar deneyin."));
         exit;
     }
 }
 
 // Optional fields
-$email = filter_var(trim($input["email"] ?? ''), FILTER_SANITIZE_EMAIL);
-$clinic = strip_tags(trim($input["clinic"] ?? ''));
-$concern = strip_tags(trim($input["concern"] ?? ''));
-$message = strip_tags(trim($input["message"] ?? ''));
-$form_type = strip_tags(trim($input["form_type"] ?? 'appointment'));
-$kvkk = $input["kvkk"] ?? '';
+$email = filter_var(trim($_POST["email"] ?? ''), FILTER_SANITIZE_EMAIL);
+$clinic = strip_tags(trim($_POST["clinic"] ?? ''));
+$concern = strip_tags(trim($_POST["concern"] ?? ''));
+$message = strip_tags(trim($_POST["message"] ?? ''));
+$form_type = strip_tags(trim($_POST["form_type"] ?? 'appointment'));
+$kvkk = $_POST["kvkk"] ?? '';
 
 // Build HTML email
 $rows = "";
@@ -111,9 +99,11 @@ $response = curl_exec($ch);
 $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 curl_close($ch);
 
+$sep = (strpos($referer, '?') === false) ? '?' : '&';
+
 if ($httpCode >= 200 && $httpCode < 300) {
-    echo json_encode(["success" => true, "message" => "Randevu talebiniz alındı! 15 dakika içinde size dönüş yapacağız."]);
+    header("Location: {$referer}{$sep}status=success");
 } else {
-    http_response_code(500);
-    echo json_encode(["success" => false, "message" => "Gönderim sırasında bir hata oluştu. Lütfen WhatsApp'tan iletişime geçin."]);
+    header("Location: {$referer}{$sep}status=error&message=" . urlencode("Gönderim sırasında bir hata oluştu. Lütfen WhatsApp'tan iletişime geçin."));
 }
+exit;

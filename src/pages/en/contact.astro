@@ -6,6 +6,10 @@ import { getCollection } from "astro:content";
 
 const branches = await getCollection("branches");
 branches.sort((a, b) => a.data.slug.localeCompare(b.data.slug));
+
+const url = Astro.url;
+const statusParam = url.searchParams.get('status');
+const msgParam = url.searchParams.get('message');
 ---
 
 <BaseLayout title="Contact | Mr. Falcon Beauty" description="Mr. Falcon Beauty contact page. Book a free consultation for laser hair removal at Şişli or Halkalı." locale="en" path="/en/contact">
@@ -26,6 +30,14 @@ branches.sort((a, b) => a.data.slug.localeCompare(b.data.slug));
         <div>
           <h2 class="font-display text-3xl font-semibold mb-2">Free Skin & Hair Analysis</h2>
           <p class="text-black/70 mb-8">Fill in the form and we'll get back to you within 15 minutes. Let us know your clinic preference.</p>
+
+          <!-- Form status banner -->
+          {statusParam === 'success' && (
+            <div class="mb-6 rounded-xl bg-green-50 border border-green-200 p-4 text-sm text-green-800">✅ Your appointment request has been received! We'll get back to you within 15 minutes.</div>
+          )}
+          {statusParam === 'error' && msgParam && (
+            <div class="mb-6 rounded-xl bg-red-50 border border-red-200 p-4 text-sm text-red-800">❌ {msgParam}</div>
+          )}
 
           <form id="appointment-form-en" class="space-y-5" action="/api/contact.php" method="POST">
             <input type="hidden" name="form_type" value="appointment" />
@@ -73,7 +85,6 @@ branches.sort((a, b) => a.data.slug.localeCompare(b.data.slug));
             <button type="submit" class="w-full sm:w-auto rounded-full bg-navy px-8 py-3 font-semibold text-white transition-colors hover:bg-primary">
               Request Free Analysis & Book
             </button>
-            <div id="form-status" class="text-sm font-medium hidden"></div>
           </form>
         </div>
 
@@ -110,35 +121,3 @@ branches.sort((a, b) => a.data.slug.localeCompare(b.data.slug));
 
   <Footer locale="en" />
 </BaseLayout>
-
-<script>
-  const form = document.getElementById('appointment-form-en');
-  const statusDiv = document.getElementById('form-status');
-  form.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    statusDiv.className = 'text-sm font-medium text-black/60';
-    statusDiv.textContent = 'Sending...';
-    statusDiv.classList.remove('hidden');
-    const fd = new FormData(form);
-    const data = Object.fromEntries(fd.entries());
-    try {
-      const res = await fetch('/api/contact.php', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data),
-      });
-      if (res.ok) {
-        statusDiv.className = 'text-sm font-medium text-green-600';
-        statusDiv.textContent = 'Thank you! We will get back to you shortly.';
-        form.reset();
-      } else {
-        const err = await res.json();
-        statusDiv.className = 'text-sm font-medium text-red-600';
-        statusDiv.textContent = err.error || 'Something went wrong. Please try again.';
-      }
-    } catch {
-      statusDiv.className = 'text-sm font-medium text-red-600';
-      statusDiv.textContent = 'Network error. Please try again.';
-    }
-  });
-</script>
