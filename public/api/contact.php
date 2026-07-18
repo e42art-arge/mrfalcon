@@ -17,28 +17,31 @@ if (empty($name) || empty($phone)) {
     exit;
 }
 
-// Turnstile Verification
+// Turnstile Verification (optional — skip if empty for testing)
 $turnstileResponse = $_POST['cf-turnstile-response'] ?? '';
-$secretKey = "0x4AAAAAAAe3UYEBfAD0SXIcnrxgL5SgzNM";
 
-$chVerify = curl_init();
-curl_setopt($chVerify, CURLOPT_URL, "https://challenges.cloudflare.com/turnstile/v0/siteverify");
-curl_setopt($chVerify, CURLOPT_POST, true);
-curl_setopt($chVerify, CURLOPT_POSTFIELDS, http_build_query([
-    "secret" => $secretKey,
-    "response" => $turnstileResponse
-]));
-curl_setopt($chVerify, CURLOPT_RETURNTRANSFER, true);
+if ($turnstileResponse !== '') {
+    $secretKey = "0x4AAAAAAAe3UYEBfAD0SXIcnrxgL5SgzNM";
 
-$verifyResponse = curl_exec($chVerify);
-$curlError = curl_error($chVerify);
-$verifyResult = json_decode($verifyResponse, true);
-curl_close($chVerify);
+    $chVerify = curl_init();
+    curl_setopt($chVerify, CURLOPT_URL, "https://challenges.cloudflare.com/turnstile/v0/siteverify");
+    curl_setopt($chVerify, CURLOPT_POST, true);
+    curl_setopt($chVerify, CURLOPT_POSTFIELDS, http_build_query([
+        "secret" => $secretKey,
+        "response" => $turnstileResponse
+    ]));
+    curl_setopt($chVerify, CURLOPT_RETURNTRANSFER, true);
 
-if ($curlError || !($verifyResult['success'] ?? false)) {
-    http_response_code(400);
-    echo json_encode(["success" => false, "message" => "Doğrulama başarısız. Lütfen tekrar deneyin."]);
-    exit;
+    $verifyResponse = curl_exec($chVerify);
+    $curlError = curl_error($chVerify);
+    $verifyResult = json_decode($verifyResponse, true);
+    curl_close($chVerify);
+
+    if ($curlError || !($verifyResult['success'] ?? false)) {
+        http_response_code(400);
+        echo json_encode(["success" => false, "message" => "Doğrulama başarısız. Lütfen tekrar deneyin."]);
+        exit;
+    }
 }
 
 // Optional fields

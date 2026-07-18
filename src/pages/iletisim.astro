@@ -6,6 +6,8 @@ import { getCollection } from "astro:content";
 
 const branches = await getCollection("branches");
 branches.sort((a, b) => a.data.slug.localeCompare(b.data.slug));
+
+const TURNSTILE_ENABLED = false;
 ---
 
 <BaseLayout title="İletişim | Mr. Falcon Beauty" description="Mr. Falcon Beauty iletişim bilgileri. Şişli ve Halkalı şubelerimiz için randevu alın." locale="tr" path="/iletisim">
@@ -70,7 +72,7 @@ branches.sort((a, b) => a.data.slug.localeCompare(b.data.slug));
               <input type="checkbox" id="kvkk" name="kvkk" required class="mt-1 w-4 h-4 rounded border-black/30 text-primary focus:ring-primary" />
               <label for="kvkk"><a href='/kvkk-aydinlatma-metni' class='text-primary hover:underline' target='_blank'>KVKK aydınlatma metnini</a> okudum, onaylıyorum. Verilerim randevu için işlensin.</label>
             </div>
-            <div class="cf-turnstile" data-sitekey="0x4AAAAAAAe3UYEAyXZ5Iqy4vEMqCLYzNB8" data-theme="light" data-callback="onTurnstileCallback"></div>
+            {TURNSTILE_ENABLED && <div class="cf-turnstile" data-sitekey="0x4AAAAAAAe3UYEAyXZ5Iqy4vEMqCLYzNB8" data-theme="light" data-callback="onTurnstileCallback"></div>}
             <button type="submit" class="w-full sm:w-auto rounded-full bg-navy px-8 py-3 font-semibold text-white transition-colors hover:bg-primary">
               Ücretsiz Analiz İste & Randevu Al
             </button>
@@ -115,7 +117,7 @@ branches.sort((a, b) => a.data.slug.localeCompare(b.data.slug));
 
   <Footer locale="tr" />
 
-  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+  {TURNSTILE_ENABLED && <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>}
   <script>
     // Form submit via fetch
     document.getElementById('appointment-form')?.addEventListener('submit', async (e) => {
@@ -139,16 +141,14 @@ branches.sort((a, b) => a.data.slug.localeCompare(b.data.slug));
           msgEl.textContent = '✅ Randevu talebiniz alındı! 15 dk içinde size dönüş yapacağız.';
           msgEl.className = 'text-green-700';
           form.reset();
-          // Reset Turnstile
-          if (typeof turnstile !== 'undefined') turnstile.reset();
+          {TURNSTILE_ENABLED && <fragment>if (typeof turnstile !== 'undefined') turnstile.reset();</fragment>}
         } else {
           throw new Error(data.message || 'Bir hata oluştu');
         }
       } catch (err) {
         msgEl.textContent = '❌ ' + (err.message || 'Gönderim başarısız, lütfen WhatsApp\'tan yazın.');
         msgEl.className = 'text-red-700';
-        // Reset Turnstile
-        if (typeof turnstile !== 'undefined') turnstile.reset();
+        {TURNSTILE_ENABLED && <fragment>if (typeof turnstile !== 'undefined') turnstile.reset();</fragment>}
       } finally {
         msgEl.classList.remove('hidden');
         btn.disabled = false;
