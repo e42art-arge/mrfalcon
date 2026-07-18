@@ -2,10 +2,11 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import Header from "../../components/Header.astro";
 import Footer from "../../components/Footer.astro";
+import FaqAccordion from "../../components/FaqAccordion.astro";
 import { getCollection } from "astro:content";
 
-const faqs = await getCollection("faq", ({ id }) => id.startsWith("en/"));
-faqs.sort((a, b) => (a.data.order || 0) - (b.data.order || 0));
+const faqEntries = (await getCollection("faq", ({ id }) => id.startsWith("en/"))).sort((a, b) => (a.data.order || 0) - (b.data.order || 0));
+const faqs = faqEntries.map((e) => ({ q: e.data.question, a: e.data.answer }));
 ---
 
 <BaseLayout title="FAQ | Mr. Falcon Beauty" description="Frequently asked questions about laser hair removal, Falcon 4 Pro, sessions, and more." locale="en" path="/en/faq">
@@ -21,23 +22,7 @@ faqs.sort((a, b) => (a.data.order || 0) - (b.data.order || 0));
 
   <section class="py-20 bg-sky-light/30">
     <div class="mx-auto max-w-3xl px-5">
-      <dl class="space-y-4">
-        {faqs.map((faq, i) => (
-          <div class="rounded-2xl bg-white border border-black/5 overflow-hidden shadow-sm">
-            <dt>
-              <button
-                class="accordion-btn w-full px-6 py-4 flex items-center justify-between text-left font-medium focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
-                aria-expanded="false"
-                aria-controls={`faq-en-answer-${i}`}
-              >
-                <span class="pr-4">{faq.data.question}</span>
-                <svg class="accordion-chevron w-5 h-5 text-primary flex-shrink-0 ml-4 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-              </button>
-            </dt>
-            <dd id={`faq-en-answer-${i}`} class="accordion-answer hidden px-6 pb-4 pt-2 text-sm text-black/70 leading-relaxed" hidden>{faq.data.answer}</dd>
-          </div>
-        ))}
-      </dl>
+      <FaqAccordion items={faqs} tone="light" />
       <p class="mt-10 text-center text-sm text-black/60">
         Can't find your question? <a href="https://wa.me/905525939890" target="_blank" rel="noopener" class="text-primary hover:underline">Ask on WhatsApp</a>
       </p>
@@ -54,21 +39,3 @@ faqs.sort((a, b) => (a.data.order || 0) - (b.data.order || 0));
 
   <Footer locale="en" />
 </BaseLayout>
-
-<script>
-  const buttons = document.querySelectorAll('.accordion-btn');
-  buttons.forEach((btn) => {
-    btn.addEventListener('click', () => {
-      const ddId = btn.getAttribute('aria-controls');
-      const dd = document.getElementById(ddId);
-      const expanded = btn.getAttribute('aria-expanded') === 'true';
-      btn.setAttribute('aria-expanded', !expanded);
-      dd.classList.toggle('hidden');
-      dd.hidden = !expanded;
-      const chevron = btn.querySelector('.accordion-chevron');
-      if (chevron) {
-          chevron.classList.toggle('rotate-180', !expanded);
-      }
-    });
-  });
-</script>

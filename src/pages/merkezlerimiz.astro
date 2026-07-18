@@ -3,18 +3,9 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import { getCollection } from "astro:content";
+import { clinicGallery } from "../data/clinicGallery";
 
-const branches = await getCollection("branches");
-const clinicImages = [
-  "/images/clinic/clinic1.jpg",
-  "/images/clinic/clinic2.jpg",
-  "/images/clinic/clinic3.jpg",
-  "/images/clinic/clinic4.jpg",
-  "/images/clinic/clinic5.jpg",
-  "/images/clinic/clinic6.jpg",
-  "/images/clinic/clinic7.jpg",
-  "/images/clinic/clinic8.jpg",
-];
+const branches = (await getCollection("branches")).sort((a, b) => a.data.slug.localeCompare(b.data.slug));
 ---
 
 <BaseLayout title="Merkezlerimiz | Mr. Falcon Beauty" description="Mr. Falcon Beauty Şişli ve Halkalı şubeleri. Adres, telefon, çalışma saatleri ve yol tarifi." locale="tr" path="/merkezlerimiz">
@@ -31,8 +22,8 @@ const clinicImages = [
   <section class="py-20">
     <div class="mx-auto max-w-6xl px-5">
       <div class="grid md:grid-cols-2 gap-10">
-        {branches.sort((a,b) => a.data.slug.localeCompare(b.data.slug)).map((b) => (
-          <article class="rounded-2xl overflow-hidden border border-black/5 shadow-lg">
+        {branches.map((b) => (
+          <article class="rounded-2xl overflow-hidden border border-black/5 shadow-lg bg-white">
             <div class="bg-sky-light overflow-hidden"><img src={b.data.image || "/images/clinic/clinic1.jpg"} alt={b.data.name} class="w-full" /></div>
             <div class="p-6">
               <h2 class="font-display text-2xl font-semibold text-primary">{b.data.name}</h2>
@@ -55,8 +46,8 @@ const clinicImages = [
         <h2 class="font-display text-3xl font-semibold md:text-4xl">Merkez Galerisi</h2>
       </div>
       <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-        {clinicImages.map((img) => (
-          <div class="rounded-2xl overflow-hidden shadow-md"><img src={img} alt="Klinik" class="w-full" /></div>
+        {clinicGallery.slice(0, 8).map((img) => (
+          <div class="rounded-2xl overflow-hidden shadow-md"><img src={img.src} alt={img.alt} class="w-full" /></div>
         ))}
       </div>
     </div>

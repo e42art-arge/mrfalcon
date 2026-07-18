@@ -2,30 +2,28 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import Header from "../../components/Header.astro";
 import Footer from "../../components/Footer.astro";
+import ReviewCard from "../../components/ReviewCard.astro";
+import StatGrid from "../../components/StatGrid.astro";
+import BookingCta from "../../components/BookingCta.astro";
 import { reviews } from "../../data/reviews";
+import { benefits } from "../../data/benefits";
+import { processSteps } from "../../data/processSteps";
+import { whyUs } from "../../data/whyUs";
 
-const processSteps = [
-  { step: 1, title: "Free Skin & Hair Analysis", desc: "Your journey begins with a free consultation. Falcon 4 Pro's mobile app scientifically analyzes your skin tone and hair type to create a personalized treatment plan." },
-  { step: 2, title: "Choose Your Clinic", desc: "We serve at two central Istanbul locations — Şişli and Halkalı. Book at the branch most convenient for you." },
-  { step: 3, title: "Falcon 4 Pro Treatment", desc: "Your laser hair removal is performed by experienced specialists using the 4-wavelength hybrid Falcon 4 Pro in a sterile, safe environment." },
-  { step: 4, title: "Painless Cooling Experience", desc: "With -20°C ice tip and 5 independent cooling systems, your skin is continuously cooled throughout the session." },
-  { step: 5, title: "Personalized Sessions", desc: "Based on your hair type and target area, a tailored session schedule is created after your skin analysis." },
-  { step: 6, title: "Visible Results from Session 1", desc: "High shedding rate means you'll notice thinning and reduction from the very first session." },
-  { step: 7, title: "Regular Monitoring", desc: "Our team follows your progress with regular check-ups and adjusts the protocol as needed." },
+const heroMetrics = [
+  { value: "15,000+", label: "Happy Clients" },
+  { value: "70%", label: "Shedding Rate" },
+  { value: "4", label: "Wavelengths" },
+  { value: "2", label: "Clinic Locations" },
 ];
 
-const benefits = [
-  { icon: "🛡️", text: "FDA Cleared Falcon 4 Pro" },
-  { icon: "📍", text: "Şişli & Halkalı Clinics" },
-  { icon: "📞", text: "24/7 Personalized Support" },
-  { icon: "📉", text: "70% Shedding Rate" },
-];
-
-const whyUs = [
-  { icon: "🔬", title: "4-Wavelength Hybrid Technology", desc: "Falcon 4 Pro combines 755nm, 808nm, 940nm, and 1064nm in one applicator. Effective for all hair and skin types." },
-  { icon: "❄️", title: "Painless Treatment", desc: "-20°C ice tip and 5 cooling systems continuously cool the skin. The procedure is virtually painless." },
-  { icon: "🧼", title: "Sterile Environment & UVC", desc: "Sterile Box and UVC sterilization technology guarantee maximum hygiene for every client." },
-  { icon: "🤖", title: "AI-Powered Analysis", desc: "The mobile app analyzes your skin and hair scientifically, automatically selecting the optimal wavelength." },
+const falconSpecs = [
+  { label: "Wavelengths", val: "755nm, 808nm, 940nm, 1064nm" },
+  { label: "Spot Size", val: "4 cm² — Fast Sessions" },
+  { label: "Cooling", val: "5 Systems + -20° Ice" },
+  { label: "Pulse Rate", val: "20 Hz SHR" },
+  { label: "Power", val: "2400W" },
+  { label: "Lifetime", val: "100M Shots" },
 ];
 ---
 
@@ -42,7 +40,7 @@ const whyUs = [
         <a href="https://api.whatsapp.com/send?phone=905525939890&text=Hi, I'm contacting you through your website. I'd like information about Falcon Laser Hair Removal." target="_blank" rel="noopener" class="rounded-full border-2 border-black/15 px-8 py-3 font-semibold text-black transition-colors hover:border-primary hover:text-primary">WhatsApp</a>
       </div>
       <div class="mx-auto mt-8 flex max-w-3xl flex-wrap items-center justify-center gap-6 text-sm font-medium text-black/70">
-        {benefits.map((b) => (<span class="flex items-center gap-1.5">{b.icon} <strong>{b.text}</strong></span>))}
+        {benefits.en.map((b) => (<span class="flex items-center gap-1.5">{b.icon} <strong>{b.text}</strong></span>))}
       </div>
     </div>
   </section>
@@ -55,12 +53,7 @@ const whyUs = [
           <h2 class="mb-6 font-display text-3xl font-semibold md:text-4xl lg:text-5xl">What is Laser Hair Removal?</h2>
           <p class="mb-6 text-lg leading-relaxed text-black/70">Laser hair removal is a medical procedure that uses laser energy to target hair follicles for permanent hair reduction. Our Falcon 4 Pro device safely treats all skin types with 4 different wavelengths.</p>
           <p class="mb-6 text-lg leading-relaxed text-black/70">At Mr. Falcon Beauty, we create personalized treatment protocols for each client. With up to 70% shedding from the first session, we deliver real results.</p>
-          <div class="grid grid-cols-2 gap-4">
-            <div class="rounded-2xl bg-sky-light/50 p-4"><div class="font-display text-3xl font-bold md:text-4xl">15,000+</div><div class="text-sm text-black/60">Happy Clients</div></div>
-            <div class="rounded-2xl bg-sky-light/50 p-4"><div class="font-display text-3xl font-bold md:text-4xl">70%</div><div class="text-sm text-black/60">Shedding Rate</div></div>
-            <div class="rounded-2xl bg-sky-light/50 p-4"><div class="font-display text-3xl font-bold md:text-4xl">4</div><div class="text-sm text-black/60">Wavelengths</div></div>
-            <div class="rounded-2xl bg-sky-light/50 p-4"><div class="font-display text-3xl font-bold md:text-4xl">2</div><div class="text-sm text-black/60">Clinic Locations</div></div>
-          </div>
+          <StatGrid items={heroMetrics} class="grid-cols-2 gap-4" />
         </div>
         <div class="relative"><img src="/images/sliderdoctor.png" alt="Falcon 4 Pro Laser" class="w-full max-w-md mx-auto rounded-3xl shadow-2xl" /><div class="absolute -bottom-4 -left-4 rounded-2xl bg-navy p-4 text-white shadow-lg"><div class="flex items-center gap-3 text-xl font-display font-bold">⭐ 5.0</div><p class="mt-1 text-sm text-white/80">On Google with 58+ reviews</p></div></div>
       </div>
@@ -76,14 +69,7 @@ const whyUs = [
       </div>
       <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
         {reviews.slice(0, 4).map((r) => (
-          <div class="rounded-2xl bg-white p-6 shadow-sm border border-black/5 hover:shadow-md transition-shadow">
-            <div class="flex gap-1 text-primary text-sm mb-3">★★★★★</div>
-            <blockquote class="text-sm text-black/80 leading-relaxed">"{r.text}"</blockquote>
-            <footer class="mt-4 flex items-center justify-between text-xs">
-              <cite class="font-semibold text-primary">{r.name}</cite>
-              <span class="text-black/50">Google</span>
-            </footer>
-          </div>
+          <ReviewCard review={r} variant="compact" />
         ))}
       </div>
     </div>
@@ -97,7 +83,7 @@ const whyUs = [
           <h2 class="mb-6 font-display text-3xl font-semibold md:text-4xl lg:text-5xl">Meet Falcon 4 Pro</h2>
           <p class="mb-6 text-lg leading-relaxed text-white/80">Falcon 4 Pro is an AI-powered hybrid laser device with FDA 510(k) clearance, combining 755nm, Diode (808nm), Nd:YAG (1064nm), and 940nm wavelengths in a single applicator.</p>
           <ul class="space-y-3">
-            {[{label:"Wavelengths",val:"755nm, 808nm, 940nm, 1064nm"},{label:"Spot Size",val:"4 cm² — Fast Sessions"},{label:"Cooling",val:"5 Systems + -20° Ice"},{label:"Pulse Rate",val:"20 Hz SHR"},{label:"Power",val:"2400W"},{label:"Lifetime",val:"100M Shots"}].map((s) => (<li class="flex items-center gap-3"><span class="text-primary">▸</span> <strong>{s.label}:</strong> {s.val}</li>))}
+            {falconSpecs.map((s) => (<li class="flex items-center gap-3"><span class="text-primary">▸</span> <strong>{s.label}:</strong> {s.val}</li>))}
           </ul>
         </div>
         <div class="flex justify-center"><img src="/images/falcons.png" alt="Falcon 4 Pro" class="w-full max-w-sm" /></div>
@@ -112,7 +98,7 @@ const whyUs = [
         <h2 class="font-display text-3xl font-semibold md:text-4xl">Why Choose Mr. Falcon Beauty?</h2>
       </div>
       <div class="grid md:grid-cols-2 gap-6">
-        {whyUs.map((w) => (<article class="rounded-2xl p-6 border border-black/5 hover:shadow-lg transition-shadow bg-white"><div class="text-3xl">{w.icon}</div><h3 class="mt-3 font-display text-xl font-semibold">{w.title}</h3><p class="mt-2 text-sm leading-relaxed text-black/70">{w.desc}</p></article>))}
+        {whyUs.en.map((w) => (<article class="rounded-2xl p-6 border border-black/5 hover:shadow-lg transition-shadow bg-white"><div class="text-3xl">{w.icon}</div><h3 class="mt-3 font-display text-xl font-semibold">{w.title}</h3><p class="mt-2 text-sm leading-relaxed text-black/70">{w.desc}</p></article>))}
       </div>
     </div>
   </section>
@@ -124,22 +110,12 @@ const whyUs = [
         <h2 class="font-display text-3xl font-semibold md:text-4xl">Your Laser Hair Removal Journey</h2>
       </div>
       <div class="space-y-6">
-        {processSteps.map((step) => (<article class="relative flex gap-6 p-6 bg-white rounded-2xl border border-black/5 hover:shadow-md transition-shadow"><div class="flex-shrink-0 w-12 h-12 rounded-full bg-sky-light/50 flex items-center justify-center font-display text-xl font-bold text-primary">{step.step}</div><div class="flex-1 pt-1"><h3 class="font-display text-lg font-semibold">{step.title}</h3><p class="mt-1 text-sm text-black/70">{step.desc}</p></div></article>))}
+        {processSteps.lazer.en.map((step) => (<article class="relative flex gap-6 p-6 bg-white rounded-2xl border border-black/5 hover:shadow-md transition-shadow"><div class="flex-shrink-0 w-12 h-12 rounded-full bg-sky-light/50 flex items-center justify-center font-display text-xl font-bold text-primary">{step.step}</div><div class="flex-1 pt-1"><h3 class="font-display text-lg font-semibold">{step.title}</h3><p class="mt-1 text-sm text-black/70">{step.desc}</p></div></article>))}
       </div>
     </div>
   </section>
 
-  <section class="py-20 bg-sky-light/50">
-    <div class="mx-auto max-w-3xl px-5 text-center">
-      <h2 class="font-display text-3xl font-semibold md:text-4xl">Ready to Start?</h2>
-      <p class="mt-4 text-lg text-black/70">Free consultation and skin analysis. Choose your clinic and book an appointment.</p>
-      <div class="mt-8 flex flex-wrap items-center justify-center gap-4">
-        <a href="/en/contact" class="rounded-full bg-navy px-8 py-3 font-semibold text-white transition-colors hover:bg-primary">Book Now</a>
-        <a href="https://wa.me/905525939890" target="_blank" rel="noopener" class="rounded-full border-2 border-black/15 px-8 py-3 font-semibold text-black transition-colors hover:border-primary hover:text-primary">WhatsApp</a>
-      </div>
-      <p class="mt-6 text-sm text-black/60">📍 Şişli/Mecidiyeköy · 📍 Halkalı/Küçükçekmece · 📞 +90 506 371 70 71</p>
-    </div>
-  </section>
+  <BookingCta locale="en" />
 
   <Footer locale="en" />
 </BaseLayout>

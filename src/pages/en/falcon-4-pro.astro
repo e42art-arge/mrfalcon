@@ -2,21 +2,15 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import Header from "../../components/Header.astro";
 import Footer from "../../components/Footer.astro";
+import BookingCta from "../../components/BookingCta.astro";
+import { features } from "../../data/features";
+import { mediaNews } from "../../data/mediaNews";
 
-const features = [
-  { name: "4-Wavelength Hybrid Technology", wavelengths: "755nm + 808nm + 940nm + 1064nm", desc: "Four laser wavelengths in a single applicator. From fair to dark skin, fine to coarse hair — effective for every client." },
-  { name: "Painless & Comfortable", wavelengths: "-20°C Cooling", desc: "4 cm² spot size reduces session time, while 5 cooling systems and -20° ice tip ensure a painless experience." },
-  { name: "SHR Technology", wavelengths: "20 pulses/sec", desc: "In-Motion SHR delivers up to 20 pulses per second for fast, effective treatment of large areas." },
-  { name: "Hygiene & Sterilization", wavelengths: "UVC + Sterile Box", desc: "Maximum hygiene guaranteed with Sterile Box and UVC sterilization technology for every client." },
-  { name: "AI-Powered Analysis", wavelengths: "Mobile App", desc: "Scientific analysis of skin and hair type before each session with automatic wavelength selection." },
-  { name: "High Power & Warranty", wavelengths: "2400W / 100M", desc: "2400W output power and 100 million shot warranty for safe year-round use." },
-];
-
-const mediaNews = [
-  { name: "Beyaz TV", desc: "Falcon 4 Pro featured on national television" },
-  { name: "CNN Türk", desc: "New standard in laser hair removal" },
-  { name: "TLC", desc: "Painless hair removal experience highlighted" },
-  { name: "CNN Türk", desc: "4-wavelength hybrid device in Turkey" },
+const wavelengths = [
+  { nm: "755nm", t: "Alexandrite", desc: "Fair skin, fine hair" },
+  { nm: "808nm", t: "Diode", desc: "All skin types, standard hair" },
+  { nm: "940nm", t: "Diode", desc: "Dark skin, deep follicles" },
+  { nm: "1064nm", t: "Nd:YAG", desc: "Tanned skin, safe" },
 ];
 ---
 
@@ -44,7 +38,7 @@ const mediaNews = [
         <h2 class="font-display text-3xl font-semibold md:text-4xl">Falcon 4 Pro Specifications</h2>
       </div>
       <div class="grid md:grid-cols-2 gap-6">
-        {features.map((f) => (<article class="rounded-2xl bg-white p-6 border border-black/5 shadow-sm hover:shadow-md transition-shadow"><h3 class="font-display text-xl font-semibold text-primary">{f.name}</h3><p class="mt-1 text-sm font-medium text-black/50">{f.wavelengths}</p><p class="mt-3 text-sm text-black/70 leading-relaxed">{f.desc}</p></article>))}
+        {features.en.map((f) => (<article class="rounded-2xl bg-white p-6 border border-black/5 shadow-sm hover:shadow-md transition-shadow"><h3 class="font-display text-xl font-semibold text-primary">{f.name}</h3><p class="mt-1 text-sm font-medium text-black/50">{f.wavelengths}</p><p class="mt-3 text-sm text-black/70 leading-relaxed">{f.desc}</p></article>))}
       </div>
     </div>
   </section>
@@ -57,7 +51,7 @@ const mediaNews = [
         <p class="mt-3 text-white/60">Our successful results featured on national television channels.</p>
       </div>
       <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-        {mediaNews.map((m) => (
+        {mediaNews.en.map((m) => (
           <div class="rounded-2xl bg-white/10 p-6 border border-white/10 hover:bg-white/20 transition-colors">
             <div class="text-2xl mb-2">📺</div>
             <h3 class="font-semibold text-primary">{m.name}</h3>
@@ -74,19 +68,13 @@ const mediaNews = [
         <h2 class="font-display text-3xl font-semibold md:text-4xl">4 Wavelengths — For Every Skin Type</h2>
         <p class="mt-3 text-black/60">Hybrid technology targeting different tissue depths and hair types in a single session</p>
       </div>
-      <div class="grid md:grid-cols-4 gap-6">
-        {[{nm:"755nm", t:"Alexandrite", desc:"Fair skin, fine hair"},{nm:"808nm", t:"Diode", desc:"All skin types, standard hair"},{nm:"940nm", t:"Diode", desc:"Dark skin, deep follicles"},{nm:"1064nm", t:"Nd:YAG", desc:"Tanned skin, safe"}].map((w) => (<article class="rounded-2xl border border-black/5 p-6 text-center bg-sky-light/20"><div class="font-display text-3xl font-bold text-primary">{w.nm}</div><div class="mt-1 font-semibold">{w.t}</div><p class="mt-2 text-xs text-black/60">{w.desc}</p></article>))}
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+        {wavelengths.map((w) => (<article class="rounded-2xl border border-black/5 p-6 text-center bg-sky-light/20"><div class="font-display text-3xl font-bold text-primary">{w.nm}</div><div class="mt-1 font-semibold">{w.t}</div><p class="mt-2 text-xs text-black/60">{w.desc}</p></article>))}
       </div>
     </div>
   </section>
 
-  <section class="py-20 bg-sky-light/50">
-    <div class="mx-auto max-w-3xl px-5 text-center">
-      <h2 class="font-display text-3xl font-semibold md:text-4xl">Experience Falcon 4 Pro</h2>
-      <p class="mt-4 text-lg text-black/70">Book a free consultation at Şişli or Halkalı clinic for your personalized plan.</p>
-      <div class="mt-8"><a href="/en/contact" class="rounded-full bg-navy px-8 py-3 font-semibold text-white transition-colors hover:bg-primary">Book Now</a></div>
-    </div>
-  </section>
+  <BookingCta locale="en" />
 
   <Footer locale="en" />
 </BaseLayout>
