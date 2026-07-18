@@ -1,49 +1,133 @@
 ---
+import Icon from "./Icon.astro";
+
 interface Props {
   locale?: "tr" | "en";
 }
 const { locale = "tr" } = Astro.props;
 const en = locale === "en";
+
+const services = en
+  ? [
+      { href: "/en/laser-hair-removal", label: "Laser Hair Removal" },
+      { href: "/en/falcon-4-pro", label: "Falcon 4 Pro" },
+    ]
+  : [
+      { href: "/lazer-epilasyon", label: "Lazer Epilasyon" },
+      { href: "/falcon-4-pro", label: "Falcon 4 Pro" },
+    ];
+
+const company = en
+  ? [
+      { href: "/en/our-clinics", label: "Our Clinics" },
+      { href: "/en/reviews", label: "Reviews" },
+      { href: "/en/faq", label: "FAQ" },
+    ]
+  : [
+      { href: "/merkezlerimiz", label: "Merkezlerimiz" },
+      { href: "/yorumlar", label: "Yorumlar" },
+      { href: "/sss", label: "SSS" },
+    ];
+
+const waLink = "https://api.whatsapp.com/send?phone=905525939890&text=Merhaba web siteniz üzerinden size ulaşıyorum, Falcon Lazer Epilasyon hakkında bilgi alabilir miyim ?";
 ---
 
-<footer class="bg-sky-light text-black/70">
-  <div class="mx-auto grid max-w-6xl gap-10 px-5 py-14 md:grid-cols-3">
-    <div>
-      <a href={en ? "/en" : "/"} class="flex items-center gap-2" aria-label="Mr. Falcon Beauty Ana Sayfa">
-        <img src="/images/logo.png" alt="Mr. Falcon Beauty Logo" class="h-10 w-auto" />
-      </a>
-      <p class="mt-3 max-w-xs text-sm leading-relaxed text-black/60">
-        {en
-          ? "Painless laser hair removal with Falcon 4 Pro technology across Istanbul."
-          : "Falcon 4 Pro teknolojisiyle ağrısız lazer epilasyon, İstanbul genelinde."}
-      </p>
-    </div>
-    <div>
-      <h3 class="text-sm font-semibold uppercase tracking-wide text-primary">{en ? "Clinics" : "Merkezler"}</h3>
-      <ul class="mt-3 space-y-2 text-sm text-black/70">
-        <li>{en ? "Şişli — Istanbul" : "Şişli — İstanbul"}</li>
-        <li>{en ? "Halkalı — Istanbul" : "Halkalı — İstanbul"}</li>
-        <li><a class="hover:text-primary transition-colors" href={en ? "/en/contact" : "/iletisim"}>{en ? "Contact" : "İletişim"}</a></li>
-      </ul>
-      <div class="mt-4 space-y-1 text-sm">
-        <ul class="space-y-1">
-          <li><a class="hover:text-primary transition-colors text-black/70" href="tel:+905525939890">+90 552 593 98 90</a></li>
-          <li><a class="hover:text-primary transition-colors text-black/70" href="tel:+905063717071">+90 506 371 70 71</a></li>
+<footer class="relative bg-gradient-to-b from-navy to-[#103358] text-white">
+  <div class="h-1 w-full bg-gradient-to-r from-sky via-primary to-sky"></div>
+
+  <div class="mx-auto max-w-6xl px-5 pt-14 pb-8">
+    <div class="grid gap-10 md:grid-cols-12">
+      <!-- Brand -->
+      <div class="md:col-span-4">
+        <a
+          href={en ? "/en" : "/"}
+          class="inline-flex items-center gap-3 transition-opacity hover:opacity-90"
+          aria-label="Mr. Falcon Beauty Ana Sayfa"
+        >
+          <span class="flex h-11 w-11 items-center justify-center rounded-xl bg-white/10 ring-1 ring-white/15 backdrop-blur">
+            <img src="/images/logo.png" alt="Mr. Falcon Beauty Logo" class="h-7 w-auto" />
+          </span>
+          <span class="text-lg font-semibold tracking-tight">Mr. Falcon Beauty</span>
+        </a>
+        <p class="mt-4 max-w-xs text-sm leading-relaxed text-white/70">
+          {en
+            ? "Painless laser hair removal with Falcon 4 Pro technology across Istanbul."
+            : "Falcon 4 Pro teknolojisiyle ağrısız lazer epilasyon, İstanbul genelinde."}
+        </p>
+        <a
+          href={waLink}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="mt-5 inline-flex items-center gap-2 rounded-full bg-whatsapp px-4 py-2 text-sm font-semibold text-white shadow-lg shadow-whatsapp/20 transition-all duration-200 hover:bg-[#46b85c] hover:shadow-xl"
+        >
+          <Icon name="message-circle" class="h-4 w-4" />
+          WhatsApp
+        </a>
+      </div>
+
+      <!-- Services -->
+      <nav class="md:col-span-2" aria-label={en ? "Services" : "Hizmetler"}>
+        <h3 class="text-xs font-semibold uppercase tracking-wider text-sky">{en ? "Services" : "Hizmetler"}</h3>
+        <ul class="mt-4 space-y-2.5 text-sm text-white/75">
+          {services.map((item) => (
+            <li>
+              <a class="inline-flex items-center gap-1.5 transition-colors duration-200 hover:text-white" href={item.href}>
+                <span class="h-1 w-1 rounded-full bg-sky/60 transition-colors duration-200 group-hover:bg-sky" aria-hidden="true"></span>
+                {item.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </nav>
+
+      <!-- Company -->
+      <nav class="md:col-span-2" aria-label={en ? "Company" : "Kurumsal"}>
+        <h3 class="text-xs font-semibold uppercase tracking-wider text-sky">{en ? "Company" : "Kurumsal"}</h3>
+        <ul class="mt-4 space-y-2.5 text-sm text-white/75">
+          {company.map((item) => (
+            <li>
+              <a class="inline-flex items-center gap-1.5 transition-colors duration-200 hover:text-white" href={item.href}>
+                <span class="h-1 w-1 rounded-full bg-sky/60" aria-hidden="true"></span>
+                {item.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </nav>
+
+      <!-- Contact -->
+      <div class="md:col-span-4">
+        <h3 class="text-xs font-semibold uppercase tracking-wider text-sky">{en ? "Contact" : "İletişim"}</h3>
+        <ul class="mt-4 space-y-3 text-sm text-white/75">
+          <li class="flex items-center gap-2.5">
+            <Icon name="map-pin" class="h-4 w-4 shrink-0 text-sky" />
+            <span>{en ? "Şişli & Halkalı — Istanbul" : "Şişli & Halkalı — İstanbul"}</span>
+          </li>
+          <li class="flex items-center gap-2.5">
+            <Icon name="phone" class="h-4 w-4 shrink-0 text-sky" />
+            <a class="transition-colors duration-200 hover:text-white" href="tel:+905525939890">+90 552 593 98 90</a>
+          </li>
+          <li class="flex items-center gap-2.5">
+            <Icon name="phone" class="h-4 w-4 shrink-0 text-sky" />
+            <a class="transition-colors duration-200 hover:text-white" href="tel:+905063717071">+90 506 371 70 71</a>
+          </li>
+          <li class="flex items-center gap-2.5">
+            <Icon name="message-circle" class="h-4 w-4 shrink-0 text-sky" />
+            <a class="transition-colors duration-200 hover:text-white" href="mailto:info@mrfalconbeauty.com">info@mrfalconbeauty.com</a>
+          </li>
         </ul>
       </div>
     </div>
-    <div>
-      <h3 class="text-sm font-semibold uppercase tracking-wide text-primary">WhatsApp</h3>
-      <p class="mt-3 text-sm">
-        <a class="hover:text-primary transition-colors text-black/70" href="https://api.whatsapp.com/send?phone=905525939890&text=Merhaba web siteniz üzerinden size ulaşıyorum, Falcon Lazer Epilasyon hakkında bilgi alabilir miyim ?">+90 552 593 98 90</a>
-      </p>
-      <div class="mt-4 flex gap-4 text-sm">
-        <a class="hover:text-primary transition-colors text-black/70" href={en ? "/en/faq" : "/sss"}>{en ? "FAQ" : "SSS"}</a>
-        <a class="hover:text-primary transition-colors text-black/70" href={en ? "/en/reviews" : "/yorumlar"}>{en ? "Reviews" : "Yorumlar"}</a>
+
+    <div class="mt-10 border-t border-white/10"></div>
+
+    <div class="flex flex-col gap-3 pt-6 text-xs text-white/50 md:flex-row md:items-center md:justify-between">
+      <span>© {new Date().getFullYear()} Mr. Falcon Beauty. {en ? "All rights reserved." : "Tüm hakları saklıdır."}</span>
+      <div class="flex flex-wrap items-center gap-x-5 gap-y-2">
+        <a class="transition-colors duration-200 hover:text-white" href={en ? "/en/faq" : "/sss"}>{en ? "FAQ" : "SSS"}</a>
+        <a class="transition-colors duration-200 hover:text-white" href={en ? "/en/reviews" : "/yorumlar"}>{en ? "Reviews" : "Yorumlar"}</a>
+        <a class="transition-colors duration-200 hover:text-white" href={en ? "/en/contact" : "/iletisim"}>{en ? "Contact" : "İletişim"}</a>
       </div>
     </div>
-  </div>
-  <div class="border-t border-black/10 py-5 text-center text-xs text-black/40">
-    © {new Date().getFullYear()} Mr. Falcon Beauty. {en ? "All rights reserved." : "Tüm hakları saklıdır."}
   </div>
 </footer>
