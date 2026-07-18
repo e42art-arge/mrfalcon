@@ -10,6 +10,8 @@ branches.sort((a, b) => a.data.slug.localeCompare(b.data.slug));
 const url = Astro.url;
 const statusParam = url.searchParams.get('status');
 const msgParam = url.searchParams.get('message');
+
+const TURNSTILE_ENABLED = true;
 ---
 
 <BaseLayout title="İletişim | Mr. Falcon Beauty" description="Mr. Falcon Beauty iletişim bilgileri. Şişli ve Halkalı şubelerimiz için randevu alın." locale="tr" path="/iletisim">
@@ -83,6 +85,7 @@ const msgParam = url.searchParams.get('message');
               <input type="checkbox" id="kvkk" name="kvkk" required class="mt-1 w-4 h-4 rounded border-black/30 text-primary focus:ring-primary" />
               <label for="kvkk"><a href='/kvkk-aydinlatma-metni' class='text-primary hover:underline' target='_blank'>KVKK aydınlatma metnini</a> okudum, onaylıyorum. Verilerim randevu için işlensin.</label>
             </div>
+            {TURNSTILE_ENABLED && <div class="cf-turnstile" data-sitekey="0x4AAAAAAAe3UYEAyXZ5Iqy4vEMqCLYzNB8" data-theme="light"></div>}
             <button type="submit" class="w-full sm:w-auto rounded-full bg-navy px-8 py-3 font-semibold text-white transition-colors hover:bg-primary">
               Ücretsiz Analiz İste & Randevu Al
             </button>
@@ -128,6 +131,7 @@ const msgParam = url.searchParams.get('message');
   <Footer locale="tr" />
 </BaseLayout>
 
+{TURNSTILE_ENABLED && <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>}
 <script>
   (function() {
     const form = document.getElementById('appointment-form');
@@ -135,6 +139,10 @@ const msgParam = url.searchParams.get('message');
     const statusEl = document.getElementById('form-status');
     const ajaxInput = form.querySelector('input[name="_ajax"]');
     const btn = form.querySelector('button[type="submit"]');
+
+    function resetTurnstile() {
+      if (typeof turnstile !== 'undefined') turnstile.reset();
+    }
 
     form.addEventListener('submit', async function(e) {
       // Only intercept if browser supports fetch
@@ -157,6 +165,7 @@ const msgParam = url.searchParams.get('message');
           statusEl.className = 'text-sm font-medium text-green-700';
           form.reset();
           if (ajaxInput) ajaxInput.value = '';
+          resetTurnstile();
         } else {
           throw new Error(data.message || 'Bir hata oluştu');
         }
@@ -164,6 +173,7 @@ const msgParam = url.searchParams.get('message');
         statusEl.textContent = '❌ ' + (err.message || 'Gönderilemedi. WhatsApp\'tan yazın.');
         statusEl.className = 'text-sm font-medium text-red-700';
         if (ajaxInput) ajaxInput.value = '';
+        resetTurnstile();
       } finally {
         statusEl.classList.remove('hidden');
         btn.disabled = false;
