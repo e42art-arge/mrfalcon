@@ -41,6 +41,7 @@ const msgParam = url.searchParams.get('message');
 
           <form id="appointment-form" class="space-y-5" action="/api/contact.php" method="POST">
             <input type="hidden" name="form_type" value="appointment" />
+            <input type="hidden" name="_ajax" value="" />
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 <label for="name" class="block text-sm font-medium text-black/70 mb-1">Ad Soyad *</label>
@@ -85,6 +86,7 @@ const msgParam = url.searchParams.get('message');
             <button type="submit" class="w-full sm:w-auto rounded-full bg-navy px-8 py-3 font-semibold text-white transition-colors hover:bg-primary">
               Ücretsiz Analiz İste & Randevu Al
             </button>
+            <div id="form-status" class="text-sm font-medium hidden"></div>
           </form>
         </div>
 
@@ -125,3 +127,48 @@ const msgParam = url.searchParams.get('message');
 
   <Footer locale="tr" />
 </BaseLayout>
+
+<script>
+  (function() {
+    const form = document.getElementById('appointment-form');
+    if (!form) return;
+    const statusEl = document.getElementById('form-status');
+    const ajaxInput = form.querySelector('input[name="_ajax"]');
+    const btn = form.querySelector('button[type="submit"]');
+
+    form.addEventListener('submit', async function(e) {
+      // Only intercept if browser supports fetch
+      if (typeof fetch === 'undefined') return;
+
+      e.preventDefault();
+      if (ajaxInput) ajaxInput.value = '1';
+
+      btn.disabled = true;
+      btn.textContent = 'Gönderiliyor...';
+      statusEl.classList.add('hidden');
+
+      try {
+        const fd = new FormData(form);
+        const res = await fetch(form.action, { method: 'POST', body: fd });
+        const data = await res.json();
+
+        if (data.success) {
+          statusEl.textContent = '✅ ' + data.message;
+          statusEl.className = 'text-sm font-medium text-green-700';
+          form.reset();
+          if (ajaxInput) ajaxInput.value = '';
+        } else {
+          throw new Error(data.message || 'Bir hata oluştu');
+        }
+      } catch (err) {
+        statusEl.textContent = '❌ ' + (err.message || 'Gönderilemedi. WhatsApp\'tan yazın.');
+        statusEl.className = 'text-sm font-medium text-red-700';
+        if (ajaxInput) ajaxInput.value = '';
+      } finally {
+        statusEl.classList.remove('hidden');
+        btn.disabled = false;
+        btn.textContent = 'Ücretsiz Analiz İste & Randevu Al';
+      }
+    });
+  })();
+</script>

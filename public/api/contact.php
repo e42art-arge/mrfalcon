@@ -1,21 +1,32 @@
 <?php
-// Classic PHP form POST handler — no JSON, no fetch, plain redirect
+// Classic PHP form POST handler — supports both AJAX (JSON) and regular form POST (redirect)
 
 if ($_SERVER["REQUEST_METHOD"] !== "POST") {
     http_response_code(405);
     exit;
 }
 
+$isAjax = !empty($_POST['_ajax']);
 $referer = $_SERVER['HTTP_REFERER'] ?? '/iletisim';
+
+function respond($isAjax, $referer, $success, $message) {
+    if ($isAjax) {
+        header('Content-Type: application/json');
+        echo json_encode(["success" => $success, "message" => $message]);
+        exit;
+    }
+    $sep = (strpos($referer, '?') === false) ? '?' : '&';
+    $param = $success ? "status=success" : "status=error&message=" . urlencode($message);
+    header("Location: {$referer}{$sep}{$param}");
+    exit;
+}
 
 // Required fields
 $name = strip_tags(trim($_POST["name"] ?? ''));
 $phone = strip_tags(trim($_POST["phone"] ?? ''));
 
 if (empty($name) || empty($phone)) {
-    $sep = (strpos($referer, '?') === false) ? '?' : '&';
-    header("Location: {$referer}{$sep}status=error&message=" . urlencode("Ad Soyad ve Telefon zorunludur."));
-    exit;
+    respond($isAjax, $referer, false, "Ad Soyad ve Telefon zorunludur.");
 }
 
 // Turnstile Verification (optional — skip if empty for testing)
@@ -36,9 +47,7 @@ if ($turnstileResponse !== '') {
     $verifyResult = json_decode($verifyResponse, true);
     curl_close($chVerify);
     if ($curlError || !($verifyResult['success'] ?? false)) {
-        $sep = (strpos($referer, '?') === false) ? '?' : '&';
-        header("Location: {$referer}{$sep}status=error&message=" . urlencode("Doğrulama başarısız. Lütfen tekrar deneyin."));
-        exit;
+        respond($isAjax, $referer, false, "Doğrulama başarısız. Lütfen tekrar deneyin.");
     }
 }
 
@@ -99,11 +108,8 @@ $response = curl_exec($ch);
 $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 curl_close($ch);
 
-$sep = (strpos($referer, '?') === false) ? '?' : '&';
-
 if ($httpCode >= 200 && $httpCode < 300) {
-    header("Location: {$referer}{$sep}status=success");
+    respond($isAjax, $referer, true, "Randevu talebiniz alındı! 15 dakika içinde size dönüş yapacağız.");
 } else {
-    header("Location: {$referer}{$sep}status=error&message=" . urlencode("Gönderim sırasında bir hata oluştu. Lütfen WhatsApp'tan iletişime geçin."));
+    respond($isAjax, $referer, false, "Gönderim sırasında bir hata oluştu. Lütfen WhatsApp'tan iletişime geçin.");
 }
-exit;
