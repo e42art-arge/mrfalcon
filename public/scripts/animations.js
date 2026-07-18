@@ -153,6 +153,7 @@ function initHeroAnimations() {
       const duration = parseFloat(getValue(el, 'data-duration', '2'));
       const prefix = getValue(el, 'data-prefix', '');
       const suffix = getValue(el, 'data-suffix', '');
+      const decimals = parseInt(getValue(el, 'data-decimals', target % 1 === 0 ? '0' : '1'), 10);
 
       gsap.fromTo(
         { val: 0 },
@@ -161,7 +162,7 @@ function initHeroAnimations() {
           duration,
           ease: 'power2.out',
           onUpdate: function () {
-            el.textContent = prefix + this.targets()[0].val.toFixed(target % 1 === 0 ? 0 : 1) + suffix;
+            el.textContent = prefix + this.targets()[0].val.toFixed(decimals) + suffix;
           },
         }
       );
