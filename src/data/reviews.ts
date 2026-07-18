@@ -31,6 +31,12 @@ export interface Review {
 const clean = (s: string): string =>
   s.replace(/<br\s*\/?>/gi, " ").replace(/\s+/g, " ").trim();
 
+// "Kötü yorum" = olumsuz tonlu tek yorum (Akbaci Metin: 5★ ama telefon görüşmesi şikayeti).
+// JSON'da "faydalı" oy sayısı yok; en faydalı = en detaylı (uzun) yorum olarak sıralanır.
+const EXCLUDED_IDS = new Set([
+  "Ci9DQUlRQUNvZENodHljRjlvT2pac1drOXdUVXhCWVc5WldqaEhZMUZEYWxreVQzYxAB",
+]);
+
 export const reviews: Review[] = data.reviews
   .map((r) => ({
     id: r.review_id,
@@ -39,8 +45,8 @@ export const reviews: Review[] = data.reviews
     text: clean(r.review.text ?? ""),
     date: new Date(Number(r.time.published)),
   }))
-  .filter((r) => r.text.length > 0)
-  .sort((a, b) => b.date.getTime() - a.date.getTime());
+  .filter((r) => r.text.length > 0 && r.rating === 5 && !EXCLUDED_IDS.has(r.id))
+  .sort((a, b) => b.text.length - a.text.length || b.date.getTime() - a.date.getTime());
 
 export const reviewStats = (() => {
   const total = reviews.length;
