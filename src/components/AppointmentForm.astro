@@ -1,0 +1,216 @@
+---
+interface Props {
+  locale?: "tr" | "en";
+  branches: { data: { slug: string; name: string } }[];
+  turnstileEnabled?: boolean;
+}
+const { locale = "tr", branches, turnstileEnabled = false } = Astro.props;
+const en = locale === "en";
+const url = Astro.url;
+const statusParam = url.searchParams.get("status");
+const msgParam = url.searchParams.get("message");
+const formId = en ? "appointment-form-en" : "appointment-form";
+const TURNSTILE_SITE_KEY = "0x4AAAAAAAe3UfjmqAFuXwn1";
+
+const tr = {
+  title: "Ücretsiz Cilt & Kıl Analizi",
+  desc: "Formu doldurun, 15 dakika içinde size dönelim. Şube tercihinizi belirtin.",
+  success: "✅ Randevu talebiniz alındı! 15 dk içinde size dönüş yapacağız.",
+  nameLabel: "Ad Soyad *",
+  namePlaceholder: "Adınız Soyadınız",
+  phoneLabel: "Telefon *",
+  phonePlaceholder: "05XX XXX XX XX",
+  emailLabel: "E-posta",
+  emailPlaceholder: "ornek@email.com",
+  clinicLabel: "Şube Tercihi *",
+  clinicPlaceholder: "Şube Seçiniz",
+  concernLabel: "İlgi Alanı / Bölge",
+  concernPlaceholder: "Seçiniz",
+  concernOptions: [
+    { value: "full-body", text: "Tüm Vücut" },
+    { value: "face-neck", text: "Yüz & Boyun" },
+    { value: "underarm", text: "Koltuk Altı" },
+    { value: "arm-leg", text: "Kol & Bacak" },
+    { value: "back-chest", text: "Sırt & Göğüs" },
+    { value: "bikini", text: "Bölgesel / Bikini" },
+  ],
+  msgLabel: "Not / Mesaj",
+  msgPlaceholder: "Özel durum, hormon tedavisi, önceki lazer geçmişi vb.",
+  kvkkLabel: "KVKK aydınlatma metnini",
+  kvkkSuffix: "okudum, onaylıyorum. Verilerim randevu için işlensin.",
+  kvkkHref: "/kvkk-aydinlatma-metni",
+  btnLabel: "Ücretsiz Analiz İste & Randevu Al",
+  btnSending: "Gönderiliyor...",
+  errGeneric: "Bir hata oluştu",
+  errFallback: "Gönderilemedi. WhatsApp'tan yazın.",
+};
+
+const enLabels = {
+  title: "Free Skin & Hair Analysis",
+  desc: "Fill in the form and we'll get back to you within 15 minutes. Let us know your clinic preference.",
+  success: "✅ Your appointment request has been received! We'll get back to you within 15 minutes.",
+  nameLabel: "Full Name *",
+  namePlaceholder: "Your Full Name",
+  phoneLabel: "Phone *",
+  phonePlaceholder: "+90 5XX XXX XX XX",
+  emailLabel: "Email",
+  emailPlaceholder: "email@example.com",
+  clinicLabel: "Preferred Clinic *",
+  clinicPlaceholder: "Select a Clinic",
+  concernLabel: "Area of Interest",
+  concernPlaceholder: "Select",
+  concernOptions: [
+    { value: "full-body", text: "Full Body" },
+    { value: "face-neck", text: "Face & Neck" },
+    { value: "underarm", text: "Underarm" },
+    { value: "arm-leg", text: "Arms & Legs" },
+    { value: "back-chest", text: "Back & Chest" },
+    { value: "bikini", text: "Bikini / Brazilian" },
+  ],
+  msgLabel: "Note / Message",
+  msgPlaceholder: "Special conditions, hormone treatment, previous laser history, etc.",
+  kvkkLabel: "I have read and agree to the privacy policy. My data will be processed for appointment purposes.",
+  kvkkSuffix: "",
+  kvkkHref: "",
+  btnLabel: "Request Free Analysis & Book",
+  btnSending: "Sending...",
+  errGeneric: "Something went wrong",
+  errFallback: "Could not send. Please contact via WhatsApp.",
+};
+
+const L = en ? enLabels : tr;
+const btnLabels = JSON.stringify({ label: L.btnLabel, sending: L.btnSending, errGeneric: L.errGeneric, errFallback: L.errFallback });
+---
+
+<div>
+  <h2 class="font-display text-3xl font-semibold mb-2">{L.title}</h2>
+  <p class="text-black/70 mb-8">{L.desc}</p>
+
+  {statusParam === "success" && (
+    <div class="mb-6 rounded-xl bg-green-50 border border-green-200 p-4 text-sm text-green-800">{L.success}</div>
+  )}
+  {statusParam === "error" && msgParam && (
+    <div class="mb-6 rounded-xl bg-red-50 border border-red-200 p-4 text-sm text-red-800">❌ {msgParam}</div>
+  )}
+
+  <form id={formId} class="space-y-5" action="/api/contact.php" method="POST" data-turnstile={String(turnstileEnabled)} data-btn-labels={btnLabels}>
+    <input type="hidden" name="form_type" value="appointment" />
+    <input type="hidden" name="_ajax" value="" />
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      <div>
+        <label for="name" class="block text-sm font-medium text-black/70 mb-1">{L.nameLabel}</label>
+        <input type="text" id="name" name="name" required class="w-full rounded-lg border border-black/15 bg-white px-4 py-3 text-sm text-black focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary" placeholder={L.namePlaceholder} />
+      </div>
+      <div>
+        <label for="phone" class="block text-sm font-medium text-black/70 mb-1">{L.phoneLabel}</label>
+        <input type="tel" id="phone" name="phone" required class="w-full rounded-lg border border-black/15 bg-white px-4 py-3 text-sm text-black focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary" placeholder={L.phonePlaceholder} />
+      </div>
+    </div>
+
+    <div>
+      <label for="email" class="block text-sm font-medium text-black/70 mb-1">{L.emailLabel}</label>
+      <input type="email" id="email" name="email" class="w-full rounded-lg border border-black/15 bg-white px-4 py-3 text-sm text-black focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary" placeholder={L.emailPlaceholder} />
+    </div>
+
+    <div>
+      <label for="clinic" class="block text-sm font-medium text-black/70 mb-1">{L.clinicLabel}</label>
+      <select id="clinic" name="clinic" required class="w-full rounded-lg border border-black/15 bg-white px-4 py-3 text-sm text-black focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary">
+        <option value="">{L.clinicPlaceholder}</option>
+        {branches.map((b) => <option value={b.data.slug}>{b.data.name}</option>)}
+      </select>
+    </div>
+
+    <div>
+      <label for="concern" class="block text-sm font-medium text-black/70 mb-1">{L.concernLabel}</label>
+      <select id="concern" name="concern" class="w-full rounded-lg border border-black/15 bg-white px-4 py-3 text-sm text-black focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary">
+        <option value="">{L.concernPlaceholder}</option>
+        {L.concernOptions.map((o) => <option value={o.value}>{o.text}</option>)}
+      </select>
+    </div>
+
+    <div>
+      <label for="message" class="block text-sm font-medium text-black/70 mb-1">{L.msgLabel}</label>
+      <textarea id="message" name="message" rows="3" class="w-full rounded-lg border border-black/15 bg-white px-4 py-3 text-sm text-black focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary" placeholder={L.msgPlaceholder}></textarea>
+    </div>
+
+    <div class="flex items-start gap-2 text-sm text-black/60">
+      <input type="checkbox" id="kvkk" name="kvkk" required class="mt-1 w-4 h-4 rounded border-black/30 text-primary focus:ring-primary" />
+      {en ? (
+        <label for="kvkk">{L.kvkkLabel}</label>
+      ) : (
+        <label for="kvkk">
+          <a href={L.kvkkHref} class="text-primary hover:underline" target="_blank">{L.kvkkLabel}</a>{" "}
+          {L.kvkkSuffix}
+        </label>
+      )}
+    </div>
+
+    {turnstileEnabled && (
+      <div class="cf-turnstile" data-sitekey={TURNSTILE_SITE_KEY} data-theme="light"></div>
+    )}
+
+    <button type="submit" class="w-full sm:w-auto rounded-full bg-navy px-8 py-3 font-semibold text-white transition-colors hover:bg-primary">
+      {L.btnLabel}
+    </button>
+    <div id="form-status" class="text-sm font-medium hidden"></div>
+  </form>
+</div>
+
+{turnstileEnabled && <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>}
+<script>
+  (function () {
+    const form = document.querySelector("form[data-turnstile]");
+    if (!form) return;
+    const turnstileEnabled = form.dataset.turnstile === "true";
+    let btnLabels;
+    try {
+      btnLabels = JSON.parse(form.dataset.btnLabels || "{}");
+    } catch {
+      btnLabels = {};
+    }
+    const statusEl = document.getElementById("form-status");
+    const ajaxInput = form.querySelector('input[name="_ajax"]');
+    const btn = form.querySelector('button[type="submit"]');
+
+    function resetTurnstile() {
+      if (turnstileEnabled && typeof turnstile !== "undefined") turnstile.reset();
+    }
+
+    form.addEventListener("submit", async function (e) {
+      if (typeof fetch === "undefined") return;
+      e.preventDefault();
+      if (ajaxInput) ajaxInput.value = "1";
+
+      btn.disabled = true;
+      btn.textContent = btnLabels.sending || "Sending...";
+      statusEl.classList.add("hidden");
+
+      try {
+        const fd = new FormData(form);
+        const res = await fetch(form.action, { method: "POST", body: fd });
+        const data = await res.json();
+
+        if (data.success) {
+          statusEl.textContent = "✅ " + data.message;
+          statusEl.className = "text-sm font-medium text-green-700";
+          form.reset();
+          if (ajaxInput) ajaxInput.value = "";
+          resetTurnstile();
+        } else {
+          throw new Error(data.message || btnLabels.errGeneric || "Error");
+        }
+      } catch (err) {
+        statusEl.textContent =
+          "❌ " + (err.message || btnLabels.errFallback || "Could not send.");
+        statusEl.className = "text-sm font-medium text-red-700";
+        if (ajaxInput) ajaxInput.value = "";
+        resetTurnstile();
+      } finally {
+        statusEl.classList.remove("hidden");
+        btn.disabled = false;
+        btn.textContent = btnLabels.label || "Submit";
+      }
+    });
+  })();
+</script>
