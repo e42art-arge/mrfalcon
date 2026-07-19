@@ -13,7 +13,7 @@ import Icon from "../../components/Icon.astro";
 import { reviews } from "../../data/reviews";
 import { benefits } from "../../data/benefits";
 import { processSteps } from "../../data/processSteps";
-import { whyUs } from "../../data/whyUs";
+import { whyUs as whyUsLazer } from "../../data/whyUs";
 
 const heroMetrics = [
   { value: "15,000+", label: "Happy Clients" },
@@ -93,7 +93,7 @@ const falconSpecs = [
     <div class="mx-auto max-w-6xl px-5">
       <SectionHeader label="Why Us" title="Why Choose Mr. Falcon Beauty?" margin="md" />
       <div class="grid md:grid-cols-2 gap-6">
-        {whyUs.en.map((w) => (
+        {whyUsLazer.en.map((w) => (
           <InfoCard icon={w.icon} title={w.title} description={w.desc} variant="hover-border" class="bg-white" />
         ))}
       </div>

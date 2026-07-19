@@ -1,0 +1,317 @@
+{
+  "meta": {
+    "generatedAt": "2026-07-19T09:30:00Z",
+    "generatedBy": "auto-diff",
+    "lpSource": "https://lp.mrfalconbeauty.com",
+    "filesCompared": [
+      "lp-data.json",
+      "src/content/branches/sisli.json",
+      "src/content/branches/halkali.json",
+      "src/content/faq/tr/01.json..09.json",
+      "src/data/whyUsItems.ts",
+      "src/data/whyUs.ts",
+      "src/data/features.ts",
+      "src/data/processSteps.ts",
+      "src/data/siteMetrics.ts",
+      "src/data/trustSignals.ts",
+      "src/data/benefits.ts",
+      "src/data/mediaNews.ts",
+      "src/data/falconTechSpecs.ts",
+      "src/data/reviews.ts",
+      "mr-falcon-reviews.json"
+    ]
+  },
+  "differences": [
+    {
+      "id": "branch-address-sisli-format",
+      "category": "branches",
+      "field": "sisli.address",
+      "lpValue": "Merkez, Büyükdere Cd. No:33-35, Şişli/İstanbul Kat1, 34381 Şişli/İstanbul",
+      "projectValue": "Merkez, Büyükdere Cd. No:33-35 Kat:1, 34381 Şişli/İstanbul",
+      "severity": "minor",
+      "action": "Adres formatı tutarlılığı sağlanmalı: LP'de 'Kat1' (virgülden sonra), projede 'Kat:1'. LP'de 'Şişli/İstanbul' iki kez geçiyor, projede bir kez."
+    },
+    {
+      "id": "branch-address-sisli-portal-inconsistency",
+      "category": "branches",
+      "field": "sisli.address (LP kendi içinde tutarsız)",
+      "lpValue": "clinicInfo'da 'Kat1' yazarken FAQ sorusunda 'Kat:1' yazıyor",
+      "projectValue": "Proje branch dosyasında 'Kat:1'",
+      "severity": "high",
+      "action": "LP kendi içinde tutarsız. FAQ'da 'Kat:1' (doğru), clinicInfo'da 'Kat1' (yanlış). Proje 'Kat:1' kullanıyor. Ortak formata karar verilmeli."
+    },
+    {
+      "id": "branch-hours-missing",
+      "category": "branches",
+      "field": "workingHours",
+      "lpValue": "Belirtilmemiş",
+      "projectValue": "Pazartesi - Cumartesi: 10:00 - 20:00 / Pazar: Kapalı",
+      "severity": "info",
+      "action": "LP'de çalışma saatleri yok. Projede var. LP'ye eklenebilir."
+    },
+    {
+      "id": "branch-whatsapp-link-missing",
+      "category": "branches",
+      "field": "whatsappLink",
+      "lpValue": "Yalnızca 'WhatsApp ile Bilgi Alın' metni, link yok",
+      "projectValue": "WhatsApp deep link mevcut (api.whatsapp.com/send?phone=...)",
+      "severity": "info",
+      "action": "LP WhatsApp linki içermiyor, projede link var. LP'ye link eklenmeli."
+    },
+    {
+      "id": "faq-pain-cooling-inconsistency",
+      "category": "faq",
+      "field": "painQuestion.coolingTechnology",
+      "lpValue": "-20° buz başlık ve 5 soğutma sistemi",
+      "projectValue": "-20°C safir soğutma sistemi",
+      "severity": "critical",
+      "action": "Ağrı sorusunda soğutma teknolojisi farklı tanımlanmış. LP 'buz başlık', proje 'safir soğutma' diyor. İkisi de -20°C ama teknoloji adı farklı. Tutarlı hale getirilmeli (safir kristal soğutma vs buz başlık)."
+    },
+    {
+      "id": "faq-sessions-count-detail",
+      "category": "faq",
+      "field": "sessionsQuestion.detail",
+      "lpValue": "Kişiye göre değişir, ücretsiz analiz sonrası program oluşturulur (genel yanıt)",
+      "projectValue": "Ortalama 6-8 seans, %95+ kıl azalma hedeflenir (spesifik yanıt)",
+      "severity": "medium",
+      "action": "Kaç seans sorusuna LP genel cevap verirken proje spesifik (6-8 seans, %95+). LP daha spesifik hale getirilmeli."
+    },
+    {
+      "id": "faq-bronze-skin-wording",
+      "category": "faq",
+      "field": "bronzeSkinQuestion",
+      "lpValue": "Falcon Lazer Epilasyon bronz veya koyu tenlerde uygulanabilir mi? (Nd:YAG dalga boyu bronz tenlerde etkilidir)",
+      "projectValue": "Bronz ciltim var, yaz yapabilir miyim? (Nd:YAG 1064nm dalga boyu melanozitleri hedef almaz)",
+      "severity": "minor",
+      "action": "Aynı konu farklı soru formatında. LP daha genel (bronz/koyu ten), proje yaz odaklı. İçerik benzer, terminoloji uyumu sağlanabilir."
+    },
+    {
+      "id": "faq-lp-only-q-falcon4pro",
+      "category": "faq",
+      "field": "missingInProject.question",
+      "lpValue": "Falcon 4 Pro cihazı nedir ve nasıl çalışır? (FDA 510(k) onaylı, 4 dalga boylu, AI destekli)",
+      "projectValue": "Projede bu soru YOK (teknik detay features.ts'de var ama FAQ olarak yok)",
+      "severity": "high",
+      "action": "LP'deki 'Falcon 4 Pro nedir?' sorusu projede FAQ olarak yer almıyor. features.ts'de içerik var ama kullanıcı SSS'de görmüyor. FAQ'a eklenmeli."
+    },
+    {
+      "id": "faq-lp-only-q-shedding",
+      "category": "faq",
+      "field": "missingInProject.question",
+      "lpValue": "İlk seansta ne kadar dökülme bekleyebilirim? (ilk seansta %70'e ulaşan dökülme)",
+      "projectValue": "Projede bu soru YOK (benefits.ts'de %70 dökülme geçiyor ama FAQ olarak yok)",
+      "severity": "high",
+      "action": "LP'deki dökülme sorusu projede FAQ olarak yok. %70 dökülme iddiası LP'de kritik bir satış argümanı, projede FAQ'a eklenmeli."
+    },
+    {
+      "id": "faq-lp-only-q-branches",
+      "category": "faq",
+      "field": "missingInProject.question",
+      "lpValue": "Mr. Falcon Beauty hangi şubelerde hizmet veriyor?",
+      "projectValue": "Projede bu soru YOK (şube bilgisi branch JSON'larında ayrı tutuluyor)",
+      "severity": "medium",
+      "action": "LP'de şube adresleri FAQ'da da geçiyor. Projede FAQ'ta şube sorusu yok, branch sayfalarında var. FAQ'a eklenebilir."
+    },
+    {
+      "id": "faq-lp-only-q-prepost",
+      "category": "faq",
+      "field": "missingInProject.question",
+      "lpValue": "Lazer epilasyon öncesi ve sonrası nelere dikkat etmeliyim?",
+      "projectValue": "Projede bu soru YOK (proje evde bakım adımını processSteps.home.tr'de anlatıyor)",
+      "severity": "medium",
+      "action": "LP'deki öncesi/sonrası bakım sorusu projede FAQ olarak yok. Kullanıcı deneyimi için değerli bir soru, eklenmeli."
+    },
+    {
+      "id": "faq-lp-only-q-4seasons",
+      "category": "faq",
+      "field": "missingInProject.question",
+      "lpValue": "Falcon 4 Pro dört mevsim kullanılabilir mi? (SHR teknolojisi sayesinde yaz dahil)",
+      "projectValue": "Projede bu soru YOK",
+      "severity": "high",
+      "action": "LP'nin önemli farklılaştırıcılarından biri (dört mevsim kullanım). Projede FAQ'ta bu soru yok. Eklenmeli."
+    },
+    {
+      "id": "faq-project-only-q-session-gap",
+      "category": "faq",
+      "field": "missingInLP.question",
+      "lpValue": "LP'de YOK",
+      "projectValue": "Seans arası ne kadar süre olmalı? (yüz/boyun 4-6 hafta, vücut 6-8 hafta)",
+      "severity": "info",
+      "action": "Projede olup LP'de olmayan soru. Kullanışlı bilgi, LP'ye de eklenebilir."
+    },
+    {
+      "id": "faq-project-only-q-sideeffects",
+      "category": "faq",
+      "field": "missingInLP.question",
+      "lpValue": "LP'de YOK",
+      "projectValue": "Yan etkileri nelerdir? (geçici kızarıklık, şişlik 1-2 saatte geçer)",
+      "severity": "info",
+      "action": "Projede olup LP'de olmayan soru. LP'ye eklenebilir."
+    },
+    {
+      "id": "faq-project-only-q-men",
+      "category": "faq",
+      "field": "missingInLP.question",
+      "lpValue": "LP'de YOK",
+      "projectValue": "Erkekler de yapabilir mi? (sırt, göğüs, boyun)",
+      "severity": "info",
+      "action": "Projede olup LP'de olmayan soru. Erkek müşteri kitlesi için LP'ye eklenebilir."
+    },
+    {
+      "id": "faq-project-only-q-pregnancy",
+      "category": "faq",
+      "field": "missingInLP.question",
+      "lpValue": "LP'de YOK",
+      "projectValue": "Hamilelik/doğum sonrası ne zaman? (doğum sonrası 3-6 ay, doktor onayı)",
+      "severity": "info",
+      "action": "Projede olup LP'de olmayan soru. LP'ye eklenebilir."
+    },
+    {
+      "id": "faq-project-only-q-appointment",
+      "category": "faq",
+      "field": "missingInLP.question",
+      "lpValue": "LP'de YOK",
+      "projectValue": "Randevu nasıl alınır? (web/WhatsApp/telefon)",
+      "severity": "info",
+      "action": "Projede olup LP'de olmayan soru."
+    },
+    {
+      "id": "faq-project-only-q-pricing",
+      "category": "faq",
+      "field": "missingInLP.question",
+      "lpValue": "LP'de YOK",
+      "projectValue": "Fiyatlandırma nasıl? (bölgeye/pakete göre değişir, ilk analiz ücretsiz)",
+      "severity": "info",
+      "action": "Projede olup LP'de olmayan soru."
+    },
+    {
+      "id": "whyus-content-mismatch",
+      "category": "whyUs",
+      "field": "whyChooseFalcon (LP) vs whyUs.ts (proje)",
+      "lpValue": "LP 4 madde: 1) 4 Dalga Boyu, 2) %70 Dökülme, 3) 2 Şube, 4) FDA Onaylı",
+      "projectValue": "whyUs.ts 4 madde: 1) 4 Dalga Boyu, 2) Ağrısız, 3) Steril+UVC, 4) AI Analiz",
+      "severity": "high",
+      "action": "LP'nin 'whyChooseFalcon'u ile projenin 'whyUs.ts'si farklı odaklarda. LP'deki '%70 Dökülme' ve '2 Şube' maddeleri whyUs.ts'de yok. whyUs.ts'deki 'Ağrısız' ve 'AI Analiz' LP'de yok. İkisi arasında stratejik tutarlılık sağlanmalı."
+    },
+    {
+      "id": "whyus-items-count-difference",
+      "category": "whyUs",
+      "field": "whyUsItems.ts count",
+      "lpValue": "LP'de 4 neden maddesi",
+      "projectValue": "whyUsItems.ts'de 6 madde (Uzman Kadro, FDA/CE, Şeffaf Süreç, Garanti, 2 Konum, 7/24 Destek)",
+      "severity": "info",
+      "action": "whyUsItems.ts LP'nin 4 maddesini içermiyor. LP'nin FDA odaklı dili ile projenin FDA/CE ortak dili farklı. Tutarlı hale getirilmeli."
+    },
+    {
+      "id": "whyus-fda-vs-fdace",
+      "category": "whyUs",
+      "field": "certification",
+      "lpValue": "FDA Onaylı (yalnızca FDA, CE belirtilmez)",
+      "projectValue": "FDA/CE Onaylı (hem FDA hem CE belirtilir)",
+      "severity": "medium",
+      "action": "LP sadece FDA'dan bahsederken proje FDA+CE'den bahsediyor. Tutarlı sertifika mesajı belirlenmeli."
+    },
+    {
+      "id": "process-steps-alignment",
+      "category": "processSteps",
+      "field": "lazer.tr vs LP",
+      "lpValue": "7 adım: Analiz, Şube, Uygulama, Ağrısız, Program, Sonuç, Takip",
+      "projectValue": "lazer.tr: aynı 7 adım, başlıklar birebir örtüşüyor",
+      "severity": "info",
+      "action": "Süreç adımları başlıkları LP ile projenin lazer.tr adımları birebir eşleşiyor. Açıklamalar da benzer. Tutarlı. home.tr adımları farklı (teknik odaklı) — bu beklenen bir fark."
+    },
+    {
+      "id": "metrics-lp-generic-vs-specific",
+      "category": "metrics",
+      "field": "quantitativeMetrics",
+      "lpValue": "'yıllar içinde binlerce danışana' (genel ifade, spesifik metrik yok)",
+      "projectValue": "siteMetrics.ts: 15.000+ mutlu müşteri, 5.0/5, 2 şube, 10+ yıl",
+      "severity": "medium",
+      "action": "LP 'binlerce' gibi genel ifadeler kullanırken proje spesifik metrikler kullanıyor (15.000+, 5.0/5, 10+ yıl). LP spesifik rakamları kullanmıyor."
+    },
+    {
+      "id": "benefits-alignment",
+      "category": "benefits",
+      "field": "benefitBadges",
+      "lpValue": "4 rozet: FDA Onaylı, Şişli/Halkalı, 7/24 Destek, %70 Dökülme (paragraphs'ta geçiyor)",
+      "projectValue": "benefits.ts: aynı 4 rozet birebir eşleşiyor",
+      "severity": "info",
+      "action": "Fayda rozetleri LP ve proje arasında tutarlı. Herhangi bir aksiyon gerekmiyor."
+    },
+    {
+      "id": "trust-signals-metric-gap",
+      "category": "trustSignals",
+      "field": "signals",
+      "lpValue": "LP'de trust sinyali olarak spesifik metrikler kullanılmıyor (sadece 'binlerce' ifadesi)",
+      "projectValue": "trustSignals.ts: 15.000+, 5.0/5, 2 Şube, Falcon 4 Pro",
+      "severity": "medium",
+      "action": "Proje trust sinyallerinde spesifik metrikler kullanırken LP bunları kullanmıyor. LP'ye trust barı eklenebilir."
+    },
+    {
+      "id": "press-media-consistency",
+      "category": "press",
+      "field": "mediaChannels",
+      "lpValue": "Beyaz TV, CNN Türk, TLC (meta.platforms ve paragraphs'ta)",
+      "projectValue": "mediaNews.ts: Beyaz TV, CNN Türk (×2), TLC — 4 haber",
+      "severity": "info",
+      "action": "Kanal isimleri tutarlı. Projede 2 CNN Türk haberi var, LP'de CNN Türk tek geçiyor. Bu detay seviyesi farkı, kanal isimleri aynı."
+    },
+    {
+      "id": "skin-care-service-missing",
+      "category": "services",
+      "field": "skinCare",
+      "lpValue": "Cilt Bakımı LP'de ayrı bir hizmet olarak listelenmiş (3. hizmet)",
+      "projectValue": "Projede 'Cilt Bakımı' ayrı bir hizmet olarak tanımlı değil. Sadece yorumlar sayfasının meta description'ında geçiyor.",
+      "severity": "medium",
+      "action": "LP 'Cilt Bakımı'nı ayrı bir hizmet olarak sunarken projede bu hizmet yok. Mr. Falcon Beauty cilt bakımı da yapıyor mu? Açıklığa kavuşturulmalı."
+    },
+    {
+      "id": "tech-specs-2400w-100m-consistent",
+      "category": "techSpecs",
+      "field": "technicalDetails",
+      "lpValue": "2400W, 100 milyon atış, 4 cm² spot, 20 atış/sn, 755-808-940-1064nm",
+      "projectValue": "features.ts + falconTechSpecs.ts: tüm bu değerler tutarlı",
+      "severity": "info",
+      "action": "Teknik detaylar LP ve proje arasında tutarlı. Herhangi bir aksiyon gerekmiyor."
+    },
+    {
+      "id": "shipping-express-disclaimer",
+      "category": "location",
+      "field": "whyUsItems.district",
+      "lpValue": "LP'de 'Şişli' ve 'Halkalı' olarak geçiyor",
+      "projectValue": "whyUsItems.ts'de 'Mecidiyeköy (Şişli)' ifadesi geçiyor (semt+ilçe formatı)",
+      "severity": "minor",
+      "action": "LP 'Şişli' derken, whyUsItems.ts 'Mecidiyeköy (Şişli)' diyor. İkisi de doğru ama farklı seviyede. Tutarlı konumlandırma yapılmalı."
+    },
+    {
+      "id": "comparison-box-consistent",
+      "category": "comparison",
+      "field": "comparisonBox",
+      "lpValue": "İşlem Süresi: 1 Saat, Seans Sayısı: Kıl Tipine Göre, Anestezi: Gerekmiyor, Günlük Hayata Dönüş: Hemen",
+      "projectValue": "Projede comparisonBox için ayrı bir data dosyası yok (sadece LP'de var)",
+      "severity": "info",
+      "action": "LP'nin karşılaştırma kutusu projede data dosyası olarak yok. Muhtemelen doğrudan Astro bileşeninde inline yazılmış. Veri kaynağı tutarlılığı sağlanmalı."
+    }
+  ],
+  "summary": {
+    "totalDifferences": 29,
+    "bySeverity": {
+      "critical": 2,
+      "high": 6,
+      "medium": 8,
+      "minor": 4,
+      "info": 9
+    },
+    "keyFindings": [
+      "[CRITICAL] Ağrı sorusunda soğutma teknolojisi farklı tanımlanmış: LP '-20° buz başlık' derken proje '-20°C safir soğutma' diyor. Tutarsız terminoloji müşteri güvenini zedeler.",
+      "[CRITICAL] LP kendi içinde çelişkili: clinicInfo'da 'Kat1' yazarken (hatalı), FAQ sorusunda 'Kat:1' (doğru) yazıyor. Proje 'Kat:1' kullanıyor.",
+      "[HIGH] LP'nin 'whyChooseFalcon' 4 maddesinden 2'si (%70 Dökülme, 2 Şube) projenin whyUs.ts'sinde yok. Stratejik mesaj farkı var.",
+      "[HIGH] LP'deki 5 kritik FAQ sorusu (Falcon 4 Pro nedir, dökülme oranı, dört mevsim kullanım, öncesi/sonrası bakım, şubeler) projede FAQ olarak yer almıyor.",
+      "[HIGH] LP 'dört mevsim kullanım' ve 'ilk seansta %70 dökülme' gibi önemli satış argümanlarını FAQ'ta vurgularken projede bu sorular yok.",
+      "[MEDIUM] LP genel ifadeler kullanırken ('binlerce danışan') proje spesifik metrikler kullanıyor ('15.000+', '5.0/5', '10+ yıl'). LP'ye trust sinyalleri eklenmeli.",
+      "[MEDIUM] LP sadece FDA sertifikasından bahsederken proje FDA+CE'den bahsediyor. Sertifika mesajı birleştirilmeli.",
+      "[MEDIUM] LP'de 'Cilt Bakımı' ayrı bir hizmet olarak listelenmiş. Projede bu hizmet tanımlı değil. İş modeli netleştirilmeli.",
+      "[INFO] Süreç adımları (lazer.tr), fayda rozetleri (benefits.ts), basın haberleri (mediaNews.ts) ve teknik özellikler (features.ts/falconTechSpecs.ts) LP ile tutarlı."
+    ]
+  }
+}
