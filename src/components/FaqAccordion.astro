@@ -37,10 +37,10 @@ const panelClass = dark ? "text-white/90" : "text-black/70";
     btn.addEventListener("click", () => {
       const panel = btn.parentElement?.querySelector(".faq-panel");
       if (!panel) return;
-      const isOpen = !panel.classList.contains("hidden");
-      panel.classList.toggle("hidden", !isOpen);
-      btn.setAttribute("aria-expanded", String(isOpen));
-      btn.querySelector(".faq-chevron")?.classList.toggle("rotate-180", !isOpen);
+      panel.classList.toggle("hidden");
+      const open = !panel.classList.contains("hidden");
+      btn.setAttribute("aria-expanded", String(open));
+      btn.querySelector(".faq-chevron")?.classList.toggle("rotate-180", open);
     });
   });
 </script>
