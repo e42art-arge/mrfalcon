@@ -3,6 +3,9 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import FaqAccordion from "../components/FaqAccordion.astro";
+import SectionHeader from "../components/SectionHeader.astro";
+import PageHero from "../components/PageHero.astro";
+import CtaSection from "../components/CtaSection.astro";
 import { getCollection } from "astro:content";
 
 const faqEntries = (await getCollection("faq", ({ id }) => id.startsWith("tr/"))).sort((a, b) => (a.data.order || 0) - (b.data.order || 0));
@@ -12,13 +15,7 @@ const faqs = faqEntries.map((e) => ({ q: e.data.question, a: e.data.answer }));
 <BaseLayout title="SSS | Mr. Falcon Beauty" description="Lazer epilasyon hakkında sıkça sorulan sorular. Falcon 4 Pro, ağrısız epilasyon, seans sayısı ve daha fazlası." locale="tr" path="/sss">
   <Header locale="tr" />
 
-  <section class="py-20 md:py-28 bg-navy text-white">
-    <div class="mx-auto max-w-6xl px-5 text-center">
-      <p class="mb-4 text-sm font-semibold uppercase tracking-[0.2em] text-primary">SSS</p>
-      <h1 class="font-display text-4xl font-semibold md:text-6xl">Sıkça Sorulan Sorular</h1>
-      <p class="mx-auto mt-4 max-w-2xl text-lg text-white/80">Falcon 4 Pro ve lazer epilasyon hakkında merak ettiğiniz her şey.</p>
-    </div>
-  </section>
+  <PageHero label="SSS" title="Sıkça Sorulan Sorular" description="Falcon 4 Pro ve lazer epilasyon hakkında merak ettiğiniz her şey." />
 
   <section class="py-20 bg-sky-light/30">
     <div class="mx-auto max-w-3xl px-5">
@@ -29,13 +26,7 @@ const faqs = faqEntries.map((e) => ({ q: e.data.question, a: e.data.answer }));
     </div>
   </section>
 
-  <section class="py-20 bg-sky-light/50">
-    <div class="mx-auto max-w-3xl px-5 text-center">
-      <h2 class="font-display text-3xl font-semibold md:text-4xl">Başka sorunuz mu var?</h2>
-      <p class="mt-4 text-lg text-black/70">Ücretsiz danışmanlık ve cilt analizi için randevu alın.</p>
-      <div class="mt-8"><a href="/iletisim" class="rounded-full bg-navy px-8 py-3 font-semibold text-white transition-colors hover:bg-primary">İletişime Geç</a></div>
-    </div>
-  </section>
+  <CtaSection title="Başka sorunuz mu var?" description="Ücretsiz danışmanlık ve cilt analizi için randevu alın." buttonText="İletişime Geç" buttonHref="/iletisim" locale="tr" />
 
   <Footer locale="tr" />
 </BaseLayout>

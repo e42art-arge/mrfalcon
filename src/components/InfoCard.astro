@@ -1,0 +1,65 @@
+---
+import Icon from "./Icon.astro";
+
+interface Props {
+  icon?: string;
+  title: string;
+  description: string;
+  subtitle?: string;
+  displayValue?: string;
+  variant?: 'light' | 'hover-border' | 'dark-navy' | 'dark-media' | 'center-wavelength';
+  titleClass?: string;
+  class?: string;
+}
+
+const {
+  icon,
+  title,
+  description,
+  subtitle,
+  displayValue,
+  variant = 'light',
+  titleClass = '',
+  class: className = '',
+} = Astro.props;
+
+const containerClass = {
+  light: 'rounded-2xl bg-white p-6 shadow-sm border border-black/5 hover:shadow-md transition-shadow',
+  'hover-border': 'rounded-2xl p-6 border border-black/5 hover:border-primary/30 hover:shadow-lg transition-all',
+  'dark-navy': 'rounded-xl bg-white/5 p-4',
+  'dark-media': 'rounded-2xl bg-white/10 p-6 border border-white/10 hover:bg-white/20 transition-colors',
+  'center-wavelength': 'rounded-2xl border border-black/5 p-6 text-center bg-sky-light/20',
+}[variant];
+---
+
+<article class:list={[containerClass, className]}>
+  {variant === 'center-wavelength' ? (
+    <>
+      <div class="font-display text-3xl font-bold text-primary">{displayValue || title}</div>
+      <div class="mt-1 font-semibold">{title}</div>
+    </>
+  ) : icon ? (
+    variant === 'dark-media' ? (
+      <div class="mb-2"><Icon name={icon} class="w-6 h-6 text-primary" /></div>
+    ) : (
+      <Icon name={icon} class="w-8 h-8 text-primary" />
+    )
+  ) : null}
+
+  {variant !== 'center-wavelength' && (
+    <>
+      <h3 class:list={[
+        variant === 'dark-navy' ? 'mt-2 font-semibold text-primary' : 'mt-4 font-display text-xl font-semibold text-black',
+        variant === 'dark-media' && 'font-semibold text-primary mt-0',
+        titleClass,
+      ].filter(Boolean)}>{title}</h3>
+      {subtitle && <p class="mt-1 text-sm font-medium text-black/50">{subtitle}</p>}
+    </>
+  )}
+
+  <p class:list={[
+    'mt-2 text-sm leading-relaxed',
+    variant === 'dark-navy' || variant === 'dark-media' ? 'text-white/80' : variant === 'center-wavelength' ? 'text-xs text-black/60' : 'text-black/70',
+    variant === 'dark-media' && 'text-white/70',
+  ].filter(Boolean)}>{description}</p>
+</article>

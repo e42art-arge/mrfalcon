@@ -1,0 +1,405 @@
+{
+  "meta": {
+    "project": "Mr. Falcon Beauty — Astro bilingual site",
+    "totalPages": 14,
+    "localePairs": 7,
+    "existingComponents": ["Header", "Footer", "Button", "Section", "Icon", "ReviewCard", "StatGrid", "BookingCta", "BranchMap", "ClinicCard", "FaqAccordion", "VideoGallery", "PressSlider", "AppointmentForm"],
+    "auditDate": "2026-07-19"
+  },
+  "patterns": [
+    {
+      "id": "section-header",
+      "name": "SectionHeader",
+      "description": "Her section başında tekrar eden 'label (uppercase p) + h2 başlık + optional description (p)' üçlüsü. En yaygın pattern.",
+      "variants": [
+        "light: text-black titles, white/sky-light bg (eg. Neden Biz?, Süreç)",
+        "dark: text-white titles, navy bg (eg. Teknoloji, FAQ on index)",
+        "with-desc: light variant + 3. satır açıklama p (eg. Gerçek Müşteriler)"
+      ],
+      "props": {
+        "label": "string — section etiketi (örn. 'Neden Biz?')",
+        "title": "string — ana başlık (h2)",
+        "description?": "string — optional alt açıklama",
+        "variant?": "'light' | 'dark'"
+      },
+      "occurrences": [
+        { "file": "src/pages/index.astro", "lines": "213-215", "locale": "tr", "variant": "light" },
+        { "file": "src/pages/index.astro", "lines": "250-252", "locale": "tr", "variant": "light" },
+        { "file": "src/pages/index.astro", "lines": "289-291", "locale": "tr", "variant": "dark" },
+        { "file": "src/pages/index.astro", "lines": "336-338", "locale": "tr", "variant": "light" },
+        { "file": "src/pages/index.astro", "lines": "356-358", "locale": "tr", "variant": "light" },
+        { "file": "src/pages/index.astro", "lines": "393-396", "locale": "tr", "variant": "light+desc" },
+        { "file": "src/pages/index.astro", "lines": "416-418", "locale": "tr", "variant": "light" },
+        { "file": "src/pages/index.astro", "lines": "475-477", "locale": "tr", "variant": "dark" },
+        { "file": "src/pages/en/index.astro", "lines": "213-215", "locale": "en", "variant": "light" },
+        { "file": "src/pages/en/index.astro", "lines": "250-252", "locale": "en", "variant": "light" },
+        { "file": "src/pages/en/index.astro", "lines": "289-291", "locale": "en", "variant": "dark" },
+        { "file": "src/pages/en/index.astro", "lines": "336-338", "locale": "en", "variant": "light" },
+        { "file": "src/pages/en/index.astro", "lines": "356-358", "locale": "en", "variant": "light" },
+        { "file": "src/pages/en/index.astro", "lines": "393-396", "locale": "en", "variant": "light+desc" },
+        { "file": "src/pages/en/index.astro", "lines": "416-418", "locale": "en", "variant": "light" },
+        { "file": "src/pages/en/index.astro", "lines": "475-477", "locale": "en", "variant": "dark" },
+        { "file": "src/pages/lazer-epilasyon.astro", "lines": "36-39", "locale": "tr", "variant": "light" },
+        { "file": "src/pages/lazer-epilasyon.astro", "lines": "60-62", "locale": "tr", "variant": "light" },
+        { "file": "src/pages/lazer-epilasyon.astro", "lines": "84-87", "locale": "tr", "variant": "light+desc" },
+        { "file": "src/pages/lazer-epilasyon.astro", "lines": "100-102", "locale": "tr", "variant": "dark" },
+        { "file": "src/pages/lazer-epilasyon.astro", "lines": "121-123", "locale": "tr", "variant": "light" },
+        { "file": "src/pages/lazer-epilasyon.astro", "lines": "139-141", "locale": "tr", "variant": "light" },
+        { "file": "src/pages/en/laser-hair-removal.astro", "lines": "36-39", "locale": "en", "variant": "light" },
+        { "file": "src/pages/en/laser-hair-removal.astro", "lines": "53-55", "locale": "en", "variant": "light" },
+        { "file": "src/pages/en/laser-hair-removal.astro", "lines": "67-70", "locale": "en", "variant": "light+desc" },
+        { "file": "src/pages/en/laser-hair-removal.astro", "lines": "83-85", "locale": "en", "variant": "dark" },
+        { "file": "src/pages/en/laser-hair-removal.astro", "lines": "98-100", "locale": "en", "variant": "light" },
+        { "file": "src/pages/en/laser-hair-removal.astro", "lines": "110-112", "locale": "en", "variant": "light" },
+        { "file": "src/pages/falcon-4-pro.astro", "lines": "23-25", "locale": "tr", "variant": "hero-label" },
+        { "file": "src/pages/falcon-4-pro.astro", "lines": "40-42", "locale": "tr", "variant": "light" },
+        { "file": "src/pages/falcon-4-pro.astro", "lines": "58-60", "locale": "tr", "variant": "dark" },
+        { "file": "src/pages/falcon-4-pro.astro", "lines": "74-78", "locale": "tr", "variant": "light+desc" },
+        { "file": "src/pages/en/falcon-4-pro.astro", "lines": "23-25", "locale": "en", "variant": "hero-label" },
+        { "file": "src/pages/en/falcon-4-pro.astro", "lines": "38-40", "locale": "en", "variant": "light" },
+        { "file": "src/pages/en/falcon-4-pro.astro", "lines": "50-52", "locale": "en", "variant": "dark" },
+        { "file": "src/pages/en/falcon-4-pro.astro", "lines": "68-70", "locale": "en", "variant": "light+desc" },
+        { "file": "src/pages/sss.astro", "lines": "17-20", "locale": "tr", "variant": "dark" },
+        { "file": "src/pages/sss.astro", "lines": "33-35", "locale": "tr", "variant": "light" },
+        { "file": "src/pages/en/faq.astro", "lines": "17-20", "locale": "en", "variant": "dark" },
+        { "file": "src/pages/en/faq.astro", "lines": "33-35", "locale": "en", "variant": "light" },
+        { "file": "src/pages/merkezlerimiz.astro", "lines": "16-18", "locale": "tr", "variant": "dark" },
+        { "file": "src/pages/merkezlerimiz.astro", "lines": "45-47", "locale": "tr", "variant": "light" },
+        { "file": "src/pages/en/our-clinics.astro", "lines": "16-18", "locale": "en", "variant": "dark" },
+        { "file": "src/pages/en/our-clinics.astro", "lines": "45-47", "locale": "en", "variant": "light" },
+        { "file": "src/pages/yorumlar.astro", "lines": "18-22", "locale": "tr", "variant": "dark" },
+        { "file": "src/pages/yorumlar.astro", "lines": "86-88", "locale": "tr", "variant": "light" },
+        { "file": "src/pages/en/reviews.astro", "lines": "18-22", "locale": "en", "variant": "dark" },
+        { "file": "src/pages/en/reviews.astro", "lines": "86-88", "locale": "en", "variant": "light" }
+      ],
+      "totalOccurrences": 46,
+      "priority": "critical",
+      "notes": "Tüm sayfalarda 3-8 kez tekrar ediyor. Mevcut Section component'i wrapper olarak kullanılabilir, içindeki header üçlüsü SectionHeader'e çıkarılmalı. 'hero-label' varyantı h1 kullanır (mb-4 ile) — h2'den farklıdır, ayrıca ele alınabilir veya titleTag prop'u eklenir."
+    },
+    {
+      "id": "info-card",
+      "name": "InfoCard",
+      "description": "İkon + başlık (h3/h4) + açıklama (p) içeren bilgi kartı. 4 farklı görsel varyantı var ama yapısal olarak aynı.",
+      "variants": [
+        "light: rounded-2xl bg-white p-6 shadow-sm border border-black/5 (laserScience, features)",
+        "hover-border: rounded-2xl p-6 border border-black/5 hover:border-primary/30 hover:shadow-lg (whyUsItems)",
+        "dark-navy: rounded-xl bg-white/5 p-4 (wavelengths inside navy section)",
+        "dark-media: rounded-2xl bg-white/10 p-6 border border-white/10 (mediaNews on navy)",
+        "center-wavelength: rounded-2xl border border-black/5 p-6 text-center bg-sky-light/20 (standalone wavelengths)"
+      ],
+      "props": {
+        "icon": "string (optional) — Icon name, dark varyantlarda opsiyonel",
+        "title": "string — kart başlığı",
+        "description": "string — açıklama metni",
+        "variant?": "'light' | 'hover-border' | 'dark-navy' | 'dark-media' | 'center-wavelength'",
+        "iconSize?": "string — tailwind class, varsayılan 'w-8 h-8'",
+        "class?": "string"
+      },
+      "occurrences": [
+        { "file": "src/pages/index.astro", "lines": "255-264", "locale": "tr", "variant": "light" },
+        { "file": "src/pages/en/index.astro", "lines": "255-264", "locale": "en", "variant": "light" },
+        { "file": "src/pages/index.astro", "lines": "340-348", "locale": "tr", "variant": "hover-border" },
+        { "file": "src/pages/en/index.astro", "lines": "340-348", "locale": "en", "variant": "hover-border" },
+        { "file": "src/pages/index.astro", "lines": "316-324", "locale": "tr", "variant": "dark-navy" },
+        { "file": "src/pages/en/index.astro", "lines": "316-324", "locale": "en", "variant": "dark-navy" },
+        { "file": "src/pages/lazer-epilasyon.astro", "lines": "124-132", "locale": "tr", "variant": "hover-border" },
+        { "file": "src/pages/en/laser-hair-removal.astro", "lines": "100-105", "locale": "en", "variant": "hover-border" },
+        { "file": "src/pages/falcon-4-pro.astro", "lines": "42-48", "locale": "tr", "variant": "light" },
+        { "file": "src/pages/en/falcon-4-pro.astro", "lines": "42-46", "locale": "en", "variant": "light" },
+        { "file": "src/pages/falcon-4-pro.astro", "lines": "62-67", "locale": "tr", "variant": "dark-media" },
+        { "file": "src/pages/en/falcon-4-pro.astro", "lines": "54-59", "locale": "en", "variant": "dark-media" },
+        { "file": "src/pages/falcon-4-pro.astro", "lines": "80-83", "locale": "tr", "variant": "center-wavelength" },
+        { "file": "src/pages/en/falcon-4-pro.astro", "lines": "72-74", "locale": "en", "variant": "center-wavelength" }
+      ],
+      "totalOccurrences": 14,
+      "priority": "high",
+      "notes": "Her sayfada 1-3 grid halinde kullanılıyor. Light ve hover-border varyantları çok yakın — ikisi birleştirilebilir (hover efekti prop olarak). Dark-navy ve dark-media varyantları navy bg üstünde kullanılıyor. center-wavelength en farklısı (icon yok, metin ortalanmış)."
+    },
+    {
+      "id": "step-list-item",
+      "name": "StepListItem",
+      "description": "Süreç adım kartı: solda numaralı daire + sağda başlık ve açıklama. processSteps mapping'inde kullanılıyor.",
+      "variants": [],
+      "props": {
+        "step": "string | number — adım numarası",
+        "title": "string — adım başlığı",
+        "description": "string — adım açıklaması"
+      },
+      "occurrences": [
+        { "file": "src/pages/index.astro", "lines": "360-372", "locale": "tr", "variant": "home" },
+        { "file": "src/pages/en/index.astro", "lines": "360-372", "locale": "en", "variant": "home" },
+        { "file": "src/pages/lazer-epilasyon.astro", "lines": "142-149", "locale": "tr", "variant": "lazer" },
+        { "file": "src/pages/en/laser-hair-removal.astro", "lines": "113-117", "locale": "en", "variant": "lazer" }
+      ],
+      "totalOccurrences": 4,
+      "priority": "high",
+      "notes": "Her sayfada 7 adım map'leniyor (28 kart toplamda). Yapı birebir aynı, sadece data farklı. Flex row layout, step circle (w-12 h-12 rounded-full) + flex-1 içerik. Home ve lazer sayfaları aynı component'i kullanabilir."
+    },
+    {
+      "id": "button-pair",
+      "name": "ButtonPair",
+      "description": "İki buton yan yana: birincil (navy dolu) + ikincil (outline/secondary). Hero'larda ve CTA bölümlerinde kullanılıyor.",
+      "variants": [
+        "hero: py-3.5, hover shadow efektli, index hero'da grup animasyonlu",
+        "default: py-3, standalone, sade hover renk geçişli",
+        "white-on-navy: birincil buton white bg/text-navy, ikincil white border/transparent bg (falcon-4-pro hero)"
+      ],
+      "props": {
+        "primaryHref": "string",
+        "primaryText": "string",
+        "secondaryHref": "string",
+        "secondaryText": "string",
+        "variant?": "'hero' | 'default' | 'white-on-navy'",
+        "locale?": "'tr' | 'en'"
+      },
+      "occurrences": [
+        { "file": "src/pages/index.astro", "lines": "82-104", "locale": "tr", "variant": "hero" },
+        { "file": "src/pages/en/index.astro", "lines": "82-104", "locale": "en", "variant": "hero" },
+        { "file": "src/pages/lazer-epilasyon.astro", "lines": "44-46", "locale": "tr", "variant": "default" },
+        { "file": "src/pages/en/laser-hair-removal.astro", "lines": "40-41", "locale": "en", "variant": "default" },
+        { "file": "src/pages/falcon-4-pro.astro", "lines": "24-28", "locale": "tr", "variant": "white-on-navy" },
+        { "file": "src/pages/en/falcon-4-pro.astro", "lines": "24-28", "locale": "en", "variant": "white-on-navy" },
+        { "file": "src/pages/yorumlar.astro", "lines": "89-92", "locale": "tr", "variant": "default" },
+        { "file": "src/pages/en/reviews.astro", "lines": "89-92", "locale": "en", "variant": "default" }
+      ],
+      "totalOccurrences": 8,
+      "priority": "high",
+      "notes": "Mevcut Button component'i ile çakışma yok — ButtonPair iki Button'ı yan yana koyan wrapper olur. 'white-on-navy' varyantında birincil butonun rengi ters (white bg, navy text). Button component'ine 'inverted' variant eklenerek ButtonPair basitleştirilebilir."
+    },
+    {
+      "id": "navy-hero",
+      "name": "NavyHero",
+      "description": "Koyu lacivert (bg-navy) arkaplanlı hero bölümü: etiket + h1 + açıklama + optional CTA buton çifti. İç sayfalarda standart açılış.",
+      "variants": [
+        "default: düz navy bg, centered",
+        "with-bg-image: bg-navy + background-image overlay (iletisim/contact)"
+      ],
+      "props": {
+        "label": "string — hero etiketi (uppercase, text-primary)",
+        "title": "string — ana başlık (h1)",
+        "description": "string — alt açıklama",
+        "primaryCta?": "{ href: string, text: string }",
+        "secondaryCta?": "{ href: string, text: string }",
+        "bgImage?": "string — optional background image URL",
+        "locale?": "'tr' | 'en'"
+      },
+      "occurrences": [
+        { "file": "src/pages/falcon-4-pro.astro", "lines": "21-30", "locale": "tr", "variant": "default" },
+        { "file": "src/pages/en/falcon-4-pro.astro", "lines": "21-30", "locale": "en", "variant": "default" },
+        { "file": "src/pages/sss.astro", "lines": "14-22", "locale": "tr", "variant": "default" },
+        { "file": "src/pages/en/faq.astro", "lines": "14-22", "locale": "en", "variant": "default" },
+        { "file": "src/pages/merkezlerimiz.astro", "lines": "14-20", "locale": "tr", "variant": "default" },
+        { "file": "src/pages/en/our-clinics.astro", "lines": "14-20", "locale": "en", "variant": "default" },
+        { "file": "src/pages/iletisim.astro", "lines": "17-24", "locale": "tr", "variant": "with-bg-image" },
+        { "file": "src/pages/en/contact.astro", "lines": "17-24", "locale": "en", "variant": "with-bg-image" }
+      ],
+      "totalOccurrences": 8,
+      "priority": "high",
+      "notes": "Hero varyantları arasında en standart olanı. GradientHero (index/lazer-epilasyon'daki) çok daha karmaşık (animasyon, trust bar, image grid) — ayrı pattern olarak alınabilir veya olduğu gibi bırakılabilir. Mevcut Section component'i ile birleştirilebilir: bg='navy' + padding='lg' + içerik."
+    },
+    {
+      "id": "cta-section",
+      "name": "CtaSection",
+      "description": "BookingCta dışında kalan, manuel yazılmış CTA blokları. h2 + p + single button, sky-light bg.",
+      "variants": [
+        "light: bg-sky-light/50, text-black",
+        "reviews: bg-sky-light/60, çift buton (BookingCta benzeri)"
+      ],
+      "props": {
+        "title": "string",
+        "description": "string",
+        "buttonText": "string",
+        "buttonHref": "string",
+        "variant?": "'light' | 'reviews'"
+      },
+      "occurrences": [
+        { "file": "src/pages/sss.astro", "lines": "31-38", "locale": "tr", "variant": "light" },
+        { "file": "src/pages/en/faq.astro", "lines": "31-38", "locale": "en", "variant": "light" },
+        { "file": "src/pages/yorumlar.astro", "lines": "84-95", "locale": "tr", "variant": "reviews" },
+        { "file": "src/pages/en/reviews.astro", "lines": "84-95", "locale": "en", "variant": "reviews" }
+      ],
+      "totalOccurrences": 4,
+      "priority": "medium",
+      "notes": "Mevcut BookingCta component'ine alternatif değil — daha basit, farklı bir layout. BookingCta zaten 3 yerde kullanılıyor (index, lazer-epilasyon, falcon-4-pro ve EN karşılıkları). Bu pattern BookingCta'dan daha sade: subtitle/adres satırı yok."
+    },
+    {
+      "id": "branch-detail-card",
+      "name": "BranchDetailCard",
+      "description": "Şube detay kartı — image header + isim + adres + telefon/WhatsApp linkleri + çalışma saatleri. Merkezlerimiz sayfasındaki inline article.",
+      "variants": [],
+      "props": {
+        "name": "string",
+        "address": "string",
+        "phone": "string",
+        "whatsapp": "string",
+        "hours?": "string",
+        "image?": "string"
+      },
+      "occurrences": [
+        { "file": "src/pages/merkezlerimiz.astro", "lines": "24-38", "locale": "tr" },
+        { "file": "src/pages/en/our-clinics.astro", "lines": "24-38", "locale": "en" }
+      ],
+      "totalOccurrences": 2,
+      "priority": "medium",
+      "notes": "Mevcut ClinicCard component'i daha sade (image yok, sadece name/address/phone/whatsapp). BranchDetailCard'da image header + hours bilgisi var. İki component ayrı kalabilir veya ClinicCard prop ile genişletilebilir."
+    },
+    {
+      "id": "metric-box-inline",
+      "name": "MetricBox",
+      "description": "Değer + etiket gösteren metrik kartı. StatGrid component'i ile örtüşen pattern.",
+      "variants": [
+        "process: rounded-2xl bg-white p-6 border border-black/5, 3'lü grid",
+        "review-stats: border-b bg-sky-light/60, px-2 text-center, 4'lü grid"
+      ],
+      "props": {
+        "value": "string",
+        "label": "string"
+      },
+      "occurrences": [
+        { "file": "src/pages/index.astro", "lines": "374-383", "locale": "tr", "variant": "process" },
+        { "file": "src/pages/en/index.astro", "lines": "374-383", "locale": "en", "variant": "process" },
+        { "file": "src/pages/yorumlar.astro", "lines": "50-74", "locale": "tr", "variant": "review-stats" },
+        { "file": "src/pages/en/reviews.astro", "lines": "50-74", "locale": "en", "variant": "review-stats" }
+      ],
+      "totalOccurrences": 4,
+      "priority": "low",
+      "notes": "Zaten mevcut StatGrid component'i bu pattern'i kapsıyor. İndex process section'ındaki 3 metrik StatGrid'e dönüştürülebilir. Review stats satırı ise farklı layout (border-b, bg-sky-light/60) — StatGrid'e class override ile uygun hale getirilebilir."
+    },
+    {
+      "id": "gallery-grid",
+      "name": "GalleryGrid",
+      "description": "Görsel galerisi grid'i. 3 farklı varyantı var (overlay'li, sade, 4-column).",
+      "variants": [
+        "overlay: md:grid-cols-2 lg:grid-cols-3, hover gradient overlay + text (index gallery)",
+        "simple: grid-cols-2 md:grid-cols-4, sade shadow (merkezlerimiz, iletisim)"
+      ],
+      "props": {
+        "images": "Array<{ src: string, alt: string, location?: string }>",
+        "variant?": "'overlay' | 'simple'",
+        "columns?": "2 | 3 | 4"
+      },
+      "occurrences": [
+        { "file": "src/pages/index.astro", "lines": "420-435", "locale": "tr", "variant": "overlay" },
+        { "file": "src/pages/en/index.astro", "lines": "420-435", "locale": "en", "variant": "overlay" },
+        { "file": "src/pages/merkezlerimiz.astro", "lines": "46-51", "locale": "tr", "variant": "simple" },
+        { "file": "src/pages/en/our-clinics.astro", "lines": "46-51", "locale": "en", "variant": "simple" },
+        { "file": "src/pages/iletisim.astro", "lines": "43-49", "locale": "tr", "variant": "simple" },
+        { "file": "src/pages/en/contact.astro", "lines": "43-49", "locale": "en", "variant": "simple" }
+      ],
+      "totalOccurrences": 6,
+      "priority": "medium",
+      "notes": "Overlay varyantı JS click event (is-active toggle) içeriyor — component içinde script barındırabilir. Simple varyant çok basit. İkisi ortak bir prop ile yönetilebilir."
+    },
+    {
+      "id": "review-hero",
+      "name": "ReviewHero",
+      "description": "Yorumlar sayfasındaki Google review istatistik hero'su. Navy bg + blur elipsler + Google review card.",
+      "variants": [],
+      "props": {
+        "avgRating": "number",
+        "totalReviews": "number",
+        "googlePlaceUrl": "string",
+        "locale": "'tr' | 'en'"
+      },
+      "occurrences": [
+        { "file": "src/pages/yorumlar.astro", "lines": "14-47", "locale": "tr" },
+        { "file": "src/pages/en/reviews.astro", "lines": "14-47", "locale": "en" }
+      ],
+      "totalOccurrences": 2,
+      "priority": "low",
+      "notes": "Sadece 1 sayfada (×2 dil) kullanılıyor. Component'e çıkarmak düşük öncelik ama içerdiği Google review card (puan+star+button) başka yerde (index hero float card) benzer — ortak 'GoogleReviewBadge' sub-component çıkarılabilir."
+    },
+    {
+      "id": "gradient-hero",
+      "name": "GradientHero",
+      "description": "Gradient arkaplanlı ana sayfa hero'su: animasyonlu bg bloblar, trust bar, h1, CTA, görsel + badge'ler. En karmaşık hero.",
+      "variants": [
+        "index: çok katmanlı (animasyon, trust-bar, hero image, badge grid, float card)",
+        "simple: sade gradient bg + h1 + CTA (lazer-epilasyon)"
+      ],
+      "props": {
+        "title": "string",
+        "subtitle": "string",
+        "description": "string",
+        "ctaPrimary": "{ href, text }",
+        "ctaSecondary": "{ href, text }",
+        "locale": "'tr' | 'en'"
+      },
+      "occurrences": [
+        { "file": "src/pages/index.astro", "lines": "49-120", "locale": "tr", "variant": "index" },
+        { "file": "src/pages/en/index.astro", "lines": "49-120", "locale": "en", "variant": "index" },
+        { "file": "src/pages/lazer-epilasyon.astro", "lines": "34-50", "locale": "tr", "variant": "simple" },
+        { "file": "src/pages/en/laser-hair-removal.astro", "lines": "34-42", "locale": "en", "variant": "simple" }
+      ],
+      "totalOccurrences": 4,
+      "priority": "low",
+      "notes": "Index hero yaklaşık 70 satır — çok özel ve sayfaya has. Lazer-epilasyon hero'su ise daha sade ama yine de farklı. İkisi ortak bir component'te birleştirmek zor. Öncelik düşük — Section component'i ile wrapper yapılıp içerik manuel bırakılabilir."
+    },
+    {
+      "id": "trust-bar",
+      "name": "TrustBar",
+      "description": "Trust sinyalleri satırı: sticky bar altında Icon + text item'lar. Sadece index sayfasında.",
+      "variants": [],
+      "props": {
+        "items": "Array<{ icon: string, text: string }>"
+      },
+      "occurrences": [
+        { "file": "src/pages/index.astro", "lines": "55-65", "locale": "tr" },
+        { "file": "src/pages/en/index.astro", "lines": "55-65", "locale": "en" }
+      ],
+      "totalOccurrences": 2,
+      "priority": "low",
+      "notes": "Sadece 1 sayfada kullanılıyor. Ayrı component gereksiz. Mevcut Icon component'i zaten kullanılıyor."
+    },
+    {
+      "id": "wavelength-card-group",
+      "name": "WavelengthCard",
+      "description": "4 dalga boyu kartı: nm değeri (büyük) + isim + açıklama. Grid of 4 şeklinde 2 yerde.",
+      "variants": [
+        "standalone: rounded-2xl border border-black/5 p-6 text-center bg-sky-light/20 (falcon-4-pro sayfası)",
+        "inline-navy: rounded-xl bg-white/5 p-4 (index falcon section içinde)"
+      ],
+      "props": {
+        "wavelengths": "Array<{ nm: string, title: string, description: string }>",
+        "variant?": "'standalone' | 'inline-navy'"
+      },
+      "occurrences": [
+        { "file": "src/pages/index.astro", "lines": "312-324", "locale": "tr", "variant": "inline-navy" },
+        { "file": "src/pages/en/index.astro", "lines": "312-324", "locale": "en", "variant": "inline-navy" },
+        { "file": "src/pages/falcon-4-pro.astro", "lines": "74-83", "locale": "tr", "variant": "standalone" },
+        { "file": "src/pages/en/falcon-4-pro.astro", "lines": "68-74", "locale": "en", "variant": "standalone" }
+      ],
+      "totalOccurrences": 4,
+      "priority": "low",
+      "notes": "InfoCard pattern'inin özel bir varyantı. Ayrı bir component yerine InfoCard'ın 'variant' prop'u ile yönetilebilir. İçerik her yerde aynı 4 dalga boyu — data'dan gelmiyor, inline tanımlanmış."
+    }
+  ],
+
+  "recommendations": {
+    "immediateRefactor": [
+      "SectionHeader — en kritik, ~46 kullanım, net arayüz",
+      "InfoCard — ~14 grid kullanımı, 5 varyant tek component'te birleştirilebilir",
+      "StepListItem — 4 sayfada × 7 adım, yapısal olarak aynı",
+      "ButtonPair — 8 kullanım, mevcut Button component'i ile uyumlu"
+    ],
+    "mediumPriority": [
+      "NavyHero — 8 kullanım, standart iç sayfa hero'su, Section ile kombine edilebilir",
+      "CtaSection — 4 kullanım, BookingCta alternatifi",
+      "BranchDetailCard — 4 kullanım, ClinicCard ile birleştirilebilir",
+      "GalleryGrid — 6 kullanım, 2 varyant"
+    ],
+    "lowPriority": [
+      "MetricBox — StatGrid zaten var, inline olanlar StatGrid'e dönüştürülebilir",
+      "ReviewHero — 2 kullanım, düşük tekrar",
+      "GradientHero — karmaşık, sayfaya özel",
+      "WavelengthCard — InfoCard ile birleştirilebilir"
+    ],
+    "existingComponentOverlap": {
+      "Section": "SectionHeader ve NavyHero için wrapper olarak kullanılabilir (bg, padding prop'ları uygun)",
+      "Button": "ButtonPair içinde kullanılabilir, 'inverted' variant eklenebilir",
+      "StatGrid": "MetricBox yerine StatGrid kullanılmalı (inline metric'ler StatGrid'e dönüştürülmeli)",
+      "ClinicCard": "BranchDetailCard ile birleştirilebilir (image + hours eklenerek)",
+      "BookingCta": "CtaSection ile örtüşmüyor — BookingCta daha zengin (subtitle, address)"
+    }
+  }
+}

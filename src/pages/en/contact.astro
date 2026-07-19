@@ -5,6 +5,8 @@ import Footer from "../../components/Footer.astro";
 import ClinicCard from "../../components/ClinicCard.astro";
 import BranchMap from "../../components/BranchMap.astro";
 import AppointmentForm from "../../components/AppointmentForm.astro";
+import PageHero from "../../components/PageHero.astro";
+import ClinicGallery from "../../components/ClinicGallery.astro";
 import { getCollection } from "astro:content";
 
 const branches = await getCollection("branches");
@@ -14,13 +16,7 @@ branches.sort((a, b) => a.data.slug.localeCompare(b.data.slug));
 <BaseLayout title="Contact | Mr. Falcon Beauty" description="Mr. Falcon Beauty contact page. Book a free consultation for laser hair removal at Şişli or Halkalı." locale="en" path="/en/contact">
   <Header locale="en" />
 
-  <section class="py-20 md:py-28 bg-navy text-white relative" style="background-image: url('/images/contactbg.jpg'); background-size: cover; background-position: center;">
-    <div class="absolute inset-0 bg-navy/70"></div>
-    <div class="mx-auto max-w-6xl px-5 text-center relative z-10">
-      <h1 class="font-display text-4xl font-semibold md:text-6xl">Contact Us</h1>
-      <p class="mx-auto mt-4 max-w-2xl text-lg text-white/80">Take the first step toward permanent smoothness. Fill in the form and let's create your personalized plan together.</p>
-    </div>
-  </section>
+  <PageHero title="Contact Us" description="Take the first step toward permanent smoothness. Fill in the form and let's create your personalized plan together." bgImage="/images/contactbg.jpg" />
 
   <section class="py-20">
     <div class="mx-auto max-w-6xl px-5">
@@ -40,11 +36,7 @@ branches.sort((a, b) => a.data.slug.localeCompare(b.data.slug));
 
   <section class="py-16 bg-sky-light/30">
     <div class="mx-auto max-w-6xl px-5">
-      <div class="grid grid-cols-4 gap-4">
-        {["/images/c1.jpg","/images/c2.jpg","/images/c3.jpg","/images/c4.jpg"].map((img) => (
-          <div class="rounded-2xl overflow-hidden shadow-md"><img src={img} alt="Mr. Falcon Beauty Clinic" class="w-full" /></div>
-        ))}
-      </div>
+      <ClinicGallery images={["/images/c1.jpg","/images/c2.jpg","/images/c3.jpg","/images/c4.jpg"].map(src => ({ src, alt: "Mr. Falcon Beauty" }))} columns={4} />
     </div>
   </section>
 

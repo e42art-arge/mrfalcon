@@ -4,6 +4,10 @@ import Header from "../../components/Header.astro";
 import Footer from "../../components/Footer.astro";
 import { getCollection } from "astro:content";
 import { clinicGallery } from "../../data/clinicGallery";
+import SectionHeader from "../../components/SectionHeader.astro";
+import PageHero from "../../components/PageHero.astro";
+import BranchDetailCard from "../../components/BranchDetailCard.astro";
+import ClinicGallery from "../../components/ClinicGallery.astro";
 
 const branches = (await getCollection("branches")).sort((a, b) => a.data.slug.localeCompare(b.data.slug));
 ---
@@ -11,30 +15,20 @@ const branches = (await getCollection("branches")).sort((a, b) => a.data.slug.lo
 <BaseLayout title="Our Clinics | Mr. Falcon Beauty" description="Mr. Falcon Beauty Şişli and Halkalı clinics. Address, phone, hours, and directions." locale="en" path="/en/our-clinics">
   <Header locale="en" />
 
-  <section class="py-20 md:py-28 bg-navy text-white">
-    <div class="mx-auto max-w-6xl px-5 text-center">
-      <p class="mb-4 text-sm font-semibold uppercase tracking-[0.2em] text-primary">Clinics</p>
-      <h1 class="font-display text-4xl font-semibold md:text-6xl lg:text-7xl">Our Clinics</h1>
-      <p class="mx-auto mt-4 max-w-2xl text-lg text-white/80">Mr. Falcon Beauty serves you at two central Istanbul locations.</p>
-    </div>
-  </section>
+  <PageHero label="Clinics" title="Our Clinics" description="Mr. Falcon Beauty serves you at two central Istanbul locations." />
 
   <section class="py-20">
     <div class="mx-auto max-w-6xl px-5">
       <div class="grid md:grid-cols-2 gap-10">
         {branches.map((b) => (
-          <article class="rounded-2xl overflow-hidden border border-black/5 shadow-lg bg-white">
-            <div class="bg-sky-light overflow-hidden"><img src={b.data.image || "/images/clinic/clinic1.jpg"} alt={b.data.name} class="w-full" /></div>
-            <div class="p-6">
-              <h2 class="font-display text-2xl font-semibold text-primary">{b.data.name}</h2>
-              <address class="mt-3 not-italic text-sm text-black/70">{b.data.address}</address>
-              <div class="mt-4 space-y-2 text-sm">
-                <a href={`tel:${b.data.phone}`} class="flex items-center gap-2 text-black/70 hover:text-primary transition-colors">📞 {b.data.phone}</a>
-                <a href={b.data.whatsapp} target="_blank" rel="noopener" class="flex items-center gap-2 text-black/70 hover:text-primary transition-colors">💬 WhatsApp</a>
-              </div>
-              {b.data.hours && <p class="mt-4 text-xs text-black/50">{b.data.hours}</p>}
-            </div>
-          </article>
+          <BranchDetailCard
+            name={b.data.name}
+            address={b.data.address}
+            phone={b.data.phone}
+            whatsapp={b.data.whatsapp}
+            hours={b.data.hours}
+            image={b.data.image}
+          />
         ))}
       </div>
     </div>
@@ -42,12 +36,8 @@ const branches = (await getCollection("branches")).sort((a, b) => a.data.slug.lo
 
   <section class="py-20 bg-sky-light/30">
     <div class="mx-auto max-w-6xl px-5">
-      <div class="text-center max-w-3xl mx-auto mb-12">
-        <h2 class="font-display text-3xl font-semibold md:text-4xl">Clinic Gallery</h2>
-      </div>
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-        {clinicGallery.slice(0, 8).map((img) => (<div class="rounded-2xl overflow-hidden shadow-md"><img src={img.src} alt={img.alt} class="w-full" /></div>))}
-      </div>
+      <SectionHeader title="Clinic Gallery" margin="md" />
+      <ClinicGallery images={clinicGallery.slice(0, 8)} columns={4} />
     </div>
   </section>
 

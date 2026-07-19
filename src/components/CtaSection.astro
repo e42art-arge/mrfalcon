@@ -1,0 +1,23 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  buttonText: string;
+  buttonHref: string;
+  variant?: 'light' | 'reviews';
+  locale?: 'tr' | 'en';
+}
+
+const { title, description, buttonText, buttonHref, variant = 'light', locale = 'tr' } = Astro.props;
+const en = locale === 'en';
+---
+
+<section class:list={['py-20', variant === 'reviews' ? 'bg-sky-light/60' : 'bg-sky-light/50']}>
+  <div class="mx-auto max-w-3xl px-5 text-center">
+    <h2 class="font-display text-3xl font-semibold text-navy md:text-4xl">{title}</h2>
+    <p class="mt-4 text-lg text-navy/70">{description}</p>
+    <div class="mt-8">
+      <a href={buttonHref} class="rounded-full bg-navy px-8 py-3 font-semibold text-white transition-colors hover:bg-primary">{buttonText}</a>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,56 @@
+---
+interface Props {
+  label?: string;
+  title: string;
+  description?: string;
+  variant?: 'light' | 'dark';
+  class?: string;
+  centered?: boolean;
+  margin?: 'sm' | 'md' | 'lg';
+  headingTag?: 'h1' | 'h2' | 'h3';
+}
+
+const {
+  label,
+  title,
+  description,
+  variant = 'light',
+  class: className = '',
+  centered = true,
+  margin = 'lg',
+  headingTag: Tag = 'h2',
+} = Astro.props;
+
+const isDark = variant === 'dark';
+
+const marginMap = {
+  sm: 'mb-8',
+  md: 'mb-12',
+  lg: 'mb-16',
+};
+
+const titleClasses = [
+  'font-display text-3xl font-semibold md:text-4xl',
+  isDark ? '' : 'text-black',
+].filter(Boolean).join(' ');
+---
+
+{
+  centered ? (
+    <div class:list={['text-center max-w-3xl mx-auto', marginMap[margin], className]}>
+      {label && <p class="mb-2 text-sm font-semibold uppercase tracking-[0.2em] text-primary">{label}</p>}
+      <Tag class={titleClasses}>{title}</Tag>
+      {description && (
+        <p class:list={["mt-3 text-sm", isDark ? "text-white/60" : "text-black/60"]}>{description}</p>
+      )}
+    </div>
+  ) : (
+    <div class:list={[className]}>
+      {label && <p class="mb-2 text-sm font-semibold uppercase tracking-[0.2em] text-primary">{label}</p>}
+      <Tag class:list={[titleClasses, Tag === 'h2' ? '' : 'mb-6'].filter(Boolean)}>{title}</Tag>
+      {description && (
+        <p class:list={["mt-3 text-sm", isDark ? "text-white/60" : "text-black/60"]}>{description}</p>
+      )}
+    </div>
+  )
+}

@@ -1,0 +1,29 @@
+---
+interface Props {
+  primaryHref: string;
+  primaryText: string;
+  secondaryHref: string;
+  secondaryText: string;
+  variant?: 'hero' | 'default' | 'white-on-navy';
+  class?: string;
+}
+
+const { primaryHref, primaryText, secondaryHref, secondaryText, variant = 'default', class: className = '' } = Astro.props;
+
+const primaryClass = variant === 'white-on-navy'
+  ? 'text-center rounded-full bg-white px-8 py-3 font-semibold text-navy transition-colors hover:bg-primary hover:text-white'
+  : variant === 'hero'
+    ? 'group relative text-center rounded-full bg-navy px-8 py-3.5 font-semibold text-white transition-all duration-300 hover:bg-primary hover:shadow-[0_20px_40px_-12px_rgba(14,116,144,0.4)]'
+    : 'text-center rounded-full bg-navy px-8 py-3 font-semibold text-white transition-colors hover:bg-primary';
+
+const secondaryClass = variant === 'white-on-navy'
+  ? 'text-center rounded-full border-2 border-white/30 px-8 py-3 font-semibold text-white transition-colors hover:border-primary'
+  : variant === 'hero'
+    ? 'group relative text-center rounded-full border-2 border-black/15 px-8 py-3.5 font-semibold text-black transition-all duration-300 hover:border-primary hover:text-primary hover:bg-primary/5'
+    : 'text-center rounded-full border-2 border-black/15 px-8 py-3 font-semibold text-black transition-colors hover:border-primary hover:text-primary';
+---
+
+<div class:list={['flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-4', className]}>
+  <a href={primaryHref} class={primaryClass}>{primaryText}</a>
+  <a href={secondaryHref} target="_blank" rel="noopener" class={secondaryClass}>{secondaryText}</a>
+</div>
