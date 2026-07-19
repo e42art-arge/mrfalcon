@@ -18,13 +18,13 @@ const { title, description, label, bgImage, primaryCta, secondaryCta, class: cla
 ---
 
 <section
-  class:list={['py-20 md:py-28 bg-navy text-white', className]}
+  class:list={['relative py-20 md:py-28 bg-navy text-white', className]}
   {...(bgImage ? { style: `background-image: url('${bgImage}'); background-size: cover; background-position: center;` } : {})}
 >
   {bgImage && <div class="absolute inset-0 bg-navy/70"></div>}
   <div class:list={['mx-auto max-w-6xl px-5 text-center', bgImage ? 'relative z-10' : '']}>
     {label && <p class="mb-4 text-sm font-semibold uppercase tracking-[0.2em] text-primary">{label}</p>}
-    <h1 class="font-display text-4xl font-semibold md:text-6xl lg:text-7xl">{title}</h1>
+    <h1 class="font-display text-4xl font-semibold md:text-6xl lg:text-7xl" set:html={title} />
     <p class="mx-auto mt-4 max-w-2xl text-lg text-white/80">{description}</p>
     {primaryCta && secondaryCta && (
       <div class="mt-8 flex flex-wrap items-center justify-center gap-4">

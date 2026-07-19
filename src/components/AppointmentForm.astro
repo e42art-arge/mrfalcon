@@ -162,7 +162,7 @@ const btnLabels = JSON.stringify({ label: L.btnLabel, sending: L.btnSending, err
 <script>
   (function () {
     // Turnstile global is loaded from Cloudflare's script (see script tag below)
-    declare const turnstile: { reset: () => void };
+    const turnstile = (window as unknown as { turnstile?: { reset: () => void } }).turnstile;
 
     const form = document.querySelector("form[data-turnstile]") as HTMLFormElement | null;
     if (!form) return;
@@ -178,7 +178,7 @@ const btnLabels = JSON.stringify({ label: L.btnLabel, sending: L.btnSending, err
     const btn = form.querySelector('button[type="submit"]') as HTMLButtonElement | null;
 
     function resetTurnstile() {
-      if (turnstileEnabled && typeof turnstile !== "undefined") turnstile.reset();
+      if (turnstileEnabled && turnstile) turnstile.reset();
     }
 
     form.addEventListener("submit", async function (e) {

@@ -5,9 +5,9 @@ import Footer from "../../components/Footer.astro";
 import BookingCta from "../../components/BookingCta.astro";
 import SectionHeader from "../../components/SectionHeader.astro";
 import PageHero from "../../components/PageHero.astro";
-import Icon from "../../components/Icon.astro";
+import PressSlider from "../../components/PressSlider.astro";
 import { features } from "../../data/features";
-import { mediaNews } from "../../data/mediaNews";
+import { pressVideos } from "../../data/videos";
 
 const wavelengths = [
   { nm: "755nm", t: "Alexandrite", desc: "Fair skin, fine hair" },
@@ -39,20 +39,18 @@ const wavelengths = [
     </div>
   </section>
 
-  <section class="py-20 bg-navy text-white">
-    <div class="mx-auto max-w-6xl px-5">
-      <SectionHeader label="In the News" title="Featured on National TV" description="Our successful results featured on national television channels." variant="dark" margin="md" />
-      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-        {mediaNews.en.map((m) => (
-          <div class="rounded-2xl bg-white/10 p-6 border border-white/10 hover:bg-white/20 transition-colors">
-            <div class="mb-2"><Icon name="tv" class="w-6 h-6 text-primary" /></div>
-            <h3 class="font-semibold text-primary">{m.name}</h3>
-            <p class="mt-2 text-sm text-white/70">{m.desc}</p>
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
+  <PressSlider videos={pressVideos} locale="en" />
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.css" />
+  <script type="module">
+    import { Fancybox } from "https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.esm.js";
+    Fancybox.bind('[data-fancybox="press-videos"]', {
+      type: "video",
+      video: { autoStart: true },
+      Toolbar: { display: ["close"] },
+      mainClass: "fancybox-press"
+    });
+  </script>
 
   <section class="py-20">
     <div class="mx-auto max-w-6xl px-5">
