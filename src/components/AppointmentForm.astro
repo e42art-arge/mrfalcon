@@ -3,14 +3,15 @@ interface Props {
   locale?: "tr" | "en";
   branches: { data: { slug: string; name: string } }[];
   turnstileEnabled?: boolean;
+  siteKey?: string;
 }
-const { locale = "tr", branches, turnstileEnabled = false } = Astro.props;
+const { locale = "tr", branches, turnstileEnabled = false, siteKey = "0x4AAAAAAAe3UfjmqAFuXwn1" } = Astro.props;
 const en = locale === "en";
 const url = Astro.url;
 const statusParam = url.searchParams.get("status");
 const msgParam = url.searchParams.get("message");
 const formId = en ? "appointment-form-en" : "appointment-form";
-const TURNSTILE_SITE_KEY = "0x4AAAAAAAe3UfjmqAFuXwn1";
+const TURNSTILE_SITE_KEY = siteKey;
 
 const tr = {
   title: "Ücretsiz Cilt & Kıl Analizi",

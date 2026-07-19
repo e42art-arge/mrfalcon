@@ -10,6 +10,8 @@ import ClinicCard from "../components/ClinicCard.astro";
 import BranchMap from "../components/BranchMap.astro";
 import StatGrid from "../components/StatGrid.astro";
 import BookingCta from "../components/BookingCta.astro";
+import Icon from "../components/Icon.astro";
+import AppointmentForm from "../components/AppointmentForm.astro";
 import { reviews } from "../data/reviews";
 import { getCollection } from "astro:content";
 import { trustSignals } from "../data/trustSignals";
@@ -18,19 +20,19 @@ import { processSteps } from "../data/processSteps";
 import { falconTechSpecs } from "../data/falconTechSpecs";
 import { whyUsItems } from "../data/whyUsItems";
 import { clinicGallery } from "../data/clinicGallery";
-import { satisfactionVideos, faqVideos, pressVideos } from "../data/videos";
+import { satisfactionVideos, pressVideos } from "../data/videos";
 
 const branches = (await getCollection("branches")).sort((a, b) => a.data.slug.localeCompare(b.data.slug));
 const faqEntries = (await getCollection("faq", (e) => e.id.startsWith("tr/"))).sort((a, b) => a.data.order - b.data.order);
 const faqs = faqEntries.map((e) => ({ q: e.data.question, a: e.data.answer }));
 
 const laserScience = [
-  { icon: "🎯", title: "Seçici Fototermoliz", desc: "Lazer ışığı melanozitler tarafından emilerek kıl kökünü ısıtır, çevre dokuları korur." },
-  { icon: "🔬", title: "Anagen Fazı Hedefleme", desc: "Sadece büyüme aşamasındaki (anagen) kıllar etkilendiği için birden fazla seans gerekir." },
-  { icon: "🌈", title: "4 Dalga Boyu Avantajı", desc: "755nm (ince/koyu kıl), 808nm (hız), 940nm (derinlik), 1064nm (bronz cilt) - hepsi bir arada." },
-  { icon: "🤖", title: "AI Enerji Optimizasyonu", desc: "Cihaz cilt tipini (Fitzpatrick I-VI) tarar, kıl kalınlığını ölçer, joule/ms/Hz'yi otomatik set eder." },
-  { icon: "❄️", title: "Safir Kontak Soğutma", desc: "-20°C başlık sıcaklığı ile epiderme korunur, dermis hedeflenir. Ağrı sinyali bloke edilir." },
-  { icon: "🛡️", title: "Güvenlik Protokolleri", desc: "Test atışı zorunlu, gözlük zorunlu, UVC dezenfeksiyon, tek kullanımlık kapak, cilt soğutma jeli." },
+  { icon: "target", title: "Seçici Fototermoliz", desc: "Lazer ışığı melanozitler tarafından emilerek kıl kökünü ısıtır, çevre dokuları korur." },
+  { icon: "microscope", title: "Anagen Fazı Hedefleme", desc: "Sadece büyüme aşamasındaki (anagen) kıllar etkilendiği için birden fazla seans gerekir." },
+  { icon: "color-swatch", title: "4 Dalga Boyu Avantajı", desc: "755nm (ince/koyu kıl), 808nm (hız), 940nm (derinlik), 1064nm (bronz cilt) - hepsi bir arada." },
+  { icon: "bot", title: "AI Enerji Optimizasyonu", desc: "Cihaz cilt tipini (Fitzpatrick I-VI) tarar, kıl kalınlığını ölçer, joule/ms/Hz'yi otomatik set eder." },
+  { icon: "snowflake", title: "Safir Kontak Soğutma", desc: "-20°C başlık sıcaklığı ile epiderme korunur, dermis hedeflenir. Ağrı sinyali bloke edilir." },
+  { icon: "shield", title: "Güvenlik Protokolleri", desc: "Test atışı zorunlu, gözlük zorunlu, UVC dezenfeksiyon, tek kullanımlık kapak, cilt soğutma jeli." },
 ];
 ---
 
@@ -55,7 +57,7 @@ const laserScience = [
         <div class="mx-auto flex max-w-7xl items-center justify-center gap-4 px-5 py-3 text-sm font-medium text-black/70 md:py-2">
           <div class="flex flex-wrap items-center justify-center gap-3 text-xs md:gap-6 md:text-sm" data-gsap="stagger" data-gsap-delay="0.1">
             {trustSignals.tr.map((t) => (
-              <span class="flex items-center gap-1.5 text-primary">{t.icon} <strong>{t.text}</strong></span>
+              <span class="flex items-center gap-1.5 text-primary"><Icon name={t.icon} class="w-4 h-4" /> <strong>{t.text}</strong></span>
             ))}
           </div>
         </div>
@@ -135,16 +137,16 @@ const laserScience = [
                 data-gsap="reveal"
               />
 
-              <div class="absolute top-6 right-6 hidden lg:flex flex-col gap-3" data-gsap="stagger" data-gsap-delay="0.3">
+              <div class="absolute top-6 right-6 hidden md:flex flex-col gap-3" data-gsap="stagger" data-gsap-delay="0.3">
                 {[
-                  { icon: "🎯", text: "4 Dalga Boyu" },
-                  { icon: "🤖", text: "AI Kontrol" },
-                  { icon: "❄️", text: "-20°C Soğutma" },
-                  { icon: "🛡️", text: "UVC Hijyen" },
+                  { icon: "target", text: "4 Dalga Boyu" },
+                  { icon: "bot", text: "AI Kontrol" },
+                  { icon: "snowflake", text: "-20°C Soğutma" },
+                  { icon: "shield", text: "UVC Hijyen" },
                 ].map((badge) => (
                   <div class="group relative px-4 py-3 bg-white/90 backdrop-blur rounded-xl shadow-lg border border-black/5 transition-all duration-300 hover:shadow-xl hover:-translate-x-1 hover:border-primary/30" data-gsap="fadeRight">
                     <div class="flex items-center gap-2">
-                      <span class="text-xl">{badge.icon}</span>
+                      <Icon name={badge.icon} class="w-5 h-5 text-primary" />
                       <span class="font-semibold text-black text-sm">{badge.text}</span>
                     </div>
                     <div class="absolute bottom-0 left-0 right-0 h-0.5 bg-primary origin-left group-hover:origin-right scale-x-0 group-hover:scale-x-100 transition-transform duration-300" aria-hidden="true"></div>
@@ -156,7 +158,21 @@ const laserScience = [
             <div class="absolute -top-12 -right-12 w-32 h-32 border-t-2 border-r-2 border-primary/20 rounded-tr-3xl opacity-50" aria-hidden="true"></div>
             <div class="absolute -bottom-12 -left-12 w-32 h-32 border-b-2 border-l-2 border-primary/20 rounded-bl-3xl opacity-50" aria-hidden="true"></div>
 
-            <div class="absolute -bottom-6 left-1/2 -translate-x-1/2 md:left-auto md:-translate-x-0 md:-bottom-8 md:-left-8 p-4 md:p-8 bg-white/95 backdrop-blur rounded-2xl shadow-2xl max-w-[calc(100%-2rem)] md:max-w-xs border border-black/5 z-20" data-gsap="float" data-gsap-delay="0.5">
+            <div class="mt-6 flex md:hidden flex-wrap justify-center gap-2" data-gsap="stagger" data-gsap-delay="0.3">
+                {[
+                  { icon: "target", text: "4 Dalga Boyu" },
+                  { icon: "bot", text: "AI Kontrol" },
+                  { icon: "snowflake", text: "-20°C Soğutma" },
+                  { icon: "shield", text: "UVC Hijyen" },
+                ].map((badge) => (
+                  <span class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-white/90 backdrop-blur rounded-full text-xs font-medium text-black border border-black/10">
+                    <Icon name={badge.icon} class="w-3.5 h-3.5 text-primary" />
+                    {badge.text}
+                  </span>
+                ))}
+              </div>
+
+              <div class="absolute -bottom-6 left-1/2 -translate-x-1/2 md:left-auto md:-translate-x-0 md:-bottom-8 md:-left-8 p-4 md:p-8 bg-white/95 backdrop-blur rounded-2xl shadow-2xl max-w-[calc(100%-2rem)] md:max-w-xs border border-black/5 z-20" data-gsap="float" data-gsap-delay="0.5">
               <div class="flex items-center gap-3 text-primary text-2xl font-display font-bold">
                 <span class="animate-pulse" style="animation-duration: 2s;">⭐</span>
                 <span data-gsap="counter" data-target="5.0" data-decimals="1" data-suffix="" data-prefix="" data-duration="2">5.0</span>
@@ -218,7 +234,7 @@ const laserScience = [
               class="w-full"
             />
             <div class="absolute bottom-0 left-0 right-0 p-6 md:p-8 bg-gradient-to-t from-navy/90 to-transparent text-white">
-              <div class="flex items-center gap-3 text-primary text-xl font-display font-bold">🏆</div>
+              <div class="flex items-center gap-3 text-primary text-xl font-display font-bold"><Icon name="award" class="w-7 h-7" /></div>
               <p class="mt-2 text-lg font-medium">Türkiye'nin İlk Falcon 4 Pro Kliniği</p>
               <p class="mt-1 text-sm text-white/80">2024'ten beri İstanbul'da önderlik ediyoruz</p>
             </div>
@@ -240,7 +256,7 @@ const laserScience = [
         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {laserScience.map((item) => (
             <div class="rounded-2xl bg-white p-6 shadow-sm border border-black/5 hover:shadow-md transition-shadow">
-              <div class="text-3xl">{item.icon}</div>
+              <Icon name={item.icon} class="w-8 h-8 text-primary" />
               <h3 class="mt-4 font-display text-xl font-semibold text-black">{item.title}</h3>
               <p class="mt-2 text-sm leading-relaxed text-black/70">{item.desc}</p>
             </div>
@@ -265,9 +281,6 @@ const laserScience = [
         mainClass: "fancybox-press"
       });
     </script>
-
-    <!-- VİDEO GALERİ (SSS Videoları) -->
-    <VideoGallery videos={faqVideos.tr} sectionId="video-gallery" />
 
     <!-- FALCON 4 PRO TECH DEEP DIVE -->
     <section id="falcon-4-pro" class="py-20 bg-navy text-white">
@@ -299,13 +312,13 @@ const laserScience = [
 
             <div class="mt-8 grid sm:grid-cols-2 gap-4">
               {[
-                { icon: "🎯", title: "Alexandrite 755nm", desc: "İnce, koyu kıl için altın standardı. Yüksek melanin emilimi." },
-                { icon: "⚡", title: "Diode 808nm", desc: "Hız ve derinlik dengesi. Büyük vücut alanlarında verimli." },
-                { icon: "🔬", title: "Diode 940nm", desc: "Derin kıl köklerine ulaşım, damarları koruyan uzun dalga boyu." },
-                { icon: "☀️", title: "Nd:YAG 1064nm", desc: "Bronz/koyu ciltler (Fitzpatrick IV-VI) için güvenli standart." },
+                { icon: "target", title: "Alexandrite 755nm", desc: "İnce, koyu kıl için altın standardı. Yüksek melanin emilimi." },
+                { icon: "zap", title: "Diode 808nm", desc: "Hız ve derinlik dengesi. Büyük vücut alanlarında verimli." },
+                { icon: "microscope", title: "Diode 940nm", desc: "Derin kıl köklerine ulaşım, damarları koruyan uzun dalga boyu." },
+                { icon: "sun", title: "Nd:YAG 1064nm", desc: "Bronz/koyu ciltler (Fitzpatrick IV-VI) için güvenli standart." },
               ].map((w) => (
                 <div class="rounded-xl bg-white/5 p-4">
-                  <div class="text-2xl">{w.icon}</div>
+                  <Icon name={w.icon} class="w-6 h-6 text-primary" />
                   <h4 class="mt-2 font-semibold text-primary">{w.title}</h4>
                   <p class="mt-1 text-xs text-white/80">{w.desc}</p>
                 </div>
@@ -327,7 +340,7 @@ const laserScience = [
         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {whyUsItems.tr.map((item) => (
             <article class="rounded-2xl p-6 border border-black/5 hover:border-primary/30 hover:shadow-lg transition-all">
-              <div class="text-3xl">{item.icon}</div>
+              <Icon name={item.icon} class="w-8 h-8 text-primary" />
               <h3 class="mt-4 font-display text-xl font-semibold text-black">{item.title}</h3>
               <p class="mt-2 text-sm leading-relaxed text-black/70">{item.desc}</p>
             </article>
@@ -406,14 +419,14 @@ const laserScience = [
 
         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {clinicGallery.slice(0, 6).map((img, i) => (
-            <article class="relative rounded-2xl overflow-hidden group">
+            <article class="relative rounded-2xl overflow-hidden group cursor-pointer aspect-[4/3]" data-gallery-item>
               <img
                 src={img.src}
                 alt={img.alt}
-                class="w-full transition-transform duration-500 group-hover:scale-105"
+                class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105 group-[.is-active]:scale-105"
                 loading={i < 3 ? "eager" : "lazy"}
               />
-              <div class="absolute inset-0 bg-gradient-to-t from-navy/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+              <div class="absolute inset-0 bg-gradient-to-t from-navy/80 to-transparent opacity-0 group-hover:opacity-100 group-[.is-active]:opacity-100 transition-opacity duration-300 flex items-end p-4">
                 <div>
                   <p class="text-white font-semibold">{img.alt}</p>
                   <p class="text-xs text-primary">{img.location}</p>
@@ -425,75 +438,25 @@ const laserScience = [
       </div>
     </section>
 
+    <script>
+      document.querySelectorAll("[data-gallery-item]").forEach((el) => {
+        el.addEventListener("click", () => {
+          document.querySelectorAll("[data-gallery-item].is-active").forEach((a) => {
+            if (a !== el) a.classList.remove("is-active");
+          });
+          el.classList.toggle("is-active");
+        });
+        document.addEventListener("click", (e) => {
+          if (!el.contains(e.target)) el.classList.remove("is-active");
+        });
+      });
+    </script>
+
     <!-- CONTACT / APPOINTMENT FORM -->
     <section id="contacts" class="py-20 bg-white">
       <div class="mx-auto max-w-6xl px-5">
         <div class="grid lg:grid-cols-2 gap-12">
-          <div>
-            <h2 class="font-display text-3xl font-semibold text-black mb-2">Ücretsiz Cilt & Kıl Analizi</h2>
-            <p class="text-black/70 mb-8">Formu doldurun, 15 dakika içinde size dönelim. Şube tercihinizi belirtin.</p>
-
-            <form id="appointment-form" class="space-y-5" action="/api/contact" method="POST">
-              <input type="hidden" name="form_type" value="appointment" />
-              <input type="hidden" name="locale" value="tr" />
-
-              <div class="grid sm:grid-cols-2 gap-5">
-                <div>
-                  <label for="name" class="block text-sm font-medium text-black/70 mb-1">Ad Soyad *</label>
-                  <input type="text" id="name" name="name" required class="w-full rounded-lg border border-black/15 bg-white px-4 py-3 text-sm text-black focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary" placeholder="Adınız Soyadınız" />
-                </div>
-                <div>
-                  <label for="phone" class="block text-sm font-medium text-black/70 mb-1">Telefon *</label>
-                  <input type="tel" id="phone" name="phone" required class="w-full rounded-lg border border-black/15 bg-white px-4 py-3 text-sm text-black focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary" placeholder="05XX XXX XX XX" />
-                </div>
-              </div>
-
-              <div>
-                <label for="email" class="block text-sm font-medium text-black/70 mb-1">E-posta</label>
-                <input type="email" id="email" name="email" class="w-full rounded-lg border border-black/15 bg-white px-4 py-3 text-sm text-black focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary" placeholder="ornek@email.com" />
-              </div>
-
-              <div>
-                <label for="clinic" class="block text-sm font-medium text-black/70 mb-1">Şube Tercihi *</label>
-                <select id="clinic" name="clinic" required class="w-full rounded-lg border border-black/15 bg-white px-4 py-3 text-sm text-black focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary">
-                  <option value="">Şube Seçiniz</option>
-                  {branches.map((b) => <option value={b.data.slug}>{b.data.name}</option>)}
-                </select>
-              </div>
-
-              <div>
-                <label for="concern" class="block text-sm font-medium text-black/70 mb-1">İlgi Alanı / Bölge</label>
-                <select id="concern" name="concern" class="w-full rounded-lg border border-black/15 bg-white px-4 py-3 text-sm text-black focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary">
-                  <option value="">Seçiniz</option>
-                  <option value="full-body">Tüm Vücut</option>
-                  <option value="face-neck">Yüz & Boyun</option>
-                  <option value="underarm">Koltuk Altı</option>
-                  <option value="bikini">Bikini / Brezilya</option>
-                  <option value="legs">Bacak (Tam)</option>
-                  <option value="arms">Kol (Tam)</option>
-                  <option value="back-chest">Sırt / Göğüs (Erkek)</option>
-                  <option value="other">Diğer</option>
-                </select>
-              </div>
-
-              <div>
-                <label for="message" class="block text-sm font-medium text-black/70 mb-1">Not / Mesaj</label>
-                <textarea id="message" name="message" rows="3" class="w-full rounded-lg border border-black/15 bg-white px-4 py-3 text-sm text-black focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary" placeholder="Özel durum, hormon tedavisi, önceki lazer geçmişi vb."></textarea>
-              </div>
-
-              <div class="flex items-start gap-2 text-sm text-black/60">
-                <input type="checkbox" id="kvkk" name="kvkk" required class="mt-1 w-4 h-4 rounded border-black/30 text-primary focus:ring-primary" />
-                <label for="kvkk">KVKK aydınlatma metnini okudum, onaylıyorum. Verilerim randevu için işlensin.</label>
-              </div>
-
-              <div class="cf-turnstile" data-sitekey="0x4AAAAAAAe3UYEAyXZ5Iqy4vEMqCLYzNB8" data-theme="light" data-callback="onTurnstileCallback"></div>
-              <button type="submit" class="w-full sm:w-auto rounded-full bg-navy px-8 py-3 font-semibold text-white transition-colors hover:bg-primary">
-                Ücretsiz Analiz İste & Randevu Al
-              </button>
-
-              <p id="form-message" class="hidden text-sm" aria-live="polite"></p>
-            </form>
-          </div>
+          <AppointmentForm locale="tr" branches={branches} turnstileEnabled={true} siteKey="0x4AAAAAAAe3UYEAyXZ5Iqy4vEMqCLYzNB8" />
 
           <div class="space-y-8">
             <BranchMap branch={branches[1].data} />
@@ -525,52 +488,4 @@ const laserScience = [
   </main>
 
   <Footer locale="tr" />
-
-  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
-  <script>
-    // Form submit via fetch
-    document.getElementById('appointment-form')?.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const form = e.target;
-      const msgEl = document.getElementById('form-message');
-      const btn = form.querySelector('button[type="submit"]');
-      const originalText = btn.textContent;
-      btn.disabled = true;
-      btn.textContent = 'Gönderiliyor...';
-      msgEl.classList.add('hidden');
-
-      try {
-        const formData = new FormData(form);
-        const res = await fetch('/api/contact', {
-          method: 'POST',
-          body: formData,
-        });
-        const data = await res.json();
-        if (res.ok && data.success) {
-          msgEl.textContent = '✅ ' + (data.message || 'Randevu talebiniz alındı! 15 dk içinde size dönüş yapacağız.');
-          msgEl.className = 'text-green-700';
-          form.reset();
-          if (typeof turnstile !== 'undefined') turnstile.reset();
-        } else {
-          throw new Error(data.message || 'Bir hata oluştu');
-        }
-      } catch (err) {
-        msgEl.textContent = '❌ ' + (err.message || 'Gönderim başarısız, lütfen WhatsApp\'tan yazın.');
-        msgEl.className = 'text-red-700';
-        if (typeof turnstile !== 'undefined') turnstile.reset();
-      } finally {
-        msgEl.classList.remove('hidden');
-        btn.disabled = false;
-        btn.textContent = originalText;
-      }
-    });
-
-    // Clinic selector from URL
-    const urlParams = new URLSearchParams(window.location.search);
-    const clinicParam = urlParams.get('clinic');
-    if (clinicParam) {
-      const select = document.getElementById('clinic');
-      if (select) select.value = clinicParam;
-    }
-  </script>
 </BaseLayout>

@@ -3,6 +3,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import BookingCta from "../components/BookingCta.astro";
+import Icon from "../components/Icon.astro";
 import { features } from "../data/features";
 import { mediaNews } from "../data/mediaNews";
 
@@ -61,7 +62,7 @@ const wavelengths = [
       <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
         {mediaNews.tr.map((m) => (
           <div class="rounded-2xl bg-white/10 p-6 border border-white/10 hover:bg-white/20 transition-colors">
-            <div class="text-2xl mb-2">📺</div>
+            <div class="mb-2"><Icon name="tv" class="w-6 h-6 text-primary" /></div>
             <h3 class="font-semibold text-primary">{m.name}</h3>
             <p class="mt-2 text-sm text-white/70">{m.desc}</p>
           </div>
