@@ -12,65 +12,167 @@ interface Props {
   sectionId?: string;
   class?: string;
   locale?: "tr" | "en";
+  label?: string;
+  title?: string;
+  group?: string;
 }
 
-const { videos, sectionId = "video-gallery", class: className = "", locale = "tr" } = Astro.props;
+const { videos, sectionId = "video-gallery", class: className = "", locale = "tr", group = "videos" } = Astro.props;
 const en = locale === "en";
+const label = Astro.props.label ?? (en ? "Video Gallery" : "Video Galeri");
+const title = Astro.props.title ?? (en ? "Everything About Falcon Laser Hair Removal" : "Falcon Lazer Epilasyon Hakkında Her Şey");
+
+// Duplicate for infinite loop: prepend last 2, append first 2
+const extendedVideos = [...videos.slice(-2), ...videos, ...videos.slice(0, 2)];
+const offset = 2; // initial scroll offset to show first real item
 ---
 
 <section id={sectionId} class={`py-20 ${className}`} data-animate="fadeUp">
   <div class="mx-auto max-w-6xl px-5">
     <div class="text-center max-w-3xl mx-auto mb-12">
-      <p class="mb-2 text-sm font-semibold uppercase tracking-[0.2em] text-primary">{en ? "Video Gallery" : "Video Galeri"}</p>
-      <h2 class="font-display text-3xl font-semibold text-black md:text-4xl">{en ? "Everything About Falcon Laser Hair Removal" : "Falcon Lazer Epilasyon Hakkında Her Şey"}</h2>
+      <p class="mb-2 text-sm font-semibold uppercase tracking-[0.2em] text-primary">{label}</p>
+      <h2 class="font-display text-3xl font-semibold text-black md:text-4xl">{title}</h2>
     </div>
 
-    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6" data-animate="stagger">
-      {videos.map((video) => (
-        <article
-          class="rounded-2xl overflow-hidden bg-white border border-black/5 shadow-surface hover:shadow-card-hover transition-all duration-normal group"
-          data-hover="lift"
-        >
-          <a
-            href={video.videoUrl}
-            data-fancybox="videos"
-            class="relative block overflow-hidden bg-gray-100"
-            aria-label={`${en ? "Watch" : "İzle"}: ${video.title}`}
+    <div class="relative group/slider" data-slider-root data-animate="stagger">
+      <div
+        data-track
+        class="flex gap-6 overflow-x-auto scroll-smooth snap-x snap-mandatory pb-4 -mx-5 px-5 scrollbar-hide"
+        style="scrollbar-width: none; -ms-overflow-style: none;"
+        data-offset={offset}
+      >
+        {extendedVideos.map((video, i) => (
+          <article
+            class="min-w-[280px] sm:min-w-[320px] lg:min-w-[360px] snap-start rounded-2xl overflow-hidden bg-white border border-black/5 shadow-surface hover:shadow-card-hover transition-all duration-normal group"
+            data-hover="lift"
+            data-index={i}
           >
-            <img
-              src={video.thumbnail}
-              alt={video.title}
-              class="w-full object-contain transition-transform duration-500 group-hover:scale-105"
-              data-hover="zoom"
-              loading="lazy"
-            />
-            <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-              <div class="w-16 h-16 rounded-full bg-white/90 backdrop-blur flex items-center justify-center text-navy transform group-hover:scale-110 transition-transform">
-                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+            <a
+              href={video.videoUrl}
+              data-fancybox={group}
+              class="relative block aspect-[2/3] overflow-hidden bg-gray-100"
+              aria-label={`${en ? "Watch" : "İzle"}: ${video.title}`}
+            >
+              <img
+                src={video.thumbnail}
+                alt={video.title}
+                class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                loading="lazy"
+              />
+              <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                <div class="w-14 h-14 rounded-full bg-white/90 backdrop-blur flex items-center justify-center text-navy transform group-hover:scale-110 transition-transform">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                </div>
               </div>
+            </a>
+            <div class="p-5">
+              <h3 class="font-display text-base font-semibold text-black mt-1">{video.title}</h3>
+              <p class="text-xs text-black/60 mt-1">{video.description}</p>
             </div>
-          </a>
-          <div class="p-5">
-            <h3 class="font-display text-lg font-semibold text-black mb-1">{video.title}</h3>
-            <p class="text-body-sm text-black/60">{video.description}</p>
-          </div>
-        </article>
-      ))}
+          </article>
+        ))}
+      </div>
+
+      <button
+        data-prev
+        class="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-3 w-10 h-10 rounded-full bg-white/90 backdrop-blur shadow-lg flex items-center justify-center text-navy opacity-0 group-hover/slider:opacity-100 transition-opacity hover:bg-white z-10"
+        aria-label={en ? "Previous" : "Önceki"}
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+      </button>
+      <button
+        data-next
+        class="absolute right-0 top-1/2 -translate-y-1/2 translate-x-3 w-10 h-10 rounded-full bg-white/90 backdrop-blur shadow-lg flex items-center justify-center text-navy opacity-0 group-hover/slider:opacity-100 transition-opacity hover:bg-white z-10"
+        aria-label={en ? "Next" : "Sonraki"}
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+      </button>
     </div>
   </div>
 </section>
 
-<!-- Fancybox for video playback -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.css" />
 <script type="module">
   import { Fancybox } from "https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.esm.js";
-  Fancybox.bind('[data-fancybox="videos"]', {
-    type: "video",
-    video: {
-      autoStart: true,
-    },
-    Toolbar: {
-      display: ["close"],
-    },
+
+  document.querySelectorAll("[data-track]").forEach((track) => {
+    if (track.dataset.ready) return;
+    track.dataset.ready = "1";
+    const root = track.closest("[data-slider-root]");
+    const prev = root?.querySelector("[data-prev]");
+    const next = root?.querySelector("[data-next]");
+    if (!root || !prev || !next) return;
+
+    Fancybox.bind(root.querySelectorAll("[data-fancybox]"), {
+      type: "video",
+      video: { autoStart: true },
+      Toolbar: { display: ["close"] },
+    });
+
+    const offset = parseInt(track.dataset.offset || "2", 10);
+    const cards = Array.from(track.querySelectorAll("[data-index]"));
+    const realCount = cards.length - 4;
+    let currentIndex = offset;
+    let isScrolling = false;
+
+    const updatePosition = (instant = false) => {
+      const card = cards[currentIndex];
+      if (!card) return;
+      const w = card.offsetWidth + 24;
+      const target = currentIndex * w;
+      if (instant) track.scrollLeft = target;
+      else track.scrollTo({ left: target, behavior: "smooth" });
+    };
+
+    const loop = () => {
+      if (currentIndex >= realCount + offset) {
+        currentIndex = offset;
+        updatePosition(true);
+      } else if (currentIndex < offset) {
+        currentIndex = realCount + offset - 1;
+        updatePosition(true);
+      }
+    };
+
+    const scroll = (dir) => {
+      if (isScrolling) return;
+      currentIndex += dir;
+      isScrolling = true;
+      updatePosition();
+      setTimeout(() => { loop(); isScrolling = false; }, 400);
+    };
+
+    prev.addEventListener("click", () => scroll(-1));
+    next.addEventListener("click", () => scroll(1));
+
+    track.addEventListener("scroll", () => {
+      if (isScrolling) return;
+      const maxScroll = track.scrollWidth - track.clientWidth;
+      if (track.scrollLeft <= 10) {
+        currentIndex = realCount + offset - 1;
+        updatePosition(true);
+      } else if (track.scrollLeft >= maxScroll - 10) {
+        currentIndex = offset;
+        updatePosition(true);
+      }
+    });
+
+    let isDown = false, startX = 0, scrollStart = 0;
+    track.addEventListener("mousedown", (e) => {
+      isDown = true;
+      track.classList.add("cursor-grabbing");
+      startX = e.pageX - track.offsetLeft;
+      scrollStart = track.scrollLeft;
+    });
+    track.addEventListener("mouseleave", () => { isDown = false; track.classList.remove("cursor-grabbing"); });
+    track.addEventListener("mouseup", () => { isDown = false; track.classList.remove("cursor-grabbing"); });
+    track.addEventListener("mousemove", (e) => {
+      if (!isDown) return;
+      e.preventDefault();
+      const walk = (e.pageX - track.offsetLeft - startX) * 1.5;
+      track.scrollLeft = scrollStart - walk;
+    });
+
+    updatePosition(true);
   });
 </script>
