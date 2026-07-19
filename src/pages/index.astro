@@ -4,6 +4,7 @@ import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import VideoGallery from "../components/VideoGallery.astro";
 import PressSlider from "../components/PressSlider.astro";
+import InfoVideos from "../components/InfoVideos.astro";
 import FaqAccordion from "../components/FaqAccordion.astro";
 import ReviewCard from "../components/ReviewCard.astro";
 import ClinicCard from "../components/ClinicCard.astro";
@@ -23,7 +24,7 @@ import { processSteps } from "../data/processSteps";
 import { falconTechSpecs } from "../data/falconTechSpecs";
 import { whyUs as whyUsItems } from "../data/whyUs";
 import { clinicGallery } from "../data/clinicGallery";
-import { satisfactionVideos, pressVideos } from "../data/videos";
+import { satisfactionVideos, pressVideos, faqVideos } from "../data/videos";
 
 const branches = (await getCollection("branches")).sort((a, b) => a.data.slug.localeCompare(b.data.slug));
 const faqEntries = (await getCollection("faq", (e) => e.id.startsWith("tr/"))).sort((a, b) => a.data.order - b.data.order);
@@ -266,6 +267,9 @@ const laserScience = [
         mainClass: "fancybox-press"
       });
     </script>
+
+    <!-- BİLGİLENDİRİCİ VİDEOLAR (SSS / Falcon 4 Pro) -->
+    <InfoVideos videos={faqVideos.tr} sectionId="info-videos" class="bg-white" />
 
     <!-- FALCON 4 PRO TECH DEEP DIVE -->
     <section id="falcon-4-pro" class="py-20 bg-navy text-white">

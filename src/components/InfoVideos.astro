@@ -1,0 +1,71 @@
+---
+interface VideoItem {
+  id: number;
+  thumbnail: string;
+  videoUrl: string;
+  title: string;
+  description: string;
+}
+
+interface Props {
+  videos: VideoItem[];
+  sectionId?: string;
+  class?: string;
+  locale?: "tr" | "en";
+}
+
+const { videos, sectionId = "info-videos", class: className = "", locale = "tr" } = Astro.props;
+const en = locale === "en";
+---
+
+<section id={sectionId} class={`py-20 ${className}`} data-animate="fadeUp">
+  <div class="mx-auto max-w-6xl px-5">
+    <div class="text-center max-w-3xl mx-auto mb-12">
+      <p class="mb-2 text-sm font-semibold uppercase tracking-[0.2em] text-primary">{en ? "Educational Videos" : "Bilgilendirici Videolar"}</p>
+      <h2 class="font-display text-3xl font-semibold text-black md:text-4xl">{en ? "Everything About Falcon Laser Hair Removal" : "Falcon Lazer Epilasyon Hakkında Her Şey"}</h2>
+    </div>
+
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6" data-animate="stagger">
+      {videos.map((video) => (
+        <article
+          class="rounded-2xl overflow-hidden bg-white border border-black/5 shadow-surface hover:shadow-card-hover transition-all duration-normal group"
+          data-hover="lift"
+        >
+          <a
+            href={video.videoUrl}
+            data-fancybox="info-videos"
+            class="relative block overflow-hidden bg-gray-100"
+            aria-label={`${en ? "Watch" : "İzle"}: ${video.title}`}
+          >
+            <img
+              src={video.thumbnail}
+              alt={video.title}
+              class="w-full object-contain transition-transform duration-500 group-hover:scale-105"
+              data-hover="zoom"
+              loading="lazy"
+            />
+            <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+              <div class="w-16 h-16 rounded-full bg-white/90 backdrop-blur flex items-center justify-center text-navy transform group-hover:scale-110 transition-transform">
+                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+              </div>
+            </div>
+          </a>
+          <div class="p-5">
+            <h3 class="font-display text-lg font-semibold text-black mb-1">{video.title}</h3>
+            <p class="text-body-sm text-black/60">{video.description}</p>
+          </div>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.css" />
+<script type="module">
+  import { Fancybox } from "https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.esm.js";
+  Fancybox.bind('[data-fancybox="info-videos"]', {
+    type: "video",
+    video: { autoStart: true },
+    Toolbar: { display: ["close"] },
+  });
+</script>
