@@ -12,6 +12,7 @@ export const whyUs: Record<"tr" | "en", WhyUsItem[]> = {
     { icon: "chart-bar", title: "Şeffaf Süreç & Garanti", desc: "Her seans öncesi/sonrası fotoğraflı takip, kıl sayım raporu ve enerji parametreleri paylaşılır. Paket alırsanız yıl sonuna kadar ücretsiz kontrol." },
     { icon: "map-pin", title: "Şişli & Halkalı İki Merkezi Şube", desc: "Mecidiyeköy (Şişli) ve Halkalı (Küçükçekmece) — Metro, metrobüs, otobüsle erişim kolay." },
     { icon: "chat-bubble", title: "7/24 Kişiselleştirilmiş Destek", desc: "WhatsApp hattımızdan seans sonrası takip, randevu değişikliği ve sorularınız için anında yanıt." },
+    { icon: "sparkles", title: "Cilt Bakımı Hizmetleri", desc: "Lazer epilasyon sonrası cilt yenileme, nemlendirme ve bakım protokolleri. Kişiye özel cilt bakım programı ile tedavinizi destekleyin." },
   ],
   en: [
     { icon: "microscope", title: "4-Wavelength Hybrid Technology", desc: "Falcon 4 Pro combines 755nm, 808nm, 940nm, and 1064nm in one applicator. Effective for all hair and skin types." },
@@ -24,5 +25,6 @@ export const whyUs: Record<"tr" | "en", WhyUsItem[]> = {
     { icon: "chart-bar", title: "Transparent Process & Warranty", desc: "Photo tracking before/after, hair count report, and energy parameters shared every session. Free follow-up included with packages." },
     { icon: "map-pin", title: "Şişli & Halkalı — Two Central Locations", desc: "Mecidiyeköy (Şişli) and Halkalı (Küçükçekmece) — easy access by Metro, Metrobus, Bus." },
     { icon: "chat-bubble", title: "24/7 Personalized Support", desc: "Instant response via WhatsApp for post-session follow-up, scheduling changes, and questions." },
+    { icon: "sparkles", title: "Skin Care Services", desc: "Post-laser skin rejuvenation, moisturizing and care protocols. Support your treatment with a personalized skin care program." },
   ],
 };
