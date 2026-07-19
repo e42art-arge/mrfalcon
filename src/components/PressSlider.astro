@@ -114,7 +114,7 @@ const offset = 2; // initial scroll offset to show first real item
     if (!track || !prev || !next) return;
 
     const offset = parseInt(track.dataset.offset || '2', 10);
-    const cards = track.querySelectorAll('[data-press-index]');
+    const cards = Array.from(track.querySelectorAll<HTMLElement>('[data-press-index]'));
     const cardCount = cards.length;
     const realCount = cardCount - 4; // original items
 
@@ -147,7 +147,7 @@ const offset = 2; // initial scroll offset to show first real item
       }
     };
 
-    const scroll = (dir) => {
+    const scroll = (dir: number) => {
       if (isScrolling) return;
       currentIndex += dir;
       isScrolling = true;
@@ -176,7 +176,7 @@ const offset = 2; // initial scroll offset to show first real item
     });
 
     // Touch / mouse drag
-    let isDown = false, startX, scrollLeft;
+    let isDown = false, startX = 0, scrollLeft = 0;
     track.addEventListener('mousedown', (e) => {
       isDown = true;
       track.classList.add('cursor-grabbing');

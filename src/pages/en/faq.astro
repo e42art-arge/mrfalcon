@@ -3,7 +3,6 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import Header from "../../components/Header.astro";
 import Footer from "../../components/Footer.astro";
 import FaqAccordion from "../../components/FaqAccordion.astro";
-import SectionHeader from "../../components/SectionHeader.astro";
 import PageHero from "../../components/PageHero.astro";
 import CtaSection from "../../components/CtaSection.astro";
 import { getCollection } from "astro:content";
@@ -26,7 +25,7 @@ const faqs = faqEntries.map((e) => ({ q: e.data.question, a: e.data.answer }));
     </div>
   </section>
 
-  <CtaSection title="Still have questions?" description="Book a free consultation and skin analysis." buttonText="Contact Us" buttonHref="/en/contact" locale="en" />
+  <CtaSection title="Still have questions?" description="Book a free consultation and skin analysis." buttonText="Contact Us" buttonHref="/en/contact" />
 
   <Footer locale="en" />
 </BaseLayout>

@@ -81,7 +81,7 @@ const laserScience = [
 
             <p class="mb-10 max-w-xl text-lg leading-relaxed text-black/70 mx-auto lg:mx-0" data-gsap="fadeUp" data-gsap-delay="0.4">
               Dört dalga boyu, yapay zeka destekli kontrol ve -20°C safir soğutma ile tanışın.
-              İstanbul'un iki yakasında Mr. Falcon Beauty farkı.
+              Şişli ve Halkalı'da Mr. Falcon Beauty farkı.
             </p>
 
             <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-4 lg:justify-start mb-10" data-gsap="stagger" data-gsap-delay="0.5">
@@ -109,25 +109,19 @@ const laserScience = [
 
             <div class="flex flex-wrap items-center justify-center gap-3 md:gap-6 lg:justify-start" data-gsap="stagger" data-gsap-delay="0.6">
               <div class="flex items-center gap-2 text-sm text-black/60" data-gsap="fadeUp">
-                <svg class="w-4 h-4 text-primary flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
+                <Icon name="check" class="w-4 h-4 text-primary flex-shrink-0" />
                 <span>İlk danışmanlık ücretsiz</span>
               </div>
               <div class="flex items-center gap-2 text-sm text-black/60" data-gsap="fadeUp">
-                <svg class="w-4 h-4 text-primary flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
+                <Icon name="check" class="w-4 h-4 text-primary flex-shrink-0" />
                 <span>Cilt & kıl analizi dahil</span>
               </div>
               <div class="flex items-center gap-2 text-sm text-black/60" data-gsap="fadeUp">
-                <svg class="w-4 h-4 text-primary flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
+                <Icon name="check" class="w-4 h-4 text-primary flex-shrink-0" />
                 <span>Test atışı yapılır</span>
               </div>
             </div>
 
-            <div class="mt-16 flex flex-col items-center lg:items-start" data-gsap="fadeUp" data-gsap-delay="0.8">
-              <p class="mb-2 text-xs uppercase tracking-wider text-black/40">Keşfetmek için kaydırın</p>
-              <div class="relative w-6 h-10 rounded-full border border-black/15 flex items-center justify-center">
-                <div class="w-1.5 h-1.5 rounded-full bg-primary animate-bounce" style="animation-duration: 1.5s;"></div>
-              </div>
-            </div>
           </div>
 
           <div class="relative" data-hero-visual>
@@ -158,9 +152,6 @@ const laserScience = [
               </div>
             </div>
 
-            <div class="absolute -top-12 -right-12 w-32 h-32 border-t-2 border-r-2 border-primary/20 rounded-tr-3xl opacity-50" aria-hidden="true"></div>
-            <div class="absolute -bottom-12 -left-12 w-32 h-32 border-b-2 border-l-2 border-primary/20 rounded-bl-3xl opacity-50" aria-hidden="true"></div>
-
             <div class="mt-6 flex md:hidden flex-wrap justify-center gap-2" data-gsap="stagger" data-gsap-delay="0.3">
                 {[
                   { icon: "target", text: "4 Dalga Boyu" },
@@ -177,7 +168,7 @@ const laserScience = [
 
               <div class="absolute -bottom-6 left-1/2 -translate-x-1/2 md:left-auto md:-translate-x-0 md:-bottom-8 md:-left-8 p-4 md:p-8 bg-white/95 backdrop-blur rounded-2xl shadow-2xl max-w-[calc(100%-2rem)] md:max-w-xs border border-black/5 z-20" data-gsap="float" data-gsap-delay="0.5">
               <div class="flex items-center gap-3 text-primary text-2xl font-display font-bold">
-                <span class="animate-pulse" style="animation-duration: 2s;">⭐</span>
+                <svg class="w-7 h-7 animate-pulse text-primary" style="animation-duration: 2s;" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
                 <span data-gsap="counter" data-target="5.0" data-decimals="1" data-suffix="" data-prefix="" data-duration="2">5.0</span>
               </div>
               <p class="mt-1 text-sm text-black/70">Google'de 58+ değerlendirmede</p>
@@ -209,7 +200,7 @@ const laserScience = [
     </section>
 
     <!-- ABOUT US / MR FALCON BEAUTY -->
-    <section id="about-us" class="py-20 bg-white">
+    <section id="about-us" class="py-24 bg-white">
       <div class="mx-auto max-w-6xl px-5">
         <div class="grid lg:grid-cols-2 gap-12 items-center">
           <div>
@@ -247,7 +238,7 @@ const laserScience = [
     </section>
 
     <!-- LASER HAIR REMOVAL INFO -->
-    <section id="lazer-epilasyon" class="py-20 bg-sky-light/30">
+    <section id="lazer-epilasyon" class="py-16 bg-sky-light/30">
       <div class="mx-auto max-w-6xl px-5">
         <SectionHeader label="Lazer Epilasyon Nedir?" title="Kalıcı Kıl Azaltma Bilimi ve Falcon 4 Pro Farkı" />
 
@@ -317,7 +308,7 @@ const laserScience = [
     </section>
 
     <!-- WHY US / ADVANTAGES -->
-    <section id="why-us" class="py-20 bg-white">
+    <section id="why-us" class="py-24 bg-white">
       <div class="mx-auto max-w-6xl px-5">
         <SectionHeader label="Neden Biz?" title="Mr. Falcon Beauty Farkı" />
 
@@ -330,7 +321,7 @@ const laserScience = [
     </section>
 
     <!-- 7-STEP PROCESS -->
-    <section id="process" class="py-20 bg-sky-light/30">
+    <section id="process" class="py-16 bg-sky-light/30">
       <div class="mx-auto max-w-6xl px-5">
         <SectionHeader label="Süreç" title="7 Adımda Güvenli Lazer Epilasyon" />
 
@@ -356,7 +347,7 @@ const laserScience = [
     </section>
 
     <!-- MÜŞTERİ YORUMLARI -->
-    <section id="comments" class="py-20 bg-white">
+    <section id="comments" class="py-24 bg-white">
       <div class="mx-auto max-w-6xl px-5">
         <SectionHeader label="Gerçek Müşteriler" title="Müşterilerimiz Ne Diyor?" description="Tüm yorumlar Google Haritalar'dan doğrulanmış gerçek müşterilerimize aittir." margin="md" />
 
@@ -409,13 +400,13 @@ const laserScience = [
           el.classList.toggle("is-active");
         });
         document.addEventListener("click", (e) => {
-          if (!el.contains(e.target)) el.classList.remove("is-active");
+          if (!el.contains(e.target as Node)) el.classList.remove("is-active");
         });
       });
     </script>
 
     <!-- CONTACT / APPOINTMENT FORM -->
-    <section id="contacts" class="py-20 bg-white">
+    <section id="contacts" class="py-24 bg-white">
       <div class="mx-auto max-w-6xl px-5">
         <div class="grid lg:grid-cols-2 gap-12">
           <AppointmentForm locale="tr" branches={branches} turnstileEnabled={true} />

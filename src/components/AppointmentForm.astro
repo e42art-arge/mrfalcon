@@ -161,7 +161,10 @@ const btnLabels = JSON.stringify({ label: L.btnLabel, sending: L.btnSending, err
 {turnstileEnabled && <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>}
 <script>
   (function () {
-    const form = document.querySelector("form[data-turnstile]");
+    // Turnstile global is loaded from Cloudflare's script (see script tag below)
+    declare const turnstile: { reset: () => void };
+
+    const form = document.querySelector("form[data-turnstile]") as HTMLFormElement | null;
     if (!form) return;
     const turnstileEnabled = form.dataset.turnstile === "true";
     let btnLabels;
@@ -171,8 +174,8 @@ const btnLabels = JSON.stringify({ label: L.btnLabel, sending: L.btnSending, err
       btnLabels = {};
     }
     const statusEl = document.getElementById("form-status");
-    const ajaxInput = form.querySelector('input[name="_ajax"]');
-    const btn = form.querySelector('button[type="submit"]');
+    const ajaxInput = form.querySelector('input[name="_ajax"]') as HTMLInputElement | null;
+    const btn = form.querySelector('button[type="submit"]') as HTMLButtonElement | null;
 
     function resetTurnstile() {
       if (turnstileEnabled && typeof turnstile !== "undefined") turnstile.reset();
@@ -183,9 +186,9 @@ const btnLabels = JSON.stringify({ label: L.btnLabel, sending: L.btnSending, err
       e.preventDefault();
       if (ajaxInput) ajaxInput.value = "1";
 
-      btn.disabled = true;
-      btn.textContent = btnLabels.sending || "Sending...";
-      statusEl.classList.add("hidden");
+      btn!.disabled = true;
+      btn!.textContent = btnLabels.sending || "Sending...";
+      statusEl!.classList.add("hidden");
 
       try {
         const fd = new FormData(form);
@@ -193,8 +196,8 @@ const btnLabels = JSON.stringify({ label: L.btnLabel, sending: L.btnSending, err
         const data = await res.json();
 
         if (data.success) {
-          statusEl.textContent = "✅ " + data.message;
-          statusEl.className = "text-sm font-medium text-green-700";
+          statusEl!.textContent = "✅ " + data.message;
+          statusEl!.className = "text-sm font-medium text-green-700";
           form.reset();
           if (ajaxInput) ajaxInput.value = "";
           resetTurnstile();
@@ -202,15 +205,16 @@ const btnLabels = JSON.stringify({ label: L.btnLabel, sending: L.btnSending, err
           throw new Error(data.message || btnLabels.errGeneric || "Error");
         }
       } catch (err) {
-        statusEl.textContent =
-          "❌ " + (err.message || btnLabels.errFallback || "Could not send.");
-        statusEl.className = "text-sm font-medium text-red-700";
+        const message = (err as Error).message;
+        statusEl!.textContent =
+          "❌ " + (message || btnLabels.errFallback || "Could not send.");
+        statusEl!.className = "text-sm font-medium text-red-700";
         if (ajaxInput) ajaxInput.value = "";
         resetTurnstile();
       } finally {
-        statusEl.classList.remove("hidden");
-        btn.disabled = false;
-        btn.textContent = btnLabels.label || "Submit";
+        statusEl!.classList.remove("hidden");
+        btn!.disabled = false;
+        btn!.textContent = btnLabels.label || "Submit";
       }
     });
   })();

@@ -108,26 +108,26 @@ const langLabel = en ? "TR" : "EN";
     const icon = document.getElementById("menu-icon");
     if (!toggle || !menu || !icon) return;
 
-    function open(isOpen) {
+    function open(isOpen: boolean) {
       if (isOpen) {
-        menu.classList.remove("max-h-0");
-        menu.classList.add("max-h-screen");
-        icon.innerHTML = "&#10005;";
-        toggle.setAttribute("aria-expanded", "true");
+        menu!.classList.remove("max-h-0");
+        menu!.classList.add("max-h-screen");
+        icon!.innerHTML = "&#10005;";
+        toggle!.setAttribute("aria-expanded", "true");
       } else {
-        menu.classList.add("max-h-0");
-        menu.classList.remove("max-h-screen");
-        icon.innerHTML = "&#9776;";
-        toggle.setAttribute("aria-expanded", "false");
+        menu!.classList.add("max-h-0");
+        menu!.classList.remove("max-h-screen");
+        icon!.innerHTML = "&#9776;";
+        toggle!.setAttribute("aria-expanded", "false");
       }
     }
 
-    toggle.addEventListener("click", function () {
-      open(menu.classList.contains("max-h-0"));
+    toggle!.addEventListener("click", function () {
+      open(menu!.classList.contains("max-h-0"));
     });
 
     // Close on link click
-    menu.querySelectorAll("a").forEach(function (link) {
+    menu!.querySelectorAll("a").forEach(function (link) {
       link.addEventListener("click", function () {
         open(false);
       });
@@ -136,9 +136,9 @@ const langLabel = en ? "TR" : "EN";
     // Close on outside click
     document.addEventListener("click", function (e) {
       if (
-        !menu.classList.contains("max-h-0") &&
-        !toggle.contains(e.target) &&
-        !menu.contains(e.target)
+        !menu!.classList.contains("max-h-0") &&
+        !toggle!.contains(e.target as Node) &&
+        !menu!.contains(e.target as Node)
       ) {
         open(false);
       }

@@ -44,11 +44,6 @@ const getValue = (el, attr, fallback) => {
   return val !== null ? val : fallback;
 };
 
-const parseFloatOr = (val, fallback) => {
-  const parsed = parseFloat(val);
-  return isNaN(parsed) ? fallback : parsed;
-};
-
 // ============================================================
 // HERO SECTION ANIMATIONS
 // ============================================================

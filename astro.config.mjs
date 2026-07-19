@@ -12,7 +12,9 @@ export default defineConfig({
   i18n: {
     defaultLocale: 'tr',
     locales: ['tr', 'en'],
-    prefixDefaultLocale: false,
+    routing: {
+      prefixDefaultLocale: false,
+    },
   },
   integrations: [
     sitemap(),

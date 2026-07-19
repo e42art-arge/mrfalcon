@@ -5,11 +5,9 @@ interface Props {
   buttonText: string;
   buttonHref: string;
   variant?: 'light' | 'reviews';
-  locale?: 'tr' | 'en';
 }
 
-const { title, description, buttonText, buttonHref, variant = 'light', locale = 'tr' } = Astro.props;
-const en = locale === 'en';
+const { title, description, buttonText, buttonHref, variant = 'light' } = Astro.props;
 ---
 
 <section class:list={['py-20', variant === 'reviews' ? 'bg-sky-light/60' : 'bg-sky-light/50']}>
