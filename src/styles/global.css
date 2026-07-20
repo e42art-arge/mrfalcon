@@ -190,36 +190,36 @@ h1, h2, h3, .font-display {
   .fancybox__content {
     max-width: 100% !important;
     width: 100vw !important;
-    max-height: calc(100vh - 20px) !important;
-    height: auto !important;
-    border-radius: 0px !important; /* Tap to edge means no corner radius needed on full viewport width */
+    max-height: 100vh !important;
+    height: 100% !important;
+    border-radius: 0px !important; /* Touch to edge */
     overflow: hidden;
     background: transparent !important;
     align-self: flex-start !important;
-    margin: 0 auto !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    top: 0 !important;
     transform: none !important;
   }
   
   .fancybox__slide {
-    padding: 0 !important; /* Zero padding to touch the absolute top of device */
+    padding: 0 !important; /* Zero padding to touch absolute top */
+    margin: 0 !important;
     display: flex !important;
     align-items: flex-start !important;
     justify-content: center !important;
     height: 100% !important;
     min-height: 100% !important;
+    --f-slide-padding-top: 0px !important;
+    --f-slide-padding-bottom: 0px !important;
+    --f-slide-padding-left: 0px !important;
+    --f-slide-padding-right: 0px !important;
   }
   
-  /* Native video elements: let browser calculate proportional height to prevent shrinking */
+  /* Native video and iframe elements: ensure contain fit and full dimension */
   .fancybox__html5video, 
   .fancybox__video,
-  .fancybox__content video {
-    width: 100% !important;
-    height: auto !important;
-    max-height: 100vh !important;
-    object-fit: contain !important;
-  }
-
-  /* Iframe elements (YouTube / Vimeo): fill the container with full dimension */
+  .fancybox__content video,
   .fancybox__iframe, 
   .fancybox__content iframe {
     width: 100% !important;
@@ -229,7 +229,8 @@ h1, h2, h3, .font-display {
     min-height: 200px !important;
   }
 
-  /* Hide thumbnails bar on mobile to reclaim critical vertical space and prevent layout crops */
+  /* Hide toolbar and thumbnails on mobile to reclaim full viewport height and prevent layout crops */
+  .fancybox__toolbar,
   .fancybox__thumbs,
   .fancybox__thumbs-container,
   .fancybox__thumbs--bottom {

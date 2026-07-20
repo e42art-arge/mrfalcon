@@ -6,7 +6,7 @@
 - **Ana Hedef:** Anasayfadaki `FALCON 4 PRO TECH DEEP DIVE` bölümünü yeniden tasarlamak, daha premium, çarpıcı ve yüksek kaliteli (UI-UX Pro Max standartlarında) hale getirmek.
 
 ## Aktif Görev
-- Dikey videoların modalda cihazın en tepesinden sıfır boşlukla başlaması ve thumbnails gizlenerek kırpılmanın (crop) önlenmesi tamamlandı ve build ile doğrulandı.
+- Dikey videoların modalda cihazın en tepesinden (0px) sıfır boşlukla başlaması ve toolbar gizlenerek kırpılmanın önlenmesi tamamlandı ve build ile doğrulandı.
 
 ## Yapılacaklar Listesi
 - [x] `ui-ux-pro-max` becerisinin tasarım sistemini çalıştırarak en iyi renk, tipografi, yerleşim ve animasyon kurallarını analiz et.
@@ -24,5 +24,6 @@
 - [x] slide yüksekliğini height: 100% ve margin değerini auto !important yaparak mobildeki dikey ortalama kaymasını tamamen gider.
 - [x] align-items: flex-start ve align-self: flex-start uygulayarak videoların mobilde cihazın en tepesinden (0px/16px) başlamasını sağla.
 - [x] Mobilde alt thumbnails listesini gizleyerek dikey alanı genişlet ve video alt yazılarının/alt alanlarının kırpılmasını kesin olarak önle.
+- [x] Toolbar, thumbs ve slide paddinglerini tamamen sıfırlayarak dikey videoların mobilde 0px noktasından başlamasını sağla ve crop problemini ortadan kaldır.
 - [x] Build sonucunu gör ve hataları kontrol et.
 - [x] Değişiklikleri doğrula ve kullanıcıya sun.
