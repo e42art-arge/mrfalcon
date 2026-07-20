@@ -2,20 +2,7 @@ import Lenis from 'lenis';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
-// Simple SplitText simulation to avoid GSAP commercial licensing runtime crashes
-const SplitText = {
-  create: (el, options) => {
-    const text = el.textContent || el.innerText || "";
-    const words = text.trim().split(/\s+/);
-    el.innerHTML = words.map(word => `<span class="${options.linesClass || 'split-line'}" style="display: inline-block; white-space: nowrap; overflow: hidden; vertical-align: bottom;">${word}</span>`).join(' ');
-    const spans = el.querySelectorAll(`.${options.linesClass || 'split-line'}`);
-    return {
-      lines: Array.from(spans),
-      words: Array.from(spans),
-      chars: Array.from(spans)
-    };
-  }
-};
+
 
 // Register GSAP plugins
 gsap.registerPlugin(ScrollTrigger);
@@ -74,9 +61,8 @@ function initHeroAnimations() {
     // --- Split Text Headline Animation ---
     const splitHeadlines = hero.querySelectorAll('[data-gsap-split="lines"]');
     splitHeadlines.forEach((el) => {
-      const split = SplitText.create(el, { type: 'lines', linesClass: 'split-line' });
       gsap.fromTo(
-        split.lines,
+        el,
         { opacity: 0, y: 50, rotationX: -15, transformOrigin: 'center bottom' },
         {
           opacity: 1,
@@ -84,7 +70,6 @@ function initHeroAnimations() {
           rotationX: 0,
           duration: 1.2,
           ease: 'power3.out',
-          stagger: 0.1,
           delay: parseFloat(getValue(el, 'data-gsap-delay', '0.2')),
         }
       );
@@ -122,7 +107,7 @@ function initHeroAnimations() {
 
     // --- Stagger Container Animations ---
     hero.querySelectorAll('[data-gsap="stagger"]').forEach((container) => {
-      const children = container.children;
+      const children = Array.from(container.querySelectorAll(':scope > *:not(script):not(style)'));
       if (children.length === 0) return;
 
       gsap.fromTo(
@@ -141,16 +126,14 @@ function initHeroAnimations() {
 
     // --- Split Lines (Text Reveal) ---
     hero.querySelectorAll('[data-gsap="splitLines"]').forEach((el) => {
-      const split = SplitText.create(el, { type: 'lines', linesClass: 'split-line' });
       gsap.fromTo(
-        split.lines,
-        { opacity: 0, y: '100%' },
+        el,
+        { opacity: 0, y: '30%' },
         {
           opacity: 1,
           y: '0%',
           duration: 1,
           ease: 'power3.out',
-          stagger: 0.1,
           delay: parseFloat(getValue(el, 'data-gsap-delay', '0')),
         }
       );
@@ -164,7 +147,7 @@ function initHeroAnimations() {
       const suffix = getValue(el, 'data-suffix', '');
       const decimals = parseInt(getValue(el, 'data-decimals', target % 1 === 0 ? '0' : '1'), 10);
 
-      gsap.fromTo(
+      gsap.to(
         { val: 0 },
         {
           val: target,
