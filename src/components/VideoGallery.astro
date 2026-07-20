@@ -34,7 +34,7 @@ const offset = 2; // initial scroll offset to show first real item
       <h2 class="font-display text-3xl font-semibold text-black md:text-4xl">{title}</h2>
     </div>
 
-    <div class="relative group/slider" data-slider-root data-animate="stagger">
+    <div class="relative group/slider" data-slider-root data-group={group} data-animate="stagger">
       <div
         data-track
         class="flex gap-6 overflow-x-auto scroll-smooth snap-x snap-mandatory pb-4 -mx-5 px-5 scrollbar-hide"
@@ -103,7 +103,8 @@ const offset = 2; // initial scroll offset to show first real item
     const next = root?.querySelector("[data-next]");
     if (!root || !prev || !next) return;
 
-    Fancybox.bind(root.querySelectorAll("[data-fancybox]"), {
+    const groupName = root.dataset.group || "videos";
+    Fancybox.bind(`[data-fancybox="${groupName}"]`, {
       type: "video",
       video: { autoStart: true },
       Toolbar: { display: ["close"] },
