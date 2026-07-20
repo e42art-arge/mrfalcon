@@ -196,7 +196,7 @@ h1, h2, h3, .font-display {
     overflow: hidden;
     background: transparent !important;
     align-self: center !important;
-    margin: 0 auto !important;
+    margin: auto !important;
   }
   
   .fancybox__slide {
@@ -204,6 +204,8 @@ h1, h2, h3, .font-display {
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
+    height: 100% !important;
+    min-height: 100% !important;
   }
   
   /* Native video elements: let browser calculate proportional height to prevent shrinking */
