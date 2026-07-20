@@ -204,15 +204,24 @@ h1, h2, h3, .font-display {
     justify-content: center !important;
   }
   
+  /* Native video elements: let browser calculate proportional height to prevent shrinking */
   .fancybox__html5video, 
-  .fancybox__iframe, 
   .fancybox__video,
-  .fancybox__content iframe,
   .fancybox__content video {
+    width: 100% !important;
+    height: auto !important;
+    max-height: 80vh !important;
+    object-fit: contain !important;
+  }
+
+  /* Iframe elements (YouTube / Vimeo): fill the container with full dimension */
+  .fancybox__iframe, 
+  .fancybox__content iframe {
     width: 100% !important;
     height: 100% !important;
     max-height: 80vh !important;
     object-fit: contain !important;
+    min-height: 200px !important;
   }
 }
 

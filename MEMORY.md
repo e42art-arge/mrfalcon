@@ -6,7 +6,7 @@
 - **Ana Hedef:** Anasayfadaki `FALCON 4 PRO TECH DEEP DIVE` bölümünü yeniden tasarlamak, daha premium, çarpıcı ve yüksek kaliteli (UI-UX Pro Max standartlarında) hale getirmek.
 
 ## Aktif Görev
-- Dikey videoların modalda tam dikey/yatay ortalanması tamamlandı ve build ile doğrulandı.
+- Dikey videoların modalda çok küçük görünmesi (yükseklik çökmesi) çözüldü ve build ile doğrulandı.
 
 ## Yapılacaklar Listesi
 - [x] `ui-ux-pro-max` becerisinin tasarım sistemini çalıştırarak en iyi renk, tipografi, yerleşim ve animasyon kurallarını analiz et.
@@ -20,5 +20,6 @@
 - [x] İkinci VideoGallery bileşeninde (Bilgilendirici Videolar) Fancybox seçicisini String Selector olarak değiştirerek modal açılmama hatasını fix et.
 - [x] Dikey videoların modalda kırpılmasını önlemek için aspect-ratio zorlamasını kaldır ve object-fit: contain yap.
 - [x] Dikey ve yatay videoların ekranda tam ortalanması için slide flex ve height oranlarını global.css'te ayarla.
+- [x] Video elementlerinde height: auto ve iframe'lerde height: 100% ayrımı yaparak videoların küçük görünmesi/çökmesi sorununu fix et.
 - [x] Build sonucunu gör ve hataları kontrol et.
 - [x] Değişiklikleri doğrula ve kullanıcıya sun.
