@@ -190,7 +190,6 @@ h1, h2, h3, .font-display {
   .fancybox__content {
     max-width: 100% !important;
     width: calc(100vw - 32px) !important;
-    aspect-ratio: 16 / 9 !important;
     height: auto !important;
     border-radius: 12px;
     overflow: hidden;
@@ -207,8 +206,9 @@ h1, h2, h3, .font-display {
   .fancybox__content iframe,
   .fancybox__content video {
     width: 100% !important;
-    height: 100% !important;
-    object-fit: cover !important;
+    height: auto !important;
+    max-height: 80vh !important;
+    object-fit: contain !important;
   }
 }
 

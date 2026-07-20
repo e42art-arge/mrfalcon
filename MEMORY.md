@@ -6,7 +6,7 @@
 - **Ana Hedef:** Anasayfadaki `FALCON 4 PRO TECH DEEP DIVE` bölümünü yeniden tasarlamak, daha premium, çarpıcı ve yüksek kaliteli (UI-UX Pro Max standartlarında) hale getirmek.
 
 ## Aktif Görev
-- Sayfadaki ikinci VideoGallery (Bilgilendirici Videolar) bileşeninde modalın açılmama hatası çözüldü ve build ile doğrulandı.
+- Dikey videoların modal içinde kesik/kırpılmış görünme hatası çözüldü ve build ile doğrulandı.
 
 ## Yapılacaklar Listesi
 - [x] `ui-ux-pro-max` becerisinin tasarım sistemini çalıştırarak en iyi renk, tipografi, yerleşim ve animasyon kurallarını analiz et.
@@ -18,5 +18,6 @@
 - [x] Hero bölümündeki Google Değerlendirme widget'ı ve rozetlerinin mobilde çakışmaması için yerleşimi responsive yap.
 - [x] Fancybox video modal kapatma ve navigasyon butonlarını daha belirgin ve touch-friendly (44px+) hale getir.
 - [x] İkinci VideoGallery bileşeninde (Bilgilendirici Videolar) Fancybox seçicisini String Selector olarak değiştirerek modal açılmama hatasını fix et.
+- [x] Dikey videoların modalda kırpılmasını önlemek için aspect-ratio zorlamasını kaldır ve object-fit: contain yap.
 - [x] Build sonucunu gör ve hataları kontrol et.
 - [x] Değişiklikleri doğrula ve kullanıcıya sun.
