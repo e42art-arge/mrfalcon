@@ -6,7 +6,7 @@
 - **Ana Hedef:** Anasayfadaki `FALCON 4 PRO TECH DEEP DIVE` bölümünü yeniden tasarlamak, daha premium, çarpıcı ve yüksek kaliteli (UI-UX Pro Max standartlarında) hale getirmek.
 
 ## Aktif Görev
-- Onaylanan mühendislik düzeltmeleri tamamlandı, build başarıyla gerçekleştirildi.
+- Onaylanan mühendislik düzeltmeleri (SplitText simülasyonu dahil) başarıyla tamamlandı ve build ile doğrulandı.
 
 ## Yapılacaklar Listesi
 - [x] `ui-ux-pro-max` becerisinin tasarım sistemini çalıştırarak en iyi renk, tipografi, yerleşim ve animasyon kurallarını analiz et.
@@ -26,6 +26,7 @@
 - [x] Mobilde alt thumbnails listesini gizleyerek dikey alanı genişlet ve video alt yazılarının/alt alanlarının kırpılmasını kesin olarak önle.
 - [x] Toolbar, thumbs ve slide paddinglerini tamamen sıfırlayarak dikey videoların mobilde 0px noktasından başlamasını sağla ve crop problemini ortadan kaldır.
 - [x] GSAP/Lenis animations.js scriptini src/ klasörüne taşıyıp Vite modülü olarak bundle et, tarayıcıdaki runtime çökmelerini çöz.
+- [x] GSAP SplitText eklentisi lisans hatasını (parent set of undefined) aşmak için vanilla JS SplitText simülasyonunu uygula.
 - [x] Eski @astrojs/prefetch kütüphanesini kaldırıp yerine modern yerleşik prefetch: true entegrasyonunu uygula.
 - [x] Sağ alttaki WhatsApp butonu için standart sohbet balonu yerine orijinal ve güven veren WhatsApp logosunu yerleştir.
 - [x] Build sonucunu gör ve hataları kontrol et.

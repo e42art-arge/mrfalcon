@@ -1,10 +1,24 @@
 import Lenis from 'lenis';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { SplitText } from 'gsap/SplitText';
+
+// Simple SplitText simulation to avoid GSAP commercial licensing runtime crashes
+const SplitText = {
+  create: (el, options) => {
+    const text = el.textContent || el.innerText || "";
+    const words = text.trim().split(/\s+/);
+    el.innerHTML = words.map(word => `<span class="${options.linesClass || 'split-line'}" style="display: inline-block; white-space: nowrap; overflow: hidden; vertical-align: bottom;">${word}</span>`).join(' ');
+    const spans = el.querySelectorAll(`.${options.linesClass || 'split-line'}`);
+    return {
+      lines: Array.from(spans),
+      words: Array.from(spans),
+      chars: Array.from(spans)
+    };
+  }
+};
 
 // Register GSAP plugins
-gsap.registerPlugin(ScrollTrigger, SplitText);
+gsap.registerPlugin(ScrollTrigger);
 
 // ============================================================
 // LENIS SMOOTH SCROLL
