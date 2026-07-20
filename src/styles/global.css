@@ -189,19 +189,19 @@ h1, h2, h3, .font-display {
 @media (max-width: 768px) {
   .fancybox__content {
     max-width: 100% !important;
-    width: calc(100vw - 32px) !important;
-    max-height: 80vh !important;
+    width: 100vw !important;
+    max-height: calc(100vh - 20px) !important;
     height: auto !important;
-    border-radius: 12px;
+    border-radius: 0px !important; /* Tap to edge means no corner radius needed on full viewport width */
     overflow: hidden;
     background: transparent !important;
     align-self: flex-start !important;
-    margin: 16px auto 0 auto !important;
+    margin: 0 auto !important;
     transform: none !important;
   }
   
   .fancybox__slide {
-    padding: 12px !important;
+    padding: 0 !important; /* Zero padding to touch the absolute top of device */
     display: flex !important;
     align-items: flex-start !important;
     justify-content: center !important;
@@ -215,7 +215,7 @@ h1, h2, h3, .font-display {
   .fancybox__content video {
     width: 100% !important;
     height: auto !important;
-    max-height: 80vh !important;
+    max-height: 100vh !important;
     object-fit: contain !important;
   }
 
@@ -224,9 +224,16 @@ h1, h2, h3, .font-display {
   .fancybox__content iframe {
     width: 100% !important;
     height: 100% !important;
-    max-height: 80vh !important;
+    max-height: 100vh !important;
     object-fit: contain !important;
     min-height: 200px !important;
+  }
+
+  /* Hide thumbnails bar on mobile to reclaim critical vertical space and prevent layout crops */
+  .fancybox__thumbs,
+  .fancybox__thumbs-container,
+  .fancybox__thumbs--bottom {
+    display: none !important;
   }
 }
 
