@@ -195,6 +195,8 @@ h1, h2, h3, .font-display {
     border-radius: 12px;
     overflow: hidden;
     background: transparent !important;
+    align-self: center !important;
+    margin: 0 auto !important;
   }
   
   .fancybox__slide {
