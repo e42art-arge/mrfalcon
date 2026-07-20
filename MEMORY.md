@@ -6,7 +6,7 @@
 - **Ana Hedef:** Anasayfadaki `FALCON 4 PRO TECH DEEP DIVE` bölümünü yeniden tasarlamak, daha premium, çarpıcı ve yüksek kaliteli (UI-UX Pro Max standartlarında) hale getirmek.
 
 ## Aktif Görev
-- Dikey videoların modalda cihazın en tepesinden (0px) sıfır boşlukla başlaması ve toolbar gizlenerek kırpılmanın önlenmesi tamamlandı ve build ile doğrulandı.
+- Onaylanan mühendislik düzeltmeleri tamamlandı, build başarıyla gerçekleştirildi.
 
 ## Yapılacaklar Listesi
 - [x] `ui-ux-pro-max` becerisinin tasarım sistemini çalıştırarak en iyi renk, tipografi, yerleşim ve animasyon kurallarını analiz et.
@@ -25,5 +25,8 @@
 - [x] align-items: flex-start ve align-self: flex-start uygulayarak videoların mobilde cihazın en tepesinden (0px/16px) başlamasını sağla.
 - [x] Mobilde alt thumbnails listesini gizleyerek dikey alanı genişlet ve video alt yazılarının/alt alanlarının kırpılmasını kesin olarak önle.
 - [x] Toolbar, thumbs ve slide paddinglerini tamamen sıfırlayarak dikey videoların mobilde 0px noktasından başlamasını sağla ve crop problemini ortadan kaldır.
+- [x] GSAP/Lenis animations.js scriptini src/ klasörüne taşıyıp Vite modülü olarak bundle et, tarayıcıdaki runtime çökmelerini çöz.
+- [x] Eski @astrojs/prefetch kütüphanesini kaldırıp yerine modern yerleşik prefetch: true entegrasyonunu uygula.
+- [x] Sağ alttaki WhatsApp butonu için standart sohbet balonu yerine orijinal ve güven veren WhatsApp logosunu yerleştir.
 - [x] Build sonucunu gör ve hataları kontrol et.
 - [x] Değişiklikleri doğrula ve kullanıcıya sun.
