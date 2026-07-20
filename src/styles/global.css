@@ -211,3 +211,56 @@ h1, h2, h3, .font-display {
     object-fit: cover !important;
   }
 }
+
+/* Fancybox UI & Close Button Customizations (High-contrast & touch-friendly) */
+.fancybox__slide .f-button.is-close-btn {
+  --f-button-width: 46px !important;
+  --f-button-height: 46px !important;
+  --f-button-border-radius: 9999px !important;
+  --f-button-color: #ffffff !important;
+  --f-button-bg: rgba(23, 70, 138, 0.95) !important; /* Brand Navy */
+  --f-button-hover-bg: #007BFF !important; /* Brand Primary */
+  --f-button-active-bg: #007BFF !important;
+  --f-button-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.4), 0 4px 6px -4px rgba(0, 0, 0, 0.4) !important;
+  border: 2px solid rgba(255, 255, 255, 0.3) !important;
+  top: 20px !important;
+  right: 20px !important;
+  opacity: 1 !important;
+  z-index: 99999 !important;
+  transition: all 0.2s ease-in-out !important;
+}
+
+.fancybox__slide .f-button.is-close-btn:hover {
+  transform: scale(1.05);
+}
+
+/* Mobil için kapatma butonunu sağ üst köşede daha rahat tıklanabilir yapıyoruz */
+@media (max-width: 768px) {
+  .fancybox__slide .f-button.is-close-btn {
+    top: 16px !important;
+    right: 16px !important;
+    --f-button-width: 44px !important;
+    --f-button-height: 44px !important;
+  }
+}
+
+/* Fancybox Navigasyon Butonları (Önceki / Sonraki) */
+.fancybox__nav .f-button {
+  --f-button-width: 48px !important;
+  --f-button-height: 48px !important;
+  --f-button-border-radius: 9999px !important;
+  --f-button-color: #ffffff !important;
+  --f-button-bg: rgba(23, 70, 138, 0.8) !important;
+  --f-button-hover-bg: #007BFF !important;
+  --f-button-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2) !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  transition: all 0.2s ease-in-out !important;
+}
+
+@media (max-width: 768px) {
+  .fancybox__nav .f-button {
+    --f-button-width: 44px !important;
+    --f-button-height: 44px !important;
+    margin: 0 4px !important;
+  }
+}
