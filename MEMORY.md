@@ -6,7 +6,7 @@
 - **Ana Hedef:** Anasayfadaki `FALCON 4 PRO TECH DEEP DIVE` bölümünü yeniden tasarlamak, daha premium, çarpıcı ve yüksek kaliteli (UI-UX Pro Max standartlarında) hale getirmek.
 
 ## Aktif Görev
-- Falcon 4 Pro Tech Deep Dive bölümünün renklerinin markanın resmi paletiyle (navy, primary, sky) uyumlu hale getirilmesi tamamlandı ve build ile doğrulandı.
+- Hero bölümündeki Google Değerlendirme widget'ı ve rozetlerinin mobil yerleşimi optimize edildi ve build ile doğrulandı.
 
 ## Yapılacaklar Listesi
 - [x] `ui-ux-pro-max` becerisinin tasarım sistemini çalıştırarak en iyi renk, tipografi, yerleşim ve animasyon kurallarını analiz et.
@@ -15,5 +15,6 @@
 - [x] Video slider'larının mobil kart genişliklerini `VideoGallery.astro` ve `PressSlider.astro` dosyalarında güncelle.
 - [x] Video oynatma modallarının mobil uyumluluğunu `global.css` dosyasında Fancybox override kuralları ile ayarla.
 - [x] Tech Deep Dive bölümünün renk paletini kurumsal renklerle (Navy & Primary & Sky) uyumlu olacak şekilde yeniden düzenle.
+- [x] Hero bölümündeki Google Değerlendirme widget'ı ve rozetlerinin mobilde çakışmaması için yerleşimi responsive yap.
 - [x] Build sonucunu gör ve hataları kontrol et.
 - [x] Değişiklikleri doğrula ve kullanıcıya sun.
