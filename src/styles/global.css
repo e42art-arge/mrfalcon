@@ -184,3 +184,30 @@ body {
 h1, h2, h3, .font-display {
   font-family: var(--font-display);
 }
+
+/* Fancybox Mobile Video Responsive Overrides */
+@media (max-width: 768px) {
+  .fancybox__content {
+    max-width: 100% !important;
+    width: calc(100vw - 32px) !important;
+    aspect-ratio: 16 / 9 !important;
+    height: auto !important;
+    border-radius: 12px;
+    overflow: hidden;
+    background: transparent !important;
+  }
+  
+  .fancybox__slide {
+    padding: 12px !important;
+  }
+  
+  .fancybox__html5video, 
+  .fancybox__iframe, 
+  .fancybox__video,
+  .fancybox__content iframe,
+  .fancybox__content video {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+  }
+}
