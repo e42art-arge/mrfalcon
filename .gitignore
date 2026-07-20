@@ -13,6 +13,7 @@ node_modules/
 *.log
 # agent workspace
 .qwen/
+.agents/
 
 # server-only secrets (written by deploy, never committed)
 server/config.php
