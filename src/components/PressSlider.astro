@@ -47,7 +47,7 @@ const offset = 2; // initial scroll offset to show first real item
       >
         {extendedVideos.map((video, i) => (
           <article
-            class="min-w-[280px] sm:min-w-[320px] lg:min-w-[360px] snap-start rounded-2xl overflow-hidden bg-white border border-black/5 shadow-surface hover:shadow-card-hover transition-all duration-normal group"
+            class="min-w-[calc(100vw-40px)] sm:min-w-[320px] lg:min-w-[360px] snap-start rounded-2xl overflow-hidden bg-white border border-black/5 shadow-surface hover:shadow-card-hover transition-all duration-normal group"
             data-hover="lift"
             data-press-index={i}
           >
