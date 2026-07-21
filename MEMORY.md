@@ -6,12 +6,11 @@
 - **Ana Hedef:** Anasayfadaki `FALCON 4 PRO TECH DEEP DIVE` bölümünü yeniden tasarlamak, daha premium, çarpıcı ve yüksek kaliteli (UI-UX Pro Max standartlarında) hale getirmek.
 
 ## Aktif Görev
-- WhatsApp ikonunun açık renklerde/solid fill ile görünmeme problemini dinamik stroke/fill mantığı ile çözmek, Falcon 4 Pro cihaz görsellerindeki drop-shadow filtrelerini kaldırmak, derleyip push etmek.
+- Astro'nun HTML kaçırma (escaping) sorunu nedeniyle SVG path'lerin tarayıcıda render edilmeme problemini Fragment set:html ile çözmek, resmi 16x16 WhatsApp path'ine göre viewBox'ı dinamik kılmak, derleyip push etmek.
 
 ## Yapılacaklar Listesi
-- [x] `src/components/Icon.astro` dosyasında `whatsapp` gibi dolgulu (solid fill) sosyal ikonlar için dinamik fill, stroke ve stroke-width mantığı kur.
-- [x] `src/pages/index.astro` dosyasındaki cihaz görselinden `drop-shadow` filtresini kaldır.
-- [x] `src/pages/en/index.astro` dosyasındaki cihaz görselinden `drop-shadow` filtresini kaldır.
+- [x] `src/components/Icon.astro` dosyasında string kaçırma hatasını önlemek için `<Fragment set:html={svgPath} />` entegre et.
+- [x] WhatsApp ikonu için viewBox'ı dinamik olarak `0 0 16 16` olacak şekilde ayarla.
 - [ ] `npm run build` ile build doğrulaması yap.
 - [ ] Yapılan değişiklikleri git ile commit ve push et.
 - [x] `src/pages/index.astro` dosyasındaki Türkçe `#falcon-4-pro` bölümünü açık tema tasarım sistemine göre güncelle.
