@@ -6,9 +6,14 @@
 - **Ana Hedef:** Anasayfadaki `FALCON 4 PRO TECH DEEP DIVE` bölümünü yeniden tasarlamak, daha premium, çarpıcı ve yüksek kaliteli (UI-UX Pro Max standartlarında) hale getirmek.
 
 ## Aktif Görev
-- TR ve EN versiyonlarındaki tasarım ayrılığını gidermek, her iki versiyonu da premium bento-grid yapısına ve açık renk paleti tonlarına kavuşturmak, Playwright ile headless tarayıcı testi yaparak ekran görüntülerini doğrulamak.
+- Projedeki WhatsApp ikonunu resmi logo SVG path'i ile değiştirmek, Icon bileşenine eklemek ve sayfaları bu bileşenden besleyecek şekilde refaktör edip doğrulamak.
 
 ## Yapılacaklar Listesi
+- [x] Resmi WhatsApp SVG path'ini tespit et ve `src/components/Icon.astro` dosyasına tanımla.
+- [x] `src/layouts/BaseLayout.astro` dosyasındaki inline SVG'yi silip yeni `<Icon name="whatsapp" />` ile güncelle.
+- [x] `src/components/Footer.astro` dosyasındaki WhatsApp butonu ikonunu generic message-circle yerine yeni `whatsapp` ikonu ile güncelle.
+- [ ] `npm run build` ile build doğrulaması yap.
+- [ ] Yapılan değişiklikleri git ile commit ve push et.
 - [x] `src/pages/index.astro` dosyasındaki Türkçe `#falcon-4-pro` bölümünü açık tema tasarım sistemine göre güncelle.
 - [x] `src/pages/en/index.astro` dosyasındaki İngilizce `#falcon-4-pro` bölümünü açık tema tasarım sistemine göre ve Türkçe bento-grid yapısıyla eşitleyerek güncelle.
 - [x] `npm run build` ile build doğrulaması yap.
