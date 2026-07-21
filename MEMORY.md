@@ -6,12 +6,12 @@
 - **Ana Hedef:** Anasayfadaki `FALCON 4 PRO TECH DEEP DIVE` bölümünü yeniden tasarlamak, daha premium, çarpıcı ve yüksek kaliteli (UI-UX Pro Max standartlarında) hale getirmek.
 
 ## Aktif Görev
-- Projedeki WhatsApp ikonunu resmi logo SVG path'i ile değiştirmek, Icon bileşenine eklemek ve sayfaları bu bileşenden besleyecek şekilde refaktör edip doğrulamak.
+- WhatsApp ikonunun açık renklerde/solid fill ile görünmeme problemini dinamik stroke/fill mantığı ile çözmek, Falcon 4 Pro cihaz görsellerindeki drop-shadow filtrelerini kaldırmak, derleyip push etmek.
 
 ## Yapılacaklar Listesi
-- [x] Resmi WhatsApp SVG path'ini tespit et ve `src/components/Icon.astro` dosyasına tanımla.
-- [x] `src/layouts/BaseLayout.astro` dosyasındaki inline SVG'yi silip yeni `<Icon name="whatsapp" />` ile güncelle.
-- [x] `src/components/Footer.astro` dosyasındaki WhatsApp butonu ikonunu generic message-circle yerine yeni `whatsapp` ikonu ile güncelle.
+- [x] `src/components/Icon.astro` dosyasında `whatsapp` gibi dolgulu (solid fill) sosyal ikonlar için dinamik fill, stroke ve stroke-width mantığı kur.
+- [x] `src/pages/index.astro` dosyasındaki cihaz görselinden `drop-shadow` filtresini kaldır.
+- [x] `src/pages/en/index.astro` dosyasındaki cihaz görselinden `drop-shadow` filtresini kaldır.
 - [ ] `npm run build` ile build doğrulaması yap.
 - [ ] Yapılan değişiklikleri git ile commit ve push et.
 - [x] `src/pages/index.astro` dosyasındaki Türkçe `#falcon-4-pro` bölümünü açık tema tasarım sistemine göre güncelle.
