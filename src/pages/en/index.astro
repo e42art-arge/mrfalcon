@@ -271,42 +271,151 @@ const laserScience = [
     <!-- EDUCATIONAL VIDEOS (FAQ / Falcon 4 Pro) -->
     <InfoVideos videos={faqVideos.en} sectionId="info-videos" class="bg-white" locale="en" />
 
-    <!-- FALCON 4 PRO TECH -->
-    <section id="falcon-4-pro" class="py-20 bg-navy text-white">
-      <div class="mx-auto max-w-6xl px-5">
-        <SectionHeader label="Technology" title="Falcon 4 Pro — 4 Wavelengths, 1 Device" variant="dark" margin="md" />
+    <!-- FALCON 4 PRO TECH DEEP DIVE -->
+    <section id="falcon-4-pro" class="relative py-24 bg-gradient-to-b from-[#F5F9FC] via-[#E9F2F9] to-white text-black overflow-hidden">
+      <!-- Glow ambient shapes -->
+      <div class="absolute top-1/4 left-0 w-96 h-96 bg-primary/5 rounded-full blur-[130px] pointer-events-none" aria-hidden="true"></div>
+      <div class="absolute bottom-1/4 right-0 w-96 h-96 bg-sky/8 rounded-full blur-[130px] pointer-events-none" aria-hidden="true"></div>
+      
+      <div class="relative z-10 mx-auto max-w-6xl px-5">
+        <SectionHeader label="Technology" title="Falcon 4 Pro — 4 Wavelengths, 1 Device" variant="light" margin="lg" />
 
-        <div class="grid lg:grid-cols-2 gap-12 items-start">
-          <div class="relative rounded-2xl overflow-hidden aspect-[4/3] bg-white/5 flex items-center justify-center">
-            <img
-              src="/images/falcons.png"
-              alt="Falcon 4 Pro device front view"
-              class="w-full h-full object-contain"
-            />
-          </div>
-
-          <div>
-            <h3 class="font-display text-2xl font-semibold text-primary mb-6">Technical Details</h3>
-            <dl class="space-y-4 text-sm">
-              {falconTechSpecs.en.map((s) => (
-                <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between py-3 border-b border-white/10">
-                  <dt class="font-medium text-white">{s.label}</dt>
-                  <dd class="mt-1 sm:mt-0 text-white font-mono text-xs sm:text-sm">{s.value}</dd>
+        <div class="grid lg:grid-cols-12 gap-8 lg:gap-12 items-stretch mt-12">
+          <!-- Left Visual Block -->
+          <div class="lg:col-span-5 flex flex-col">
+            <div class="relative group flex-1 rounded-3xl overflow-hidden bg-white border border-sky-light/80 backdrop-blur-xl p-8 flex flex-col justify-between items-center shadow-lg transition-all duration-500 hover:border-sky/50 hover:shadow-[0_20px_50px_rgba(97,177,245,0.1)] min-h-[350px]">
+              <div class="absolute inset-0 bg-gradient-to-t from-sky-light/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+              
+              <!-- Device Floating Image -->
+              <div class="relative w-full h-full flex items-center justify-center py-6">
+                <!-- Glowing backing light -->
+                <div class="absolute w-44 h-44 bg-primary/10 rounded-full blur-3xl animate-pulse"></div>
+                <img
+                  src="/images/falcons.png"
+                  alt="Falcon 4 Pro device front view"
+                  class="w-full h-[280px] object-contain relative z-10 filter drop-shadow-[0_15px_30px_rgba(23,70,138,0.15)] transform group-hover:scale-105 transition-transform duration-500"
+                />
+              </div>
+              
+              <!-- Dynamic Status Indicator -->
+              <div class="w-full bg-white/90 backdrop-blur-md rounded-2xl p-4 border border-sky-light flex items-center justify-between mt-auto shadow-sm">
+                <div class="flex items-center gap-3">
+                  <div class="relative flex h-3 w-3">
+                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-sky opacity-75"></span>
+                    <span class="relative inline-flex rounded-full h-3 w-3 bg-sky"></span>
+                  </div>
+                  <div class="text-[10px] uppercase tracking-[0.2em] text-navy font-bold">Sapphire Crystal Cooling</div>
                 </div>
-              ))}
-            </dl>
-
-            <div class="mt-8 grid sm:grid-cols-2 gap-4">
-              {[
-                { icon: "target", title: "Alexandrite 755nm", desc: "Gold standard for fine, dark hair. High melanin absorption." },
-                { icon: "zap", title: "Diode 808nm", desc: "Balance of speed and depth. Efficient on large body areas." },
-                { icon: "microscope", title: "Diode 940nm", desc: "Reaching deep follicles, long wavelength protecting vessels." },
-                { icon: "sun", title: "Nd:YAG 1064nm", desc: "Safe standard for tanned/dark skin (Fitzpatrick IV-VI)." },
-              ].map((w) => (
-                <InfoCard icon={w.icon} title={w.title} description={w.desc} variant="dark-navy" />
-              ))}
+                <div class="text-right">
+                  <span class="text-2xl font-mono font-bold text-primary">-20°C</span>
+                  <span class="text-[10px] text-black/50 block font-medium">Tip Temperature</span>
+                </div>
+              </div>
             </div>
           </div>
+
+          <!-- Right Details Block -->
+          <div class="lg:col-span-7 flex flex-col justify-between">
+            <div class="bg-white border border-sky-light/80 backdrop-blur-xl rounded-3xl p-6 md:p-8 shadow-lg flex-1 flex flex-col justify-between">
+              <div>
+                <div class="flex items-center justify-between mb-8">
+                  <h3 class="font-display text-2xl font-semibold text-navy">Technology Details</h3>
+                  <span class="px-3 py-1 text-[10px] rounded-full bg-primary/10 text-primary border border-primary/20 font-semibold tracking-wider uppercase">AI Optimized</span>
+                </div>
+                
+                <dl class="grid sm:grid-cols-2 gap-x-8 gap-y-4">
+                  {falconTechSpecs.en.map((s) => (
+                    <div class="group/item flex flex-col py-3 border-b border-sky-light/60 hover:border-primary/20 transition-all duration-300">
+                      <dt class="flex items-center gap-2 text-xs font-semibold text-black/60 group-hover/item:text-navy transition-colors duration-300">
+                        <span class="w-1.5 h-1.5 rounded-full bg-primary/30 group-hover/item:bg-primary group-hover/item:scale-125 transition-all duration-300"></span>
+                        {s.label}
+                      </dt>
+                      <dd class="mt-1 text-navy font-mono text-sm group-hover/item:text-primary transition-colors duration-300 pl-3.5">
+                        {s.value}
+                      </dd>
+                    </div>
+                  ))}
+                </dl>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 4 Wavelength Spectrum Grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-12 w-full">
+          {[
+            { 
+              title: "Alexandrite 755nm", 
+              desc: "Gold standard for fine, dark hair. High melanin absorption instantly disables the hair follicle.",
+              target: "Fine & Dark Hair",
+              color: "from-white to-sky-light/10 hover:border-primary/30",
+              glow: "bg-primary/5",
+              badge: "bg-primary/10 text-primary border-primary/20",
+              iconColor: "text-primary",
+              laserGradient: "from-primary to-sky"
+            },
+            { 
+              title: "Diode 808nm", 
+              desc: "Balance of speed and depth. Classic wavelength providing maximum efficiency and comfort on large body areas.",
+              target: "All Hair Types",
+              color: "from-white to-sky-light/10 hover:border-primary/30",
+              glow: "bg-primary/5",
+              badge: "bg-primary/10 text-primary border-primary/20",
+              iconColor: "text-primary",
+              laserGradient: "from-primary to-sky"
+            },
+            { 
+              title: "Diode 940nm", 
+              desc: "Reaching deep hair follicles. Advanced technology blocking micro-vessels feeding the roots.",
+              target: "Deep Hair Roots",
+              color: "from-white to-sky-light/10 hover:border-primary/30",
+              glow: "bg-primary/5",
+              badge: "bg-primary/10 text-primary border-primary/20",
+              iconColor: "text-primary",
+              laserGradient: "from-primary to-sky"
+            },
+            { 
+              title: "Nd:YAG 1064nm", 
+              desc: "The safest and most painless laser standard in the world for tanned and dark skin (Fitzpatrick IV-VI).",
+              target: "Tanned & Dark Skin",
+              color: "from-white to-sky-light/10 hover:border-primary/30",
+              glow: "bg-primary/5",
+              badge: "bg-primary/10 text-primary border-primary/20",
+              iconColor: "text-primary",
+              laserGradient: "from-primary to-sky"
+            }
+          ].map((w) => (
+            <div class={`relative group overflow-hidden rounded-3xl border border-sky-light/80 bg-gradient-to-b ${w.color} backdrop-blur-md p-6 shadow-md transition-all duration-500 hover:-translate-y-1 hover:shadow-lg`}>
+              <!-- Glow background -->
+              <div class={`absolute top-0 right-0 w-24 h-24 rounded-full blur-2xl transition-opacity duration-500 opacity-20 group-hover:opacity-80 ${w.glow}`} aria-hidden="true"></div>
+              
+              <div class="relative z-10 flex flex-col h-full justify-between">
+                <div>
+                  <div class="flex items-center justify-between mb-4">
+                    <span class={`px-2.5 py-0.5 text-[10px] rounded-full border font-semibold tracking-wider ${w.badge}`}>
+                      {w.target}
+                    </span>
+                    <svg xmlns="http://www.w3.org/2000/svg" class={`w-5 h-5 ${w.iconColor} group-hover:animate-pulse`} fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                    </svg>
+                  </div>
+                  
+                  <h4 class="font-display text-lg font-bold text-navy group-hover:text-primary transition-colors duration-300 mb-2">
+                    {w.title}
+                  </h4>
+                  
+                  <p class="text-xs text-black/70 leading-relaxed group-hover:text-black/90 transition-colors duration-300">
+                    {w.desc}
+                  </p>
+                </div>
+                
+                <!-- Hover indicator line -->
+                <div class="w-full h-1 mt-6 rounded-full bg-black/5 overflow-hidden">
+                  <div class={`h-full w-0 group-hover:w-full transition-all duration-700 bg-gradient-to-r ${w.laserGradient}`}></div>
+                </div>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
     </section>
